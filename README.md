@@ -23,7 +23,7 @@ um relatório do tipo:
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/<seu-usuario>/Sentinela.git
+git clone https://github.com/bbismaq/Sentinela.git
 cd Sentinela
 ```
 
