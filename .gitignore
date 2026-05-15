@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual envs (installed under ~/.claude/skills/sentinela/.venv, never in the repo)
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code local settings (personal, never share)
+.claude/
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Sentinela temporary outputs (if someone tests inside the repo folder)
+sentinela-transcript.json
+sentinela-frames/
+*.mp4
+*.mp3
+*.wav
