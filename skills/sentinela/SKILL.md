@@ -124,7 +124,7 @@ Regras de estilo:
 - **Detalhe por achado:** card com cabeçalho `### 1. ✅ Tema curto`
   (emoji junto do número facilita escanear). Campos sempre nessa ordem:
   `Era pra sair`, `Era pra entrar`, `Onde`, `Transcrito`, `Veredito`.
-- **Timestamps** sempre em **negrito** (`**33:35**`).
+- **Timestamps** sempre em **negrito** e SEMPRE no formato `hh:mm:ss` com zero-padding (`**00:33:35**`, `**01:10:00**`). Nunca use `mm:ss` no relatório, mesmo que o vídeo dure menos de 1 hora — padroniza pra ficar consistente entre vídeos curtos e longos.
 - **Citações** entre aspas duplas e em *itálico*, no idioma original.
 - **Valores-chave** (preços, nomes de produto, contagens) em **negrito**.
 - Se `[old]` e `<new>` são idênticos no MD (no-op), diga literalmente:
@@ -139,7 +139,7 @@ Modelo:
 # Relatório Sentinela
 
 **Vídeo:** nome-do-video.mp4
-**Janela da Oferta:** 42:00 – 58:30
+**Janela da Oferta:** 00:42:00 – 00:58:30
 **Idioma:** EN
 
 ## Mudanças solicitadas vs aplicadas
@@ -158,7 +158,7 @@ Modelo:
 
 - **Era pra sair:** **$67**
 - **Era pra entrar:** **$57**
-- **Onde:** **47:23**
+- **Onde:** **00:47:23**
 - **Transcrito:** *"...just $57 today..."*
 - **Veredito:** Aplicado. `$67` não aparece na janela.
 
@@ -166,7 +166,7 @@ Modelo:
 
 - **Era pra sair:** **2 bottles**
 - **Era pra entrar:** **3 bottles**
-- **Onde:** **48:01**
+- **Onde:** **00:48:01**
 - **Transcrito:** *"...for just two bottles..."*
 - **Veredito:** Não aplicado. Áudio ainda fala "two bottles"; "3 bottles" não encontrado na janela.
 
@@ -174,7 +174,7 @@ Modelo:
 
 - **Era pra sair:** Frasco de **drops**
 - **Era pra entrar:** Pote de **capsules**
-- **Onde:** Frame em **48:10**
+- **Onde:** Frame em **00:48:10**
 - **Veredito:** Parece NÃO ter trocado — o frame mostra frasco com líquido. **Verificar manualmente.**
 
 ## Itens não solicitados que mudaram (se houver)
