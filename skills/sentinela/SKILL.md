@@ -20,43 +20,30 @@ produto e imagem do produto.
 - O usuário roda múltiplos testes A/B trocando: preço, formato (gotas→cápsula),
   imagem do produto, fala específica, ou combinações.
 
-## Fluxo de conversa obrigatório
+## Abertura da skill
 
-Siga estas perguntas, **uma de cada vez**, esperando resposta:
+Ao ser invocada, **sua primeira e única mensagem inicial deve ser exatamente**:
 
-### 1. Qual é o input?
-Pergunte:
-> "O que você tem para eu auditar?
-> 1. **Vídeo novo (.mp4)** — eu transcrevo e analiso frames
-> 2. **Só a transcrição em texto** — você cola ou me passa o arquivo
-> 3. **Vídeo antigo + vídeo novo** — comparação A/B direta"
+> Qual o briefing da sua revisão de VSL?
 
-### 2. Como o usuário quer descrever as mudanças?
-Pergunte:
-> "Como você quer me dizer o que era para mudar?
-> 1. **Script marcado** — você me passa o roteiro com `[texto antigo]` e `<texto novo>`
-> 2. **Briefing livre** — você me explica em texto corrido
-> 3. **Comparação direta** — você me passa os dois roteiros e eu acho as diferenças"
+Não faça mais nenhuma pergunta, não liste opções, não explique o fluxo.
+Espere o usuário descrever o briefing — ele vai contar o que mudou, qual é o
+input (vídeo, transcrição, script marcado), e quais auditorias quer.
 
-### 3. (Se for vídeo) Minutagem da Oferta
-Pergunte:
-> "Você sabe a minutagem em que começa a Oferta?
-> - Se souber: me passe (ex: 'de 42:00 a 58:30')
-> - Se não souber: posso transcrever o vídeo inteiro e identificar a Oferta
->   pelo conteúdo (gatilhos como 'today only', 'click the button', 'limited time')."
+A partir do briefing, extraia tudo que conseguir e **só pergunte de volta o
+que for estritamente necessário** para executar a auditoria (ex: caminho do
+arquivo se não foi dado, janela da Oferta se for vídeo longo sem timestamp).
+Nunca repita perguntas cuja resposta já está no briefing.
 
-Se o usuário não souber, faça transcrição completa e identifique a Oferta procurando
-por marcadores típicos: chamadas para clicar/comprar, garantias, preço sendo dito,
-"today", "only", "limited", "bonuses", "guarantee", "money back".
-
-### 4. O que especificamente deve ter mudado?
-Mesmo que o usuário já tenha dado um script marcado, confirme as categorias:
-> "Para eu focar a análise, marque o que era para mudar:
-> - [ ] Preço(s)
-> - [ ] Formato do produto (gotas/cápsulas/pó)
-> - [ ] Imagem do produto na tela
-> - [ ] Trechos específicos de fala
-> - [ ] Outro"
+Marcadores de input que você deve reconhecer no briefing sem perguntar:
+- **Caminho `.mp4`** → input é vídeo; corte e transcreva a janela da Oferta.
+- **Caminho `.txt`/`.md` ou texto colado com `[old] <new>`** → script marcado;
+  rode `parse_marked.py` se for arquivo.
+- **Texto colado sem marcação** → transcrição/briefing puro; trabalhe direto.
+- **Timestamp tipo `42:00–58:30`** → janela da Oferta já definida.
+- **Sem timestamp e for vídeo longo** → transcreva inteiro e identifique a
+  Oferta pelos gatilhos ("today only", "click the button", "limited time",
+  "bonuses", "guarantee", "money back").
 
 ## Execução da auditoria
 
@@ -113,7 +100,40 @@ Trabalhe diretamente com o texto. Não precisa rodar Python.
 
 ## Formato do relatório final
 
-Sempre termine com um relatório **estruturado**, em markdown:
+**Sempre** que terminar a auditoria, faça duas coisas:
+
+1. Mostre o relatório completo na conversa (markdown renderizado pelo CLI).
+2. **Salve o mesmo relatório em arquivo `.md`** no mesmo diretório do vídeo
+   (ou, se o input for texto puro sem caminho de vídeo, em
+   `C:\Users\bbism\Downloads\Transcriber\Transcriber\source\`). Nome do
+   arquivo: `RELATORIO-SENTINELA-<nome-do-video-sem-extensao>-<YYYYMMDD-HHMM>.md`.
+   Use a tool Write para criar o arquivo. Não pergunte antes — gere sempre.
+
+### Diretrizes de formatação (legibilidade)
+
+**NÃO use tabela markdown** para os achados — quando as células têm citações
+longas, a tabela fica ilegível no `.md` cru e quebra mal no terminal.
+Em vez disso, use **um card por mudança**, com cabeçalho `###` numerado +
+emoji de status, e linhas `**Campo:** valor` por baixo. Resumo geral
+fica numa tabelinha curta no topo (só ID + status + tema), pq aí cabe.
+
+Regras de estilo:
+
+- **Resumo no topo:** tabela compacta de 3 colunas (`#`, `Status`, `O que mudou`)
+  — célula curta o suficiente pra caber em uma linha sem `<br>`.
+- **Detalhe por achado:** card com cabeçalho `### 1. ✅ Tema curto`
+  (emoji junto do número facilita escanear). Campos sempre nessa ordem:
+  `Era pra sair`, `Era pra entrar`, `Onde`, `Transcrito`, `Veredito`.
+- **Timestamps** sempre em **negrito** (`**33:35**`).
+- **Citações** entre aspas duplas e em *itálico*, no idioma original.
+- **Valores-chave** (preços, nomes de produto, contagens) em **negrito**.
+- Se `[old]` e `<new>` são idênticos no MD (no-op), diga literalmente:
+  `(idêntico no MD — sem mudança real solicitada)`.
+- Ordene os achados pela ordem em que aparecem no vídeo (timestamp crescente).
+- "Itens não solicitados que mudaram" vai como bullets, cada um começando
+  pelo timestamp em negrito.
+
+Modelo:
 
 ```markdown
 # Relatório Sentinela
@@ -124,11 +144,38 @@ Sempre termine com um relatório **estruturado**, em markdown:
 
 ## Mudanças solicitadas vs aplicadas
 
-| # | Era pra sair | Era pra entrar | Status | Evidência |
-|---|---|---|---|---|
-| 1 | $67 | $57 | ✅ | "...just $57 today..." em 47:23 |
-| 2 | 2 bottles | 3 bottles | ❌ | "2 bottles" ainda em 48:01; "3 bottles" não encontrado |
-| 3 | Drops (image) | Capsules (image) | ⚠️ | Frame 48:10 mostra frasco com líquido — parece NÃO ter trocado. Verificar manualmente. |
+## Resumo
+
+| # | Status | O que mudou |
+|:-:|:-:|:--|
+| 1 | ✅ | Preço por bottle: $67 → $57 |
+| 2 | ❌ | Quantidade do kit: 2 → 3 bottles |
+| 3 | ⚠️ | Imagem do produto: drops → capsules |
+
+## Achados
+
+### 1. ✅ Preço por bottle ($67 → $57)
+
+- **Era pra sair:** **$67**
+- **Era pra entrar:** **$57**
+- **Onde:** **47:23**
+- **Transcrito:** *"...just $57 today..."*
+- **Veredito:** Aplicado. `$67` não aparece na janela.
+
+### 2. ❌ Quantidade do kit (2 → 3 bottles)
+
+- **Era pra sair:** **2 bottles**
+- **Era pra entrar:** **3 bottles**
+- **Onde:** **48:01**
+- **Transcrito:** *"...for just two bottles..."*
+- **Veredito:** Não aplicado. Áudio ainda fala "two bottles"; "3 bottles" não encontrado na janela.
+
+### 3. ⚠️ Imagem do produto (drops → capsules)
+
+- **Era pra sair:** Frasco de **drops**
+- **Era pra entrar:** Pote de **capsules**
+- **Onde:** Frame em **48:10**
+- **Veredito:** Parece NÃO ter trocado — o frame mostra frasco com líquido. **Verificar manualmente.**
 
 ## Itens não solicitados que mudaram (se houver)
 - ...
