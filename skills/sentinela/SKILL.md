@@ -22,7 +22,9 @@ produto e imagem do produto.
 
 ## Pitches da operação (catálogo)
 
-A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra encontrar a maior margem. Toda revisão **DEVE identificar qual pitch está sendo usado** comparando os preços encontrados (no áudio + frames) com este catálogo, e reportar no relatório.
+A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra encontrar a maior margem.
+
+**Regra obrigatória:** **TODA revisão deve identificar o pitch usado e reportá-lo no cabeçalho do MD — independentemente do usuário ter pedido ou mencionado no briefing.** Essa identificação serve a dois propósitos: (1) confirmar qual pitch está rodando, (2) **detectar incoerências de precificação** que possam ser erro do copywriter (ex: "3 bottles por $89" não bate com nenhum pitch — provavelmente é typo, não pitch novo).
 
 ### Pitch 1.2 — Tradicional
 
@@ -52,9 +54,13 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
    - Front 1 bottle ($89) + frete → **Pitch 1.2**
    - Front 2 bottles ($79) + frete → **Pitch 5.1**
 4. Os preços de 3 ($69) e 6 ($49) são iguais nos dois — não diferenciam.
-5. Se os preços não baterem com nenhum pitch do catálogo, reporte como **"Pitch não catalogado"** e liste os preços encontrados pra o usuário decidir.
+5. Se os preços **não baterem com nenhum pitch do catálogo**, NÃO assuma que é um pitch novo. A hipótese mais provável é **erro do copywriter** (typo, troca de valor entre fronts, preço residual de versão antiga). Reporte como:
 
-Sempre inclua no relatório o campo **"Pitch utilizado"** logo no cabeçalho (junto de Vídeo / Janela / Idioma).
+   > **⚠️ Possível erro de copywriter — preços não batem com o catálogo.** Encontrei: [lista de preços]. Compare com Pitch 1.2 e 5.1: [diferença]. Verificar se é typo ou pitch novo a cadastrar.
+
+   Posicione essa flag como um achado próprio (`### N. ⚠️ Possível incoerência de precificação`), não esconda no cabeçalho.
+
+6. Sempre inclua no relatório o campo **"Pitch utilizado"** logo no cabeçalho (junto de Vídeo / Janela / Idioma). Mesmo quando o pitch bate certinho, reporte explicitamente — é confirmação valiosa pro usuário.
 
 ## Abertura da skill
 
