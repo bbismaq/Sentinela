@@ -54,11 +54,11 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
    - Front 1 bottle ($89) + frete → **Pitch 1.2**
    - Front 2 bottles ($79) + frete → **Pitch 5.1**
 4. Os preços de 3 ($69) e 6 ($49) são iguais nos dois — não diferenciam.
-5. Se os preços **não baterem com nenhum pitch do catálogo**, NÃO assuma que é um pitch novo. A hipótese mais provável é **erro do copywriter** (typo, troca de valor entre fronts, preço residual de versão antiga). Reporte como:
+5. Se os preços **não baterem com nenhum pitch do catálogo**, **não presuma nada** — não é seu trabalho decidir se foi erro de processo ou pitch novo. Sinalize como **"Pitch não catalogado"** e **abra uma red flag** pra o usuário investigar. Reporte como:
 
-   > **⚠️ Possível erro de copywriter — preços não batem com o catálogo.** Encontrei: [lista de preços]. Compare com Pitch 1.2 e 5.1: [diferença]. Verificar se é typo ou pitch novo a cadastrar.
+   > **🚩 Pitch não catalogado — red flag aberta.** Encontrei os seguintes preços na oferta: [lista]. Não bate com Pitch 1.2 nem 5.1 (diferença: [qual]). **Pode ser:** (a) erro que passou pelo processo (typo, troca de valor entre fronts, preço residual de versão antiga); ou (b) pitch novo a cadastrar. **Verificar com o time antes de subir o criativo.**
 
-   Posicione essa flag como um achado próprio (`### N. ⚠️ Possível incoerência de precificação`), não esconda no cabeçalho.
+   Posicione essa flag como um achado próprio (`### N. 🚩 Pitch não catalogado`), não esconda no cabeçalho. No campo "Pitch utilizado" do cabeçalho, escreva: *"Pitch não catalogado — ver achado #N"*.
 
 6. Sempre inclua no relatório o campo **"Pitch utilizado"** logo no cabeçalho (junto de Vídeo / Janela / Idioma). Mesmo quando o pitch bate certinho, reporte explicitamente — é confirmação valiosa pro usuário.
 
