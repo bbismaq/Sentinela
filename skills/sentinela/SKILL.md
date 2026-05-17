@@ -20,6 +20,42 @@ produto e imagem do produto.
 - O usuário roda múltiplos testes A/B trocando: preço, formato (gotas→cápsula),
   imagem do produto, fala específica, ou combinações.
 
+## Pitches da operação (catálogo)
+
+A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra encontrar a maior margem. Toda revisão **DEVE identificar qual pitch está sendo usado** comparando os preços encontrados (no áudio + frames) com este catálogo, e reportar no relatório.
+
+### Pitch 1.2 — Tradicional
+
+| Front | Preço/bottle | Frete |
+|:--|:--:|:--|
+| **1 bottle** | **$89** | + **$19** de frete |
+| **3 bottles** | **$69** | Grátis |
+| **6 bottles** | **$49** | Grátis |
+
+**Assinatura única:** front de **1 bottle** com taxa de frete (~$19). Único pitch que oferece compra de 1 frasco isolado.
+
+### Pitch 5.1 — Afiliação BHEver e Instituto X
+
+| Front | Preço/bottle | Frete |
+|:--|:--:|:--|
+| **2 bottles** | **$79** | + **$19,99** de frete |
+| **3 bottles** | **$69** | Grátis |
+| **6 bottles** | **$49** | Grátis |
+
+**Assinatura única:** front menor é **2 bottles** (não 1) com taxa de frete (~$19,99). Usado em afiliações BHEver e Instituto X.
+
+### Como identificar o pitch
+
+1. Liste os preços por bottle que aparecem na oferta (áudio + frames).
+2. Compare com o catálogo acima.
+3. O sinal mais forte é **qual é o front menor**:
+   - Front 1 bottle ($89) + frete → **Pitch 1.2**
+   - Front 2 bottles ($79) + frete → **Pitch 5.1**
+4. Os preços de 3 ($69) e 6 ($49) são iguais nos dois — não diferenciam.
+5. Se os preços não baterem com nenhum pitch do catálogo, reporte como **"Pitch não catalogado"** e liste os preços encontrados pra o usuário decidir.
+
+Sempre inclua no relatório o campo **"Pitch utilizado"** logo no cabeçalho (junto de Vídeo / Janela / Idioma).
+
 ## Abertura da skill
 
 Ao ser invocada, **sua primeira e única mensagem inicial deve ser exatamente**:
@@ -141,6 +177,7 @@ Modelo:
 **Vídeo:** nome-do-video.mp4
 **Janela da Oferta:** 00:42:00 – 00:58:30
 **Idioma:** EN
+**Pitch utilizado:** Pitch 5.1 — Afiliação BHEver e Instituto X (front 2 bottles $79 + frete $19,99 · 3 bottles $69 · 6 bottles $49)
 
 ## Mudanças solicitadas vs aplicadas
 
