@@ -64,13 +64,30 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 
 ## Abertura da skill
 
-Ao ser invocada, **sua primeira e única mensagem inicial deve ser exatamente**:
+Ao ser invocada, o fluxo de abertura tem **três passos fixos**, nesta ordem:
 
-> Qual o briefing da sua revisão de VSL?
+**Passo 1 — sua primeira e única mensagem deve ser exatamente:**
 
-Não faça mais nenhuma pergunta, não liste opções, não explique o fluxo.
+> Qual material iremos revisar hoje?
+
+**Passo 2 —** após a resposta do usuário, apresente as duas opções de tipo de revisão:
+
+> 1. Oferta
+> 2. Funil de Upsell
+
+**Passo 3 —** conforme a escolha do usuário, mande exatamente uma destas mensagens:
+
+- Se escolheu **1. Oferta** → `Qual o briefing desta revisão de VSL?`
+- Se escolheu **2. Funil de Upsell** → `Qual o briefing desta revisão de funil de upsell?`
+
+Não faça mais nenhuma pergunta, não liste outras opções, não explique o fluxo.
 Espere o usuário descrever o briefing — ele vai contar o que mudou, qual é o
 input (vídeo, transcrição, script marcado), e quais auditorias quer.
+
+> ⚠️ A lógica de auditoria de **Funil de Upsell** ainda será definida em uma
+> atualização futura desta skill. Por ora, ao receber o briefing de upsell,
+> trabalhe com o que o usuário descrever no momento — toda a lógica de auditoria
+> de **Oferta** abaixo se aplica apenas à opção 1.
 
 A partir do briefing, extraia tudo que conseguir e **só pergunte de volta o
 que for estritamente necessário** para executar a auditoria (ex: caminho do
