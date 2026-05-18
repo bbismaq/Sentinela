@@ -62,6 +62,51 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 
 6. Sempre inclua no relatório o campo **"Pitch utilizado"** logo no cabeçalho (junto de Vídeo / Janela / Idioma). Mesmo quando o pitch bate certinho, reporte explicitamente — é confirmação valiosa pro usuário.
 
+## Funis de Upsell (catálogo)
+
+> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 2 (Funil de Upsell)** na abertura da skill. Em revisões de **Oferta (opção 1)**, ignore este catálogo — use apenas o catálogo de **Pitches** acima.
+
+A operação roda **vários funis de upsell**, cada um com uma estrutura de preços própria. Cada funil tem **3 versões (A / B / C)**, servidas conforme o **front que o cliente comprou na oferta principal** (1 / 3 / 6 bottles). Dentro de cada versão há 3 opções de quantidade (downsell em cascata).
+
+**Regra obrigatória:** **TODA revisão de upsell deve identificar o funil usado e reportá-lo no cabeçalho do MD** — mesma lógica dos pitches. Serve pra (1) confirmar qual funil está rodando e (2) **detectar incoerências de precificação** (preço/frasco ou total que não bate com nenhum funil cadastrado = provável erro do copywriter, não funil novo).
+
+### Funil de Upsell 8.0
+
+**FRONT 01 — Upsell 1-A** (cliente comprou 1 bottle na oferta)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 6 bottles | **19** | **114** |
+| 4 bottles | **25** | **98** |
+| 2 bottles | **29** | **58** |
+
+**FRONT 03 — Upsell 1-B** (cliente comprou 3 bottles na oferta)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 12 bottles | **17** | **198** |
+| 9 bottles | **19** | **171** |
+| 6 bottles | **25** | **147** |
+
+**FRONT 06 — Upsell 1-C** (cliente comprou 6 bottles na oferta)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 12 bottles | **29** | **348** |
+| 9 bottles | **37** | **333** |
+| 6 bottles | **49** | **294** |
+
+### Como identificar o funil de upsell
+
+1. Identifique qual **FRONT** o vídeo está endereçando (nome do arquivo costuma trazer `FRONT 01/03/06`, e o áudio reforça "since you bought 1/3/6 bottles…").
+2. Liste os pares **(qtd · valor por frasco · valor total)** que aparecem na oferta de upsell (áudio + frames).
+3. Compare com o catálogo do FRONT correspondente acima.
+4. Se os valores **não baterem com nenhum funil cadastrado**, **não presuma nada** — abra red flag igual aos pitches:
+
+   > **🚩 Funil de upsell não catalogado — red flag aberta.** Encontrei: [lista]. Não bate com Funil de Upsell 8.0 (diferença: [qual]). **Pode ser:** (a) erro de copy (typo, valor trocado entre opções); ou (b) funil novo a cadastrar. **Verificar com o time antes de subir o criativo.**
+
+5. Sempre inclua no cabeçalho do relatório o campo **"Funil utilizado"** (em revisões de Upsell, substitui ou acompanha o "Pitch utilizado").
+
 ## Abertura da skill
 
 Ao ser invocada, o fluxo de abertura tem **dois passos fixos**, nesta ordem:
@@ -240,7 +285,59 @@ Modelo:
 
 ## Recomendação
 - [Aprovar / Voltar pro editor / Investigar X]
+
+## Alterações
+<!-- Lista pronta para copiar e colar para o editor. Um cabeçalho por vídeo/front. Cada item: timestamp + ação objetiva no formato `Substituir frase [trecho antigo] por <trecho novo>`. Inclua aqui TODOS os achados ❌ e ⚠️ (e quaisquer itens não solicitados que precisem virar correção). Se algum vídeo não tem alterações, escreva "Sem alterações." sob o cabeçalho dele. -->
+
+UPSELL 1 - 8.0 (FRONT 1 ou 2)
+- 00:00:47 - Substituir frase [trecho antigo exato] por <trecho novo sugerido>
+
+UPSELL 1 - 8.0 (FRONT 3)
+- ...
+
+UPSELL 1 - 8.0 (FRONT 6)
+- ...
 ```
+
+### Postura de copywriter sênior nas sugestões
+
+Quando você identifica um erro ❌ ou ⚠️, **não pare em apontar o problema** — você também atua como **copywriter sênior** e já entrega ao usuário a **sugestão de correção a nível de copy**, pronta para ir ao editor. Essa sugestão precisa de **sagacidade** — não é só "escrever bonito", é entender o **escopo do erro** antes de propor a substituição.
+
+**Princípio-chave: escopo da correção segue o escopo do erro.**
+
+1. **Erro em trecho compartilhado entre variações** (ex: Parte 1 "Igual para todos" de um upsell, ou intro comum a vários A/B de uma VSL) → a correção precisa ser **genérica** o suficiente para funcionar em **todas as variações**. Substituições específicas (preço, quantidade, formato) quebram coerência em pelo menos uma das variações.
+   - **Exemplo real (Upsell 1 - Funil 8.0):** copy diz *"since you secured your two-bottle Purple Fit package"* na Parte 1 "Igual para todos". O FRONT 01 atende quem comprou 1 frasco, o FRONT 03 quem comprou 3, o FRONT 06 quem comprou 6. **Correção genérica certa:** trocar "two-bottle Purple Fit package" por algo que não cita quantidade — ex: *"your treatment Purple Fit"*, *"your Purple Fit order"*, *"your Purple Fit"*. **Correção errada:** propor "one-bottle" / "three-bottle" / "six-bottle" — só conserta 1 front e quebra os outros 2.
+
+2. **Erro em trecho exclusivo de uma variação** (ex: Parte 2 - Front de 3, ou um beat específico de um A/B) → a correção pode (e deve) ser **específica** para aquela variação, usando os números/produto/contexto reais daquele front.
+
+3. **Antes de propor a correção, identifique sempre:** "Este trecho está em quantas variações? Qual o range de cenários que ele precisa cobrir?" Se a resposta inclui >1 variação, a sugestão tem que ser genérica.
+
+**Detecção de escopo compartilhado:**
+- Em revisões de **Upsell**, o doc da copy explicitamente divide em "Parte 1 - Igual para todos" / "Parte 2 - Front de X" / "Parte 3 - Igual para todos". Use isso.
+- Em revisões de **Oferta**, normalmente o usuário roda A/B trocando 1 elemento (preço, formato, fala). Tudo que não é o elemento testado é compartilhado entre variantes — se o erro está fora do elemento testado, é candidato a correção genérica.
+- **Sinal forte:** o mesmo erro aparecendo no mesmo timestamp em múltiplos vídeos → certeza de trecho compartilhado, correção tem que ser genérica.
+
+**Como entregar a sugestão:**
+- Em cada achado ❌ ou ⚠️ no corpo do relatório, inclua uma linha extra **"Sugestão de copy:"** depois do **Veredito**, com a substituição proposta.
+- Na seção `## Alterações` (formato copy/paste para o editor), a sugestão genérica/específica vai exatamente no slot `<trecho novo sugerido>`.
+- Se o erro está em trecho compartilhado, **repita a mesma sugestão genérica** sob cada cabeçalho de vídeo/front afetado — não é redundância, é o que o editor precisa pra aplicar em cada arquivo.
+
+### Seção "Alterações" — obrigatória em todo relatório
+
+**Regra:** TODO relatório (tanto opção 1 - Oferta quanto opção 2 - Funil de Upsell) deve terminar com a seção `## Alterações`. Essa seção existe para o editor de vídeo conseguir **copiar e colar direto** o que precisa ser corrigido, sem ter que reler o relatório inteiro.
+
+Formato rígido:
+
+- **Um cabeçalho por vídeo/front** (ex: `UPSELL 1 - 8.0 (FRONT 1 ou 2)`, ou no caso de Oferta: `VSL <nome> (variação X)`).
+- **Bullets sob cada cabeçalho**, no formato:
+  `- HH:MM:SS - <ação objetiva>`
+  Para substituições de fala, use sempre: `Substituir frase [texto exato como está hoje] por <texto novo sugerido>`.
+  Para mudanças de imagem/frame, use: `Trocar imagem/frame de <descrição atual> para <descrição desejada>`.
+- **Use o timestamp em `HH:MM:SS` com zero-padding** (mesma regra do resto do relatório).
+- **Não use markdown de tabela aqui** — bullets simples para facilitar o copy/paste.
+- **Inclua todo achado ❌ e ⚠️** que demandar ação do editor. Achados ✅ não entram.
+- **Se um vídeo/front não tem alterações,** escreva literalmente `Sem alterações.` sob o cabeçalho dele.
+- **Não adicione cabeçalhos vazios** — se o relatório só tem 1 vídeo, só 1 cabeçalho aparece.
 
 ## Princípios
 
