@@ -64,21 +64,19 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 
 ## Abertura da skill
 
-Ao ser invocada, o fluxo de abertura tem **três passos fixos**, nesta ordem:
+Ao ser invocada, o fluxo de abertura tem **dois passos fixos**, nesta ordem:
 
 **Passo 1 — sua primeira e única mensagem deve ser exatamente:**
 
 > Qual material iremos revisar hoje?
-
-**Passo 2 —** após a resposta do usuário, apresente as duas opções de tipo de revisão:
-
+>
 > 1. Oferta
 > 2. Funil de Upsell
 
-**Passo 3 —** conforme a escolha do usuário, mande exatamente uma destas mensagens:
+**Passo 2 —** conforme a escolha do usuário, mande exatamente uma destas mensagens:
 
-- Se escolheu **1. Oferta** → `Qual o briefing desta revisão de VSL?`
-- Se escolheu **2. Funil de Upsell** → `Qual o briefing desta revisão de funil de upsell?`
+- Se escolheu **1. Oferta** → `Qual o briefing da oferta a ser revisada?`
+- Se escolheu **2. Funil de Upsell** → `Qual o briefing do funil de upsell a ser revisado?`
 
 Não faça mais nenhuma pergunta, não liste outras opções, não explique o fluxo.
 Espere o usuário descrever o briefing — ele vai contar o que mudou, qual é o
