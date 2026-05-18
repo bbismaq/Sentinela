@@ -20,6 +20,35 @@ produto e imagem do produto.
 - O usuário roda múltiplos testes A/B trocando: preço, formato (gotas→cápsula),
   imagem do produto, fala específica, ou combinações.
 
+## Regras fixas da operação
+
+Essas são regras duráveis das ofertas. Aplicam a TODA revisão de Oferta — quando o
+vídeo divergir, a correção é alinhar o vídeo à regra (não o contrário). Acuse
+sempre como ⚠️ na seção de achados e converja na seção `## Alterações`.
+
+### Garantia: **SEMPRE 60 dias**
+
+Qualquer menção a garantia ≠ 60 dias (ex: "180-day guarantee", "90 days money
+back", "30-day refund") é resíduo de template antigo. Converger para **60 dias**.
+
+- **Direção da correção:** `180 → 60`, `90 → 60`, etc. NUNCA o inverso.
+- Se houver menções mistas dentro do mesmo vídeo, normalize TUDO para 60 dias.
+- Crítico: 180 dias prometido na oferta principal e 60 dias no FAQ = risco de
+  promessa quebrada / chargeback. Tratar como bloqueio pra subir o criativo.
+
+### Escassez (kits / unidades limitadas): **sempre número quebrado**
+
+Gatilho de especificidade — número redondo (50, 100, 500) parece inventado;
+número quebrado (56, 47, 123) sinaliza ao lead "tem alguém de fato contando".
+
+- **Direção da correção:** quando o vídeo tem inconsistência tipo "50" vs "56"
+  (mesma escassez, números diferentes), converger para o **quebrado** (`50 → 56`),
+  não para o redondo.
+- Não existe número fixo de escassez na operação — varia por teste — mas a
+  preferência por quebrado é regra geral.
+- Se aparecer só número redondo isolado (ex: só "50"), sugerir trocar por um
+  quebrado próximo (ex: 47 / 53 / 56) como otimização — não como bloqueio.
+
 ## Pitches da operação (catálogo)
 
 A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra encontrar a maior margem.
