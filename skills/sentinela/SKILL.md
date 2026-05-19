@@ -174,6 +174,8 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 
    Posicione essa flag como um achado próprio (`### N. 🚩 Pitch não catalogado`), não esconda no cabeçalho. No campo "Pitch utilizado" do cabeçalho, escreva: *"Pitch não catalogado — ver achado #N"*.
 
+   **Hierarquia: catálogo = fonte de verdade.** Quando a copy bate com o vídeo mas **nenhum dos dois bate com o catálogo**, o default é tratar como **copy + VSL erradas** (não como "pitch novo"). Pontue explicitamente no veredito: *"a copy bate com a VSL, mas ambas estão incoerentes com o pitch cadastrado"*. Já entregue no mesmo achado a **sugestão de correção pronta com timestamp**, no formato `Substituir frase [old] por <new>`, alinhando o vídeo aos valores/quantidades do catálogo. Só vire pra hipótese "(b) pitch novo a cadastrar" quando o time confirmar explicitamente que a operação rodou um pitch ainda não documentado.
+
 6. Sempre inclua no relatório o campo **"Pitch utilizado"** logo no cabeçalho (junto de Vídeo / Janela / Idioma). Mesmo quando o pitch bate certinho, reporte explicitamente — é confirmação valiosa pro usuário.
 
 ## Funis de Upsell (catálogo)
@@ -240,6 +242,8 @@ A operação roda **vários funis de upsell**, cada um com uma estrutura de pre�
 4. Se os valores **não baterem com nenhum funil cadastrado**, **não presuma nada** — abra red flag igual aos pitches:
 
    > **🚩 Funil de upsell não catalogado — red flag aberta.** Encontrei: [lista]. Não bate com Funil de Upsell 8.0 (diferença: [qual]). **Pode ser:** (a) erro de copy (typo, valor trocado entre opções); ou (b) funil novo a cadastrar. **Verificar com o time antes de subir o criativo.**
+
+   **Hierarquia: catálogo = fonte de verdade** (mesma regra dos pitches). Se a copy bate com o vídeo mas nenhum dos dois bate com o catálogo do funil, default é **copy + VSL erradas**. Entregue sugestão de correção pronta com timestamp alinhando o vídeo às quantidades/valores do funil cadastrado. Só virar pra "funil novo" se o time confirmar.
 
 5. Sempre inclua no cabeçalho do relatório o campo **"Funil utilizado"** (em revisões de Upsell, substitui ou acompanha o "Pitch utilizado").
 
@@ -470,7 +474,7 @@ Modelo:
 - [Aprovar / Voltar pro editor / Investigar X]
 
 ## Alterações
-<!-- Lista pronta para copiar e colar para o editor. Um cabeçalho por vídeo/front. Cada item: timestamp + ação objetiva no formato `Substituir frase [trecho antigo] por <trecho novo>`. Inclua aqui TODOS os achados ❌ e ⚠️ (e quaisquer itens não solicitados que precisem virar correção). Se algum vídeo não tem alterações, escreva "Sem alterações." sob o cabeçalho dele. -->
+<!-- Lista pronta para copiar e colar para o editor. Um cabeçalho por vídeo/front. Cada item: timestamp + ação objetiva. Ações válidas: `Substituir frase [trecho antigo] por <trecho novo>`, `Trocar imagem/frame de <descrição atual> para <descrição desejada>`, ou `**Excluir toda a frase** [trecho antigo] — cortar do vídeo e remover da copy.` Inclua aqui TODOS os achados ❌ e ⚠️ (e quaisquer itens não solicitados que precisem virar correção). Se algum vídeo não tem alterações, escreva "Sem alterações." sob o cabeçalho dele. -->
 
 UPSELL 1 - 8.0 (FRONT 1 ou 2)
 - 00:00:47 - Substituir frase [trecho antigo exato] por <trecho novo sugerido>
@@ -516,6 +520,7 @@ Formato rígido:
   `- HH:MM:SS - <ação objetiva>`
   Para substituições de fala, use sempre: `Substituir frase [texto exato como está hoje] por <texto novo sugerido>`.
   Para mudanças de imagem/frame, use: `Trocar imagem/frame de <descrição atual> para <descrição desejada>`.
+  Para **excluir uma frase inteira** (sem substituir por nada), use: `**Excluir toda a frase** [texto exato como está hoje] — cortar do vídeo e remover da copy.` Cabe especialmente em **recaps redundantes** (informação já dita logo antes no vídeo) ou em trechos onde qualquer substituição arrisca introduzir novo erro de número/quantidade. Se a frase a remover está em **trecho compartilhado entre variações** (Parte 1 / Parte 3 do upsell, intro comum a A/B), repita o bullet de exclusão sob cada cabeçalho de vídeo/front afetado.
 - **Use o timestamp em `HH:MM:SS` com zero-padding** (mesma regra do resto do relatório).
 - **Não use markdown de tabela aqui** — bullets simples para facilitar o copy/paste.
 - **Inclua todo achado ❌ e ⚠️** que demandar ação do editor. Achados ✅ não entram.
