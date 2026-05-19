@@ -54,6 +54,74 @@ operação aceita as duas formas, **desde que coerentes ao longo da copy inteira
 - **Não sugerir trocas por preferência estética.** Se a copy está coerente em
   "50" ou em "47", não inventar otimização "trocar pra quebrado próximo".
 
+## Checks por tipo de troca
+
+Quando o briefing especifica um tipo de troca (produto, formato, etc), aplicar
+o checklist específico abaixo **além** das Regras fixas da operação.
+
+### Troca de formato (capsule↔powder, gummy↔drops, drops↔cream, etc)
+
+Sempre que o briefing pedir troca de formato, rodar **explicitamente** estes
+três checks antes de fechar o relatório:
+
+#### (a) Auto-ataque ao novo formato
+
+O build-up de formato em VSL tem trechos genéricos do tipo *"unlike X, Y, and
+Z that are destroyed by stomach acid..."* ou *"capsules, drops, and powders
+that lose potency before reaching the gut..."*. **Verificar se o novo formato
+escolhido NÃO está na lista de atacados.** Se estiver, é bloqueio crítico
+(auto-sabotagem) — sinalizar como 🚨.
+
+Padrão de busca: dentro do PRODUCT BUILD UP e do BLOCO DE OFERTA, procurar
+listas de comparação que contenham o nome do **novo** formato. Inspecionar
+especialmente trechos repetidos — o build-up costuma ser citado de novo no
+fechamento da oferta, então o mesmo ataque pode aparecer 2-4 vezes no mesmo
+doc.
+
+#### (b) Gramática quebrada após substituição
+
+Quando o copywriter substitui "One capsule a day" por "One powder a day", a
+frase fica gramaticalmente quebrada (powder não conta como unidade discreta).
+Mesmo problema com "every single capsule" → "every single powder", "two
+capsules" → "two powders". E o oposto também: "take a few drops" → "take a
+few capsule" não funciona.
+
+Padrão de busca: procurar quantificadores ("one", "two", "every", "each",
+"single", "a few") encostados na palavra trocada. Sugerir substituir por
+"one scoop", "every dose", "each scoop", conforme o formato.
+
+#### (c) Typos de pareamento ("Neo Vitalformula", etc)
+
+Quando o copywriter marca a troca pintando vermelho/verde e o termo antigo
+está colado num substantivo seguinte **sem espaço**, o pareamento sai grudado.
+Ex.: "Neuro Coffee Neo Vital**formula**" → após remoção do vermelho fica
+"Neo Vital**formula**".
+
+Padrão de busca: o novo nome do produto colado em substantivos do contexto
+("formula", "package", "kit", "treatment", "batch", "bottle").
+
+### Material de referência em depoimentos / lip-sync
+
+Quando o nome **antigo** do produto (ou formato) aparece **sozinho** (sem
+pareamento esperado), e o trecho está dentro de um bloco identificável como
+**depoimento de referência** ou **lip-sync** — geralmente em PT, com nota
+tipo "Lip Sync à partir do 01:40" e link de YouTube — tratar como ⚠️, **não
+como ❌**:
+
+- Não acusar como erro definitivo (pode ser material de referência que o
+  editor vai redublar com áudio novo).
+- Pedir confirmação ao usuário/time se a dublagem/lip-sync vai trocar o
+  áudio do depoimento.
+- Sugerir atualização do texto de referência **se** for redublado, marcando
+  a sugestão como condicional na seção `## Alterações` (ex:
+  `*(aplicar somente se o áudio do depoimento for redublado)*`).
+
+Sinais típicos do bloco de referência:
+- Texto em PT seguido da tradução em EN (ou vice-versa).
+- Nota com timestamp tipo "Lip Sync à partir do MM:SS".
+- Link de YouTube/Drive nas linhas adjacentes.
+- Bloco rotulado como "Depoimento N" ou "[Anexo - Depoimento]".
+
 ## Pitches da operação (catálogo)
 
 A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra encontrar a maior margem.
@@ -233,6 +301,53 @@ Para cada par, valide:
 ### Quando o input é TEXTO PURO
 
 Trabalhe diretamente com o texto. Não precisa rodar Python.
+
+### Quando o input é GOOGLE DOC (URL)
+
+O usuário compartilha um link `https://docs.google.com/document/d/<id>/edit`.
+Pré-condição: o doc precisa estar com permissão de leitura pública ou pra a
+conta autenticada na máquina.
+
+1. **Baixar como texto puro:**
+
+   ```powershell
+   $out = "$env:TEMP\sentinela-copy.txt"
+   Invoke-WebRequest -Uri "https://docs.google.com/document/d/<id>/export?format=txt" `
+     -OutFile $out -MaximumRedirection 10
+   ```
+
+   O export `.txt` traz o documento completo + **os comentários** no final do
+   arquivo, marcados com âncoras `[a]`, `[b]`, ..., `[bp]`. As mesmas âncoras
+   aparecem inline no corpo do texto, permitindo linkar cada comentário ao
+   trecho exato.
+
+2. **Detectar marcação por cor (vermelho/verde):**
+
+   O export `.txt` perde a cor, mas **mantém os dois textos adjacentes** quando
+   o copywriter usou cor pra marcar substituição. Ex: "Max Brain" pintado de
+   vermelho (remover) e "Neo Vital" de verde (adicionar) aparece no export
+   como `"Max Brain Neo Vital"` no mesmo trecho. Tratar como substituição
+   implícita `[Max Brain] <Neo Vital>`.
+
+   Padrões típicos:
+   - Produto antigo + produto novo adjacentes (`Max Brain Neo Vital`)
+   - Formato antigo + formato novo adjacentes (`capsule powder`,
+     `capsules powders`, `gummy drops`)
+
+   **Quando o pareamento NÃO aparece** (só o termo antigo, sozinho), indica:
+   - **(a)** Editor esqueceu de marcar → ❌ flagar como esquecimento.
+   - **(b)** Trecho está em bloco de referência/depoimento → ⚠️ ver seção
+     "Material de referência em depoimentos / lip-sync".
+
+3. **Trabalhar direto sobre o texto baixado.** Sem ffmpeg, sem transcrição.
+   No relatório, **citações usam número de linha (`L1199`)** em vez de
+   timestamp `HH:MM:SS`. No cabeçalho, trocar `**Vídeo:**` por `**Input:**`
+   (com link do doc) e `**Janela da Oferta:**` por `**Escopo do briefing:**`
+   (ex: "a partir de PRODUCT BUILD UP, L498").
+
+4. **Salvar relatório** em `C:\Users\bbism\Downloads\Transcriber\Transcriber\source\`
+   (mesmo fallback do TEXTO PURO), nome
+   `RELATORIO-SENTINELA-<descrição-curta-da-troca>-<YYYYMMDD-HHMM>.md`.
 
 ## Formato do relatório final
 
