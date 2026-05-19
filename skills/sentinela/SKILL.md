@@ -36,18 +36,23 @@ back", "30-day refund") é resíduo de template antigo. Converger para **60 dias
 - Crítico: 180 dias prometido na oferta principal e 60 dias no FAQ = risco de
   promessa quebrada / chargeback. Tratar como bloqueio pra subir o criativo.
 
-### Escassez (kits / unidades limitadas): **sempre número quebrado**
+### Escassez (kits / unidades limitadas): **coerência primeiro**
 
-Gatilho de especificidade — número redondo (50, 100, 500) parece inventado;
-número quebrado (56, 47, 123) sinaliza ao lead "tem alguém de fato contando".
+Gatilho de especificidade — número quebrado (56, 47, 123) sinaliza ao lead "tem
+alguém de fato contando" mais do que um número redondo (50, 100, 500). Mas a
+operação aceita as duas formas, **desde que coerentes ao longo da copy inteira**.
 
-- **Direção da correção:** quando o vídeo tem inconsistência tipo "50" vs "56"
-  (mesma escassez, números diferentes), converger para o **quebrado** (`50 → 56`),
-  não para o redondo.
-- Não existe número fixo de escassez na operação — varia por teste — mas a
-  preferência por quebrado é regra geral.
-- Se aparecer só número redondo isolado (ex: só "50"), sugerir trocar por um
-  quebrado próximo (ex: 47 / 53 / 56) como otimização — não como bloqueio.
+**Regras de inspeção:**
+
+- **Coerência primeiro.** Se a copy usa o MESMO número em todas as menções de
+  escassez (todas "50", ou todas "47"), ✅ — não há ajuste necessário, mesmo
+  que seja redondo.
+- **Inconsistência → alterar o número quebrado pra casar com o redondo.**
+  Se um trecho diz "50" e outro diz "54", a correção é trocar **54 → 50**
+  (alterar o quebrado). Razão: o redondo costuma ser o número que o time
+  decidiu pro teste; o quebrado costuma ser resíduo de versão anterior.
+- **Não sugerir trocas por preferência estética.** Se a copy está coerente em
+  "50" ou em "47", não inventar otimização "trocar pra quebrado próximo".
 
 ## Pitches da operação (catálogo)
 
