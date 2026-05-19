@@ -541,6 +541,11 @@ UPSELL 1 - 8.0 (FRONT 3)
 
 UPSELL 1 - 8.0 (FRONT 6)
 - ...
+
+## Pontos de Atenção
+<!-- Trechos que NÃO viram ação do editor mas merecem conferência manual do usuário. Pode ser incoerência de contexto (nome de arquivo vs front esperado pelo pitch), ambiguidade que ✅/❌ não captura, sinal de processo errado upstream (doc da copy desatualizado, nomeação fora do padrão, decisão de pricing que destoa do catálogo mas pode ser intencional), etc. Use bullets curtos com o ponto + por quê chama atenção. Se não houver nada, escreva "Nenhum ponto de atenção identificado." Não repita itens que já viraram bullet de Alterações — só o que ficou fora dela. -->
+
+- [Vídeo/contexto] — [o que chamou atenção e por quê vale conferir manualmente]
 ```
 
 ### Postura de copywriter sênior nas sugestões
@@ -583,6 +588,29 @@ Formato rígido:
 - **Inclua todo achado ❌ e ⚠️** que demandar ação do editor. Achados ✅ não entram.
 - **Se um vídeo/front não tem alterações,** escreva literalmente `Sem alterações.` sob o cabeçalho dele.
 - **Não adicione cabeçalhos vazios** — se o relatório só tem 1 vídeo, só 1 cabeçalho aparece.
+
+### Seção "Pontos de Atenção" — obrigatória em todo relatório
+
+**Regra:** TODO relatório (Oferta e Funil de Upsell) deve terminar com a seção `## Pontos de Atenção`, logo após `## Alterações`. Essa seção existe para registrar **observações que merecem conferência manual do usuário**, mas que **não viram bullet de correção pro editor**.
+
+**O que entra aqui (e não em Alterações):**
+
+- **Incoerências de contexto sem fix óbvio.** Ex: nome do arquivo é `FRONT 2` mas o pitch cadastrado (1.2) tem fronts 1/3/6 — pode ser o editor renomeou errado, pode ser especificidade do upsell que foge da regra geral. Não é correção de vídeo; é confirmação humana.
+- **Decisões de pricing/copy que destoam do catálogo mas podem ser intencionais.** Ex: copy fala "almost 50% off" mas o desconto real é 57% — pode estar arredondando pra baixo de propósito.
+- **Sinais de processo errado upstream.** Ex: doc da copy mantendo "bottle" depois de troca pra powder (doc desatualizado), nomenclatura de arquivos fora do padrão da operação, presença de dois pitches diferentes em variantes do mesmo teste A/B.
+- **Ambiguidades que ✅/❌ não captura.** Ex: trecho em depoimento/lip-sync que pode ou não ser redublado, dependendo da decisão do time de edição.
+
+**O que NÃO entra aqui:**
+
+- **Achados ❌ e ⚠️ que já viraram bullet em `## Alterações`** — não duplicar. Pontos de Atenção é o que ficou de fora dela.
+- **Achados ✅** — se está coerente, não é ponto de atenção.
+- **Sugestões de melhoria estética/copywriting opcional** — Sentinela audita conformidade com briefing/catálogo, não opina sobre qualidade de copy fora desse escopo.
+
+Formato:
+
+- Bullets curtos, no formato: `- [<vídeo ou contexto>] — <o que chamou atenção> + <por quê vale conferir manualmente>`.
+- Se não houver nada digno, escreva literalmente: `Nenhum ponto de atenção identificado.`
+- **Não use timestamps obrigatoriamente** — se for ponto sobre nomeação de arquivo, estrutura de pasta, ou decisão geral, não tem timestamp. Use timestamp só se for sobre um trecho específico.
 
 ## Princípios
 
