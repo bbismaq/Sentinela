@@ -156,25 +156,25 @@ Sinais típicos do bloco de referência:
 
 A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra encontrar a maior margem.
 
-**Regra obrigatória:** **TODA revisão deve identificar o pitch usado e reportá-lo no cabeçalho do MD — independentemente do usuário ter pedido ou mencionado no briefing.** Essa identificação serve a dois propósitos: (1) confirmar qual pitch está rodando, (2) **detectar incoerências de precificação** que possam ser erro do copywriter (ex: "3 bottles por $89" não bate com nenhum pitch — provavelmente é typo, não pitch novo).
+**Regra obrigatória:** **TODA revisão deve identificar o pitch usado e reportá-lo no cabeçalho do MD — independentemente do usuário ter pedido ou mencionado no briefing.** Essa identificação serve a dois propósitos: (1) confirmar qual pitch está rodando, (2) **detectar incoerências de precificação** que possam ser erro do copywriter (ex: "3 bottles por \$89" não bate com nenhum pitch — provavelmente é typo, não pitch novo).
 
 ### Pitch 1.2 — Tradicional
 
 | Front | Preço/bottle | Frete |
 |:--|:--:|:--|
-| **1 bottle** | **$89** | + **$19** de frete |
-| **3 bottles** | **$69** | Grátis |
-| **6 bottles** | **$49** | Grátis |
+| **1 bottle** | **\$89** | + **\$19** de frete |
+| **3 bottles** | **\$69** | Grátis |
+| **6 bottles** | **\$49** | Grátis |
 
-**Assinatura única:** front de **1 bottle** com taxa de frete (~$19). LP **sem quiz** — fronts aparecem direto.
+**Assinatura única:** front de **1 bottle** com taxa de frete (~\$19). LP **sem quiz** — fronts aparecem direto.
 
 ### Pitch 3.2 — Quiz
 
 | Front | Preço/bottle | Frete |
 |:--|:--:|:--|
-| **1 bottle** | **$89** | + **$19** de frete |
-| **3 bottles** | **$69** | Grátis |
-| **6 bottles** | **$49** | Grátis |
+| **1 bottle** | **\$89** | + **\$19** de frete |
+| **3 bottles** | **\$69** | Grátis |
+| **6 bottles** | **\$49** | Grátis |
 
 **Assinatura única:** preços **idênticos ao 1.2**. A diferença é que a LP tem um **quiz temporizado** antes dos fronts — as opções só aparecem pro lead depois que ele responde o questionário.
 
@@ -184,20 +184,20 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 
 | Front | Preço/bottle | Frete |
 |:--|:--:|:--|
-| **2 bottles** | **$79** | + **$19,99** de frete |
-| **3 bottles** | **$69** | Grátis |
-| **6 bottles** | **$49** | Grátis |
+| **2 bottles** | **\$79** | + **\$19,99** de frete |
+| **3 bottles** | **\$69** | Grátis |
+| **6 bottles** | **\$49** | Grátis |
 
-**Assinatura única:** front menor é **2 bottles** (não 1) com taxa de frete (~$19,99). Usado em afiliações BHEver e Instituto X.
+**Assinatura única:** front menor é **2 bottles** (não 1) com taxa de frete (~\$19,99). Usado em afiliações BHEver e Instituto X.
 
 ### Como identificar o pitch
 
 1. Liste os preços por bottle que aparecem na oferta (áudio + frames).
 2. Compare com o catálogo acima.
 3. O sinal mais forte é **qual é o front menor**:
-   - Front 1 bottle ($89) + frete → **Pitch 1.2 ou 3.2** (a diferença é quiz na LP — ver nota no Pitch 3.2)
-   - Front 2 bottles ($79) + frete → **Pitch 5.1**
-4. Os preços de 3 ($69) e 6 ($49) são iguais em 1.2 / 3.2 / 5.1 — não diferenciam.
+   - Front 1 bottle (\$89) + frete → **Pitch 1.2 ou 3.2** (a diferença é quiz na LP — ver nota no Pitch 3.2)
+   - Front 2 bottles (\$79) + frete → **Pitch 5.1**
+4. Os preços de 3 (\$69) e 6 (\$49) são iguais em 1.2 / 3.2 / 5.1 — não diferenciam.
 5. Se os preços **não baterem com nenhum pitch do catálogo**, **não presuma nada** — não é seu trabalho decidir se foi erro de processo ou pitch novo. Sinalize como **"Pitch não catalogado"** e **abra uma red flag** pra o usuário investigar. Reporte como:
 
    > **🚩 Pitch não catalogado — red flag aberta.** Encontrei os seguintes preços na oferta: [lista]. Não bate com Pitch 1.2 / 3.2 / 5.1 (diferença: [qual]). **Pode ser:** (a) erro que passou pelo processo (typo, troca de valor entre fronts, preço residual de versão antiga); ou (b) pitch novo a cadastrar. **Verificar com o time antes de subir o criativo.**
@@ -214,14 +214,14 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 escolha entre eles é técnica de copywriter sênior para aumentar percepção de
 valor — não decisão de pricing. Não flagar como achado no relatório.
 
-Exemplos do mesmo kit de 3 unidades a $69/und ($207 total):
-- *"3 jars for $69 each"* — apresentação direta
+Exemplos do mesmo kit de 3 unidades a \$69/und (\$207 total):
+- *"3 jars for \$69 each"* — apresentação direta
 - *"Pay for 2, get 1 free"* — ancora 2 unidades, terceira "grátis"
 - *"1+1+1 progressive discount"*
 - *"2+1 bonus"*
-- *"Buy 2 at $89 each, third is free"* — ancora no preço cheio de 1 unidade
+- *"Buy 2 at \$89 each, third is free"* — ancora no preço cheio de 1 unidade
 
-Todas chegam ao mesmo carrinho ($207). Como auditar:
+Todas chegam ao mesmo carrinho (\$207). Como auditar:
 
 1. **Comparar preço TOTAL do kit** com o catálogo, não a estrutura de
    apresentação. Se o total bate, **ignorar a estrutura**.
@@ -288,7 +288,7 @@ A operação roda **vários funis de upsell**, cada um com uma estrutura de pre�
 | 4 bottles | **39** | **156** |
 
 **Notas:**
-- "Valor por frasco" é calculado sobre o **total de bottles incluindo os FREE** ($87 ÷ 3 = $29; $261 ÷ 9 = $29).
+- "Valor por frasco" é calculado sobre o **total de bottles incluindo os FREE** (\$87 ÷ 3 = \$29; \$261 ÷ 9 = \$29).
 - Downsell 1 do Funil 8.0 é em **vídeo** (não copy estática).
 
 ### Como identificar o funil de upsell
@@ -487,7 +487,7 @@ Modelo:
 **Vídeo:** nome-do-video.mp4
 **Janela da Oferta:** 00:42:00 – 00:58:30
 **Idioma:** EN
-**Pitch utilizado:** Pitch 5.1 — Afiliação BHEver e Instituto X (front 2 bottles $79 + frete $19,99 · 3 bottles $69 · 6 bottles $49)
+**Pitch utilizado:** Pitch 5.1 — Afiliação BHEver e Instituto X (front 2 bottles \$79 + frete \$19,99 · 3 bottles \$69 · 6 bottles \$49)
 
 ## Mudanças solicitadas vs aplicadas
 
@@ -495,19 +495,19 @@ Modelo:
 
 | # | Status | O que mudou |
 |:-:|:-:|:--|
-| 1 | ✅ | Preço por bottle: $67 → $57 |
+| 1 | ✅ | Preço por bottle: \$67 → \$57 |
 | 2 | ❌ | Quantidade do kit: 2 → 3 bottles |
 | 3 | ⚠️ | Imagem do produto: drops → capsules |
 
 ## Achados
 
-### 1. ✅ Preço por bottle ($67 → $57)
+### 1. ✅ Preço por bottle (\$67 → \$57)
 
-- **Era pra sair:** **$67**
-- **Era pra entrar:** **$57**
+- **Era pra sair:** **\$67**
+- **Era pra entrar:** **\$57**
 - **Onde:** **00:47:23**
-- **Transcrito:** *"...just $57 today..."*
-- **Veredito:** Aplicado. `$67` não aparece na janela.
+- **Transcrito:** *"...just \$57 today..."*
+- **Veredito:** Aplicado. `\$67` não aparece na janela.
 
 ### 2. ❌ Quantidade do kit (2 → 3 bottles)
 
