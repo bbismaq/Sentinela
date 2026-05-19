@@ -100,6 +100,36 @@ Ex.: "Neuro Coffee Neo Vital**formula**" → após remoção do vermelho fica
 Padrão de busca: o novo nome do produto colado em substantivos do contexto
 ("formula", "package", "kit", "treatment", "batch", "bottle").
 
+#### (d) Coerência da unidade de embalagem (bottle vs jar)
+
+Convenção fixa da operação:
+
+- **bottle** → formatos **capsules / drops / gummy**
+- **jar** → formato **powder**
+
+Quando o briefing pede troca de formato, **a unidade de embalagem muda junto**
+mesmo que o doc da copy não marque explicitamente — é convenção da operação.
+Ex.: `capsules → powder` puxa `bottle → jar` em TODO o material (áudio, legenda,
+badges/frames, copy escrita). O contrário também vale (`powder → drops` puxa
+`jar → bottle`).
+
+**Direção da correção:** onde o vídeo ainda diz "bottle" depois de uma troca
+pra powder = resíduo do template antigo = erro do editor. Apontar como ❌.
+Idem para "jar" residual após troca pra capsule/drops/gummy.
+
+**Quando o doc da copy mantém a unidade antiga** (ex: doc fala "bottle" mas o
+produto é powder): **o doc não é fonte de verdade para unidade de embalagem**
+— a convenção é. Tratar o doc como desatualizado nesse ponto (red flag pro time
+de copy upstream), mas **a correção do vídeo segue a convenção** (jar para
+powder). Nunca sugerir reverter trabalho correto do editor pra alinhar com doc
+desatualizado.
+
+Padrão de busca após troca pra powder: ocorrências residuais de
+**"bottle"**, **"bottles"**, **"Six Bottle Kit"**, **"per bottle"**, **"X bottles
+left"**, **"on the bottles"** — todas devem virar a versão com "jar". E vice-versa
+após troca pra capsule/drops/gummy. Atenção especial a **badges visuais** em
+frames de packshot (ex: " PER BOTTLE" sobre jar de powder).
+
 ### Material de referência em depoimentos / lip-sync
 
 Quando o nome **antigo** do produto (ou formato) aparece **sozinho** (sem
@@ -177,6 +207,33 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
    **Hierarquia: catálogo = fonte de verdade.** Quando a copy bate com o vídeo mas **nenhum dos dois bate com o catálogo**, o default é tratar como **copy + VSL erradas** (não como "pitch novo"). Pontue explicitamente no veredito: *"a copy bate com a VSL, mas ambas estão incoerentes com o pitch cadastrado"*. Já entregue no mesmo achado a **sugestão de correção pronta com timestamp**, no formato `Substituir frase [old] por <new>`, alinhando o vídeo aos valores/quantidades do catálogo. Só vire pra hipótese "(b) pitch novo a cadastrar" quando o time confirmar explicitamente que a operação rodou um pitch ainda não documentado.
 
 6. Sempre inclua no relatório o campo **"Pitch utilizado"** logo no cabeçalho (junto de Vídeo / Janela / Idioma). Mesmo quando o pitch bate certinho, reporte explicitamente — é confirmação valiosa pro usuário.
+
+### O que NÃO é divergência de pitch (reframings de copy)
+
+**Reframings de copywriting do MESMO preço total NÃO são divergência.** A
+escolha entre eles é técnica de copywriter sênior para aumentar percepção de
+valor — não decisão de pricing. Não flagar como achado no relatório.
+
+Exemplos do mesmo kit de 3 unidades a $69/und ($207 total):
+- *"3 jars for $69 each"* — apresentação direta
+- *"Pay for 2, get 1 free"* — ancora 2 unidades, terceira "grátis"
+- *"1+1+1 progressive discount"*
+- *"2+1 bonus"*
+- *"Buy 2 at $89 each, third is free"* — ancora no preço cheio de 1 unidade
+
+Todas chegam ao mesmo carrinho ($207). Como auditar:
+
+1. **Comparar preço TOTAL do kit** com o catálogo, não a estrutura de
+   apresentação. Se o total bate, **ignorar a estrutura**.
+2. **Só flagar** quando: (a) o preço total nomeado na fala ≠ preço total do
+   catálogo; ou (b) a estrutura promete algo que o checkout não pode entregar
+   (ex: fala diz "completely free" e o checkout cobra pela terceira unidade).
+3. Quando a fala **não nomeia explicitamente o preço total** (ex: só diz "pay
+   for 2, get 1 free"), assumir o preço do catálogo como verdade e seguir em
+   frente — não criar achado pedindo "confirmar com o time".
+
+Esse tipo de achado polui o relatório com ruído e força o time de copy a
+justificar uma escolha estética que já estava correta.
 
 ## Funis de Upsell (catálogo)
 
