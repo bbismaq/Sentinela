@@ -136,7 +136,19 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 | **3 bottles** | **$69** | Grátis |
 | **6 bottles** | **$49** | Grátis |
 
-**Assinatura única:** front de **1 bottle** com taxa de frete (~$19). Único pitch que oferece compra de 1 frasco isolado.
+**Assinatura única:** front de **1 bottle** com taxa de frete (~$19). LP **sem quiz** — fronts aparecem direto.
+
+### Pitch 3.2 — Quiz
+
+| Front | Preço/bottle | Frete |
+|:--|:--:|:--|
+| **1 bottle** | **$89** | + **$19** de frete |
+| **3 bottles** | **$69** | Grátis |
+| **6 bottles** | **$49** | Grátis |
+
+**Assinatura única:** preços **idênticos ao 1.2**. A diferença é que a LP tem um **quiz temporizado** antes dos fronts — as opções só aparecem pro lead depois que ele responde o questionário.
+
+⚠️ **Pelos preços, 1.2 e 3.2 são indistinguíveis.** A diferença está na presença/ausência do quiz na LP, que normalmente **não aparece dentro do vídeo da VSL**. Se a janela auditada só mostra a oferta (não a LP), reporte como **"Pitch 1.2 ou 3.2 (indistinguível pelos preços — depende de quiz na LP)"** no cabeçalho e siga em frente. Só afirme um dos dois se o briefing/usuário confirmar qual está rodando.
 
 ### Pitch 5.1 — Afiliação BHEver e Instituto X
 
@@ -153,12 +165,12 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 1. Liste os preços por bottle que aparecem na oferta (áudio + frames).
 2. Compare com o catálogo acima.
 3. O sinal mais forte é **qual é o front menor**:
-   - Front 1 bottle ($89) + frete → **Pitch 1.2**
+   - Front 1 bottle ($89) + frete → **Pitch 1.2 ou 3.2** (a diferença é quiz na LP — ver nota no Pitch 3.2)
    - Front 2 bottles ($79) + frete → **Pitch 5.1**
-4. Os preços de 3 ($69) e 6 ($49) são iguais nos dois — não diferenciam.
+4. Os preços de 3 ($69) e 6 ($49) são iguais em 1.2 / 3.2 / 5.1 — não diferenciam.
 5. Se os preços **não baterem com nenhum pitch do catálogo**, **não presuma nada** — não é seu trabalho decidir se foi erro de processo ou pitch novo. Sinalize como **"Pitch não catalogado"** e **abra uma red flag** pra o usuário investigar. Reporte como:
 
-   > **🚩 Pitch não catalogado — red flag aberta.** Encontrei os seguintes preços na oferta: [lista]. Não bate com Pitch 1.2 nem 5.1 (diferença: [qual]). **Pode ser:** (a) erro que passou pelo processo (typo, troca de valor entre fronts, preço residual de versão antiga); ou (b) pitch novo a cadastrar. **Verificar com o time antes de subir o criativo.**
+   > **🚩 Pitch não catalogado — red flag aberta.** Encontrei os seguintes preços na oferta: [lista]. Não bate com Pitch 1.2 / 3.2 / 5.1 (diferença: [qual]). **Pode ser:** (a) erro que passou pelo processo (typo, troca de valor entre fronts, preço residual de versão antiga); ou (b) pitch novo a cadastrar. **Verificar com o time antes de subir o criativo.**
 
    Posicione essa flag como um achado próprio (`### N. 🚩 Pitch não catalogado`), não esconda no cabeçalho. No campo "Pitch utilizado" do cabeçalho, escreva: *"Pitch não catalogado — ver achado #N"*.
 
@@ -197,6 +209,28 @@ A operação roda **vários funis de upsell**, cada um com uma estrutura de pre�
 | 12 bottles | **29** | **348** |
 | 9 bottles | **37** | **333** |
 | 6 bottles | **49** | **294** |
+
+#### Downsell 1 (em vídeo)
+
+> ⚠️ **Estrutura diferente do Upsell 1.** O Downsell 1-A serve dois fronts (1 e 3) — não há variante separada por front pra esses dois casos. O Front 06 tem variante própria (B).
+
+**Downsell 1-A** (cliente veio do FRONT 01 ou FRONT 03)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 2 + 1 FREE | **29** | **87** |
+| 2 bottles | **39** | **78** |
+
+**Downsell 1-B** (cliente veio do FRONT 06)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 6 + 3 FREE | **29** | **261** |
+| 4 bottles | **39** | **156** |
+
+**Notas:**
+- "Valor por frasco" é calculado sobre o **total de bottles incluindo os FREE** ($87 ÷ 3 = $29; $261 ÷ 9 = $29).
+- Downsell 1 do Funil 8.0 é em **vídeo** (não copy estática).
 
 ### Como identificar o funil de upsell
 
