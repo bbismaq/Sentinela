@@ -59,10 +59,32 @@ operação aceita as duas formas, **desde que coerentes ao longo da copy inteira
 Quando o briefing especifica um tipo de troca (produto, formato, etc), aplicar
 o checklist específico abaixo **além** das Regras fixas da operação.
 
-### Troca de formato (capsule↔powder, gummy↔drops, drops↔cream, etc)
+### Troca de produto / formato / imagem (qualquer mudança visual)
 
-Sempre que o briefing pedir troca de formato, rodar **explicitamente** estes
-três checks antes de fechar o relatório:
+Sempre que o briefing tocar em **produto, formato, imagem do produto ou
+packshot** — e o input for vídeo — rodar **explicitamente** estes checks
+antes de fechar o relatório. **A auditoria visual (frame a frame) é
+obrigatória nesse cenário, mesmo que o usuário não tenha pedido no
+briefing.** Pular a checagem de frames quando a troca tem componente
+visual é falha grave; o lead percebe a incoerência embalagem-novo-nome
+imediatamente e mata a credibilidade do criativo. Ver passo 2 da seção
+"Execução da auditoria > Quando o input é VÍDEO" pra mecânica.
+
+**Cobertura mínima de frames quando há troca de produto/formato:**
+- Packshot principal do bloco de oferta
+- Kits de 3/6 unidades (visualizações compostas)
+- Badges de preço/garantia sobre o produto
+- **Todos os depoimentos** dentro da janela auditada — avatares costumam
+  segurar o produto físico, e clipes reaproveitados da VSL anterior
+  frequentemente trazem o packshot antigo hardcoded
+- Qualquer trecho onde o áudio menciona o produto pelo nome
+
+**Erro clássico a vigiar:** editor atualiza o packshot do bloco de oferta
+mas deixa o packshot antigo intacto dentro dos depoimentos (porque cada
+depoimento é um clip pré-renderizado da operação anterior). Cruzar as duas
+fontes explicitamente no relatório.
+
+Além da auditoria visual, rodar também os 4 checks textuais abaixo:
 
 #### (a) Auto-ataque ao novo formato
 
@@ -384,7 +406,20 @@ Use o Python desse venv: `~/.claude/skills/sentinela/.venv/Scripts/python.exe`.
    JSON com segmentos `[{start, end, text}]` (timestamps já ajustados ao tempo
    real do vídeo, não ao corte).
 
-2. **Se for preciso checar IMAGEM:** extraia frames da mesma janela:
+2. **Extraia frames e leia visualmente — OBRIGATÓRIO sempre que o briefing
+   envolver troca de produto, formato, imagem ou packshot.** Não espere o
+   usuário pedir: se a troca tem componente visual (produto físico aparecendo,
+   pote/frasco, badges de preço, formato), a auditoria visual é parte
+   inseparável da revisão. Pular essa etapa = relatório incompleto.
+
+   **Onde extrair frames (mínimo obrigatório quando há troca de produto/formato):**
+   - **Bloco de oferta** (packshot principal, kits de 3/6 unidades, badges de preço)
+   - **Todos os depoimentos** dentro da janela auditada (avatares costumam segurar
+     o produto físico — clipes velhos importados frequentemente trazem packshot
+     hardcoded do produto antigo)
+   - **Qualquer trecho onde o áudio menciona o produto pelo nome** (provável
+     packshot de apoio na arte)
+
    ```powershell
    ~/.claude/skills/sentinela/.venv/Scripts/python.exe `
      ~/.claude/skills/sentinela/scripts/extract_frames.py `
@@ -397,8 +432,18 @@ Use o Python desse venv: `~/.claude/skills/sentinela/.venv/Scripts/python.exe`.
    imagem do produto na tela. Aumente se a oferta tiver muito corte rápido.
 
 3. **Leia os frames com sua capacidade multimodal** (use a tool Read em cada
-   PNG). Procure especificamente pelo produto físico aparecendo (frasco, caixa,
-   blister) e descreva o que vê.
+   PNG). Para cada frame onde o produto físico aparece (frasco, pote, caixa,
+   blister, badge), confirme explicitamente:
+   - O **nome impresso no rótulo** é o produto NOVO?
+   - A **cor/forma da embalagem** bate com o produto novo? (ex: powder = jar
+     largo; capsule/drops = bottle alto e estreito)
+   - **Badges textuais** (ex: "PER BOTTLE", "60-DAY GUARANTEE") estão coerentes
+     com a troca pedida?
+
+   **Compare offer block vs depoimentos vs FAQ.** Erro clássico: editor
+   atualiza o packshot do bloco de oferta mas deixa o packshot antigo
+   hardcoded dentro dos clipes de depoimento. Toda revisão de troca de
+   produto/formato tem que cruzar essas duas fontes explicitamente.
 
 ### Quando o input é SCRIPT MARCADO
 
