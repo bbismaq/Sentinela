@@ -643,25 +643,17 @@ Modelo:
 - [Aprovar / Voltar pro editor / Investigar X]
 
 ## Alterações
-<!-- Lista pronta para copiar e colar para o editor. Um cabeçalho por vídeo/front. Cada item: timestamp + ação objetiva. Ações válidas: `Substituir frase [trecho antigo] por <trecho novo>`, `Trocar imagem/frame de <descrição atual> para <descrição desejada>`, ou `**Excluir toda a frase** [trecho antigo] — cortar do vídeo e remover da copy.` Inclua aqui TODOS os achados ❌ e ⚠️ (e quaisquer itens não solicitados que precisem virar correção). Se algum vídeo não tem alterações, escreva "Sem alterações." sob o cabeçalho dele. -->
+<!-- Lista pronta para copiar e colar para o editor. Um cabeçalho por vídeo/front. Cada item: numeração sequencial (1, 2, 3...) reiniciada por cabeçalho + timestamp + ação objetiva, seguido de linha "Motivo:" indentada 4 espaços. Ações válidas: `Substituir frase [trecho antigo] por <trecho novo>`, `Trocar imagem/frame de <descrição atual> para <descrição desejada>`, ou `**Excluir toda a frase** [trecho antigo] — cortar do vídeo e remover da copy.` Inclua aqui TODOS os achados ❌ e ⚠️ (e quaisquer itens não solicitados que precisem virar correção). Se algum vídeo não tem alterações, escreva "Sem alterações." sob o cabeçalho dele. -->
 
 UPSELL 1 - 8.0 (FRONT 1 ou 2)
-- 00:00:47 - Substituir frase [trecho antigo exato] por <trecho novo sugerido>
+- 1. 00:00:47 - Substituir frase [trecho antigo exato] por <trecho novo sugerido>
+    Motivo: <uma frase curta explicando POR QUÊ essa alteração precisa acontecer — qual erro do briefing/catálogo essa edição conserta. Não repita a ação ("substituir frase X por Y"); foque na causa raiz ("nome antigo do produto residual no áudio", "preço divergente do catálogo", "packshot do produto anterior hardcoded num B-roll", etc).>
 
 UPSELL 1 - 8.0 (FRONT 3)
 - ...
 
 UPSELL 1 - 8.0 (FRONT 6)
 - ...
-
-## Resumo
-<!-- DUPLICATA da tabela-resumo do topo. Cola exatamente a mesma tabela aqui, sem mudar nada. Existe pra o editor abrir o relatório direto na seção de Alterações e já ter o resumo visível ao lado, sem precisar rolar pro topo. -->
-
-| # | Status | O que mudou |
-|:-:|:-:|:--|
-| 1 | ✅ | Preço por bottle: US$ 67 → US$ 57 |
-| 2 | ❌ | Quantidade do kit: 2 → 3 bottles |
-| 3 | ⚠️ | Imagem do produto: drops → capsules |
 
 ## Pontos de Atenção
 <!-- Trechos que NÃO viram ação do editor mas merecem conferência manual do usuário. Pode ser incoerência de contexto (nome de arquivo vs front esperado pelo pitch), ambiguidade que ✅/❌ não captura, sinal de processo errado upstream (doc da copy desatualizado, nomeação fora do padrão, decisão de pricing que destoa do catálogo mas pode ser intencional), etc. Use bullets curtos com o ponto + por quê chama atenção. Se não houver nada, escreva "Nenhum ponto de atenção identificado." Não repita itens que já viraram bullet de Alterações — só o que ficou fora dela. -->
@@ -694,25 +686,27 @@ Quando você identifica um erro ❌ ou ⚠️, **não pare em apontar o problema
 
 ### Seção "Alterações" — obrigatória em todo relatório
 
-**Regra:** TODO relatório (tanto opção 1 - Oferta quanto opção 2 - Funil de Upsell) deve conter a seção `## Alterações`. Ela é a primeira das três seções de fechamento do relatório (sequência final: `## Alterações` → `## Resumo` → `## Pontos de Atenção`). Existe para o editor de vídeo conseguir **copiar e colar direto** o que precisa ser corrigido, sem ter que reler o relatório inteiro.
+**Regra:** TODO relatório (tanto opção 1 - Oferta quanto opção 2 - Funil de Upsell) deve conter a seção `## Alterações`. Ela é a penúltima seção do relatório (sequência final: `## Alterações` → `## Pontos de Atenção`). Existe para o editor de vídeo conseguir **copiar e colar direto** o que precisa ser corrigido, sem ter que reler o relatório inteiro.
 
 Formato rígido:
 
 - **Um cabeçalho por vídeo/front** (ex: `UPSELL 1 - 8.0 (FRONT 1 ou 2)`, ou no caso de Oferta: `VSL <nome> (variação X)`).
-- **Bullets sob cada cabeçalho**, no formato:
-  `- HH:MM:SS - <ação objetiva>`
+- **Bullets numerados em ordem crescente sob cada cabeçalho**, no formato:
+  `- N. HH:MM:SS - <ação objetiva>`
+  Onde `N` é a numeração sequencial (1, 2, 3...) reiniciada por cabeçalho (cada vídeo/front começa do 1). Ex.: `- 1. 00:30:00 - Substituir frase [...] por <...>`.
   Para substituições de fala, use sempre: `Substituir frase [texto exato como está hoje] por <texto novo sugerido>`.
   Para mudanças de imagem/frame, use: `Trocar imagem/frame de <descrição atual> para <descrição desejada>`.
   Para **excluir uma frase inteira** (sem substituir por nada), use: `**Excluir toda a frase** [texto exato como está hoje] — cortar do vídeo e remover da copy.` Cabe especialmente em **recaps redundantes** (informação já dita logo antes no vídeo) ou em trechos onde qualquer substituição arrisca introduzir novo erro de número/quantidade. Se a frase a remover está em **trecho compartilhado entre variações** (Parte 1 / Parte 3 do upsell, intro comum a A/B), repita o bullet de exclusão sob cada cabeçalho de vídeo/front afetado.
+- **Linha "Motivo:" obrigatória logo abaixo de cada bullet**, indentada 4 espaços. Essa linha explica em uma frase curta POR QUÊ a alteração precisa acontecer — qual erro do briefing/catálogo essa edição conserta. **Foque na causa raiz**, não na ação. Exemplos bons: *"nome antigo do produto residual no áudio"*, *"preço divergente do catálogo Pitch 5.1 (US$ 59 vs US$ 69)"*, *"packshot do produto anterior hardcoded num B-roll da FAQ"*. Exemplos ruins (apenas reformulam a ação): *"trocar a fala"*, *"corrigir a legenda"*. O motivo existe para o editor entender o contexto sem precisar voltar pra seção de Achados.
 - **Use o timestamp em `HH:MM:SS` com zero-padding** (mesma regra do resto do relatório).
 - **Não use markdown de tabela aqui** — bullets simples para facilitar o copy/paste.
 - **Inclua todo achado ❌ e ⚠️** que demandar ação do editor. Achados ✅ não entram.
-- **Se um vídeo/front não tem alterações,** escreva literalmente `Sem alterações.` sob o cabeçalho dele.
+- **Se um vídeo/front não tem alterações,** escreva literalmente `Sem alterações.` sob o cabeçalho dele (sem numeração nem motivo).
 - **Não adicione cabeçalhos vazios** — se o relatório só tem 1 vídeo, só 1 cabeçalho aparece.
 
 ### Seção "Pontos de Atenção" — obrigatória em todo relatório
 
-**Regra:** TODO relatório (Oferta e Funil de Upsell) deve terminar com a seção `## Pontos de Atenção`, logo após a duplicata da `## Resumo` (que por sua vez vem após `## Alterações`). Sequência final fixa: `## Alterações` → `## Resumo` (duplicata) → `## Pontos de Atenção`. Essa seção existe para registrar **observações que merecem conferência manual do usuário**, mas que **não viram bullet de correção pro editor**.
+**Regra:** TODO relatório (Oferta e Funil de Upsell) deve terminar com a seção `## Pontos de Atenção`, logo após `## Alterações`. Sequência final fixa: `## Alterações` → `## Pontos de Atenção`. Essa seção existe para registrar **observações que merecem conferência manual do usuário**, mas que **não viram bullet de correção pro editor**.
 
 **O que entra aqui (e não em Alterações):**
 
