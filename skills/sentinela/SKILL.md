@@ -649,6 +649,9 @@ UPSELL 1 - 8.0 (FRONT 1 ou 2)
 - 1. 00:00:47 - Substituir frase [trecho antigo exato] por <trecho novo sugerido>
     Motivo: <uma frase curta explicando POR QUÊ essa alteração precisa acontecer — qual erro do briefing/catálogo essa edição conserta. Não repita a ação ("substituir frase X por Y"); foque na causa raiz ("nome antigo do produto residual no áudio", "preço divergente do catálogo", "packshot do produto anterior hardcoded num B-roll", etc).>
 
+- 2. 00:01:23 - Trocar imagem/frame de <descrição atual> para <descrição desejada>
+    Motivo: <causa raiz da segunda alteração>
+
 UPSELL 1 - 8.0 (FRONT 3)
 - ...
 
@@ -698,6 +701,7 @@ Formato rígido:
   Para mudanças de imagem/frame, use: `Trocar imagem/frame de <descrição atual> para <descrição desejada>`.
   Para **excluir uma frase inteira** (sem substituir por nada), use: `**Excluir toda a frase** [texto exato como está hoje] — cortar do vídeo e remover da copy.` Cabe especialmente em **recaps redundantes** (informação já dita logo antes no vídeo) ou em trechos onde qualquer substituição arrisca introduzir novo erro de número/quantidade. Se a frase a remover está em **trecho compartilhado entre variações** (Parte 1 / Parte 3 do upsell, intro comum a A/B), repita o bullet de exclusão sob cada cabeçalho de vídeo/front afetado.
 - **Linha "Motivo:" obrigatória logo abaixo de cada bullet**, indentada 4 espaços. Essa linha explica em uma frase curta POR QUÊ a alteração precisa acontecer — qual erro do briefing/catálogo essa edição conserta. **Foque na causa raiz**, não na ação. Exemplos bons: *"nome antigo do produto residual no áudio"*, *"preço divergente do catálogo Pitch 5.1 (US$ 59 vs US$ 69)"*, *"packshot do produto anterior hardcoded num B-roll da FAQ"*. Exemplos ruins (apenas reformulam a ação): *"trocar a fala"*, *"corrigir a legenda"*. O motivo existe para o editor entender o contexto sem precisar voltar pra seção de Achados.
+- **Linha em branco obrigatória entre bullets** (não entre o bullet e seu Motivo). O par bullet+Motivo é uma unidade visual; a separação por linha vazia entre unidades evita que o bloco vire um paredão de texto quando o editor cola no WhatsApp/Slack/ticket.
 - **Use o timestamp em `HH:MM:SS` com zero-padding** (mesma regra do resto do relatório).
 - **Não use markdown de tabela aqui** — bullets simples para facilitar o copy/paste.
 - **Inclua todo achado ❌ e ⚠️** que demandar ação do editor. Achados ✅ não entram.
