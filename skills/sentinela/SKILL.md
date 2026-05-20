@@ -26,15 +26,62 @@ Essas são regras duráveis das ofertas. Aplicam a TODA revisão de Oferta — q
 vídeo divergir, a correção é alinhar o vídeo à regra (não o contrário). Acuse
 sempre como ⚠️ na seção de achados e converja na seção `## Alterações`.
 
-### Garantia: **SEMPRE 60 dias**
+### Garantia: **SEMPRE 60 dias** (e SÓ a garantia)
 
-Qualquer menção a garantia ≠ 60 dias (ex: "180-day guarantee", "90 days money
-back", "30-day refund") é resíduo de template antigo. Converger para **60 dias**.
+Qualquer menção a **garantia** ≠ 60 dias (ex: "180-day guarantee", "90 days
+money back", "30-day refund") é resíduo de template antigo. Converger para
+**60 dias**.
 
 - **Direção da correção:** `180 → 60`, `90 → 60`, etc. NUNCA o inverso.
 - Se houver menções mistas dentro do mesmo vídeo, normalize TUDO para 60 dias.
 - Crítico: 180 dias prometido na oferta principal e 60 dias no FAQ = risco de
   promessa quebrada / chargeback. Tratar como bloqueio pra subir o criativo.
+
+⚠️ **A regra dos 60 dias aplica EXCLUSIVAMENTE à janela da garantia
+(money-back / refund window).** Não confundir com:
+
+- **Duração do tratamento** (ex: *"the six-bottle kit covers the full 180-day
+  treatment"*) — isso é tempo biológico de uso (6 bottles × 30 dias = 180
+  dias). É copy correta, **não** mexer.
+- **Duração do protocolo recomendado** (ex: *"minimum recommended 90-day
+  protocol"* para o 3-bottle kit) — também tempo de uso, **não** mexer.
+- **Tempo até resultados** (ex: *"60 days to feel results"*, *"in 90 days
+  with Melt Drops"*) — promessa de timeline de eficácia, **não** garantia.
+
+**Como distinguir:** procurar pelas palavras *"guarantee"*, *"money-back"*,
+*"refund"*, *"return"*, *"satisfaction"* ao redor do número de dias. Sem
+essas, é duração de tratamento/protocolo — deixa quieto. Em caso de dúvida,
+**não deduzir**: deixa como Ponto de Atenção e pede confirmação do usuário.
+
+### Ancoragem de frete: regra por pitch
+
+A ancoragem de frete não é opcional — todo Pitch deve mencionar o frete
+explicitamente, tanto na **fala** quanto nos **badges visuais**. Sem isso, o
+lead chega no checkout, vê o frete que não foi mencionado, e abandona o
+carrinho. Atrito que mata margem.
+
+**Convenção atual (alinhada com o catálogo):**
+
+| Pitch | Front | Frete do front | Frete kit 3 | Frete kit 6 |
+|:--|:--|:--|:--|:--|
+| 1.2 / 3.2 | 1 bottle US$ 89 | **+ US$ 19** | **FREE** | **FREE** |
+| 5.1 | 2 bottles US$ 79/each | **+ US$ 19** | **FREE** | **FREE** |
+
+**Onde a ancoragem precisa aparecer:**
+
+1. **Fala (áudio + legenda)** — em cada momento que o pitch apresenta o kit:
+   - 6-bottle: *"…**shipping is completely free**"* / *"**with free shipping**"*
+   - 3-bottle: *"…**with free shipping included**"*
+   - Front (1 bottle 1.2/3.2 ou 2 bottles 5.1): *"…**plus a small $19 shipping fee**"*
+2. **Badge visual** sobre o packshot de cada kit:
+   - 6-bottle: linha *"FREE SHIPPING"* embaixo do badge de preço
+   - 3-bottle: linha *"FREE SHIPPING"*
+   - Front com frete: linha *"+ $19 SHIPPING"* abaixo do badge principal
+
+**Quando sinalizar como achado:** se o pitch fechou sem ancorar o frete em
+algum desses pontos, é bloqueio crítico 🚨 — vai pra Alterações com bullets
+específicos por kit. Aproveitar qualquer re-render obrigatório do pitch (ex:
+troca de Pitch 1.2 → 5.1) pra já fazer a ancoragem.
 
 ### Escassez (kits / unidades limitadas): **coerência primeiro**
 
