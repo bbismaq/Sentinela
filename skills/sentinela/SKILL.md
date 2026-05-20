@@ -291,6 +291,26 @@ A operação roda **vários funis de upsell**, cada um com uma estrutura de pre�
 - "Valor por frasco" é calculado sobre o **total de bottles incluindo os FREE** (US$ 87 ÷ 3 = US$ 29; US$ 261 ÷ 9 = US$ 29).
 - Downsell 1 do Funil 8.0 é em **vídeo** (não copy estática).
 
+#### Downsell 2
+
+> ⚠️ **Mesma estrutura do Downsell 1.** Variante A serve dois fronts (1 e 3); variante B serve o Front 6.
+
+**Downsell 2-A** (cliente veio do FRONT 01 ou FRONT 03)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 1 bottle | **49** | **49** |
+
+**Downsell 2-B** (cliente veio do FRONT 06)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 3 bottles | **39** | **117** |
+
+**Notas:**
+- Downsell 2 não tem opção "X+Y FREE" — é oferta única por variante.
+- A variante A oferece o menor pacote possível (1 unidade a US$ 49); B oferece 3 unidades a US$ 39/und.
+
 ### Como identificar o funil de upsell
 
 1. Identifique qual **FRONT** o vídeo está endereçando (nome do arquivo costuma trazer `FRONT 01/03/06`, e o áudio reforça "since you bought 1/3/6 bottles…").
