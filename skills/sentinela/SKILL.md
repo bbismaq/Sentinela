@@ -741,5 +741,27 @@ Formato:
   de novo o que mudou — extraia tudo do script.
 - **Língua do relatório:** sempre em português (o usuário é BR), mesmo que o
   vídeo seja em inglês. Mantenha citações da transcrição no idioma original.
+- **Linguagem clara, sem jargão técnico.** Escreva como se estivesse explicando
+  pra um colega de marketing direto — não pra um colega de tech ou produção
+  audiovisual. Termos como *hardcoded*, *B-roll*, *asset*, *pipeline*,
+  *trade-off*, *legacy*, *deploy* confundem o usuário e o time dele.
+  Traduções por padrão:
+  - *hardcoded* → "gravado/colado dentro do próprio clipe"
+  - *B-roll* → "clipe curto de apoio" ou "imagem de apoio que aparece enquanto o narrador fala"
+  - *asset* → "arquivo"
+  - *pipeline* → "fluxo" ou "processo"
+  - *trade-off* → "contrapartida"
+  - *legacy* → "antigo" ou "herdado"
+  - *deploy* → "publicar" ou "subir"
+
+  **Vocabulário do negócio (ok usar sem traduzir):** lead, oferta, pitch,
+  front, upsell, downsell, escassez, packshot, lipsync, frame, VSL, LP,
+  Pagamerican, VTurb. Também ok: nomes próprios de pitch/funil (Pitch 5.1,
+  Funil 8.0, Front 03).
+
+  **Aplica especialmente ao campo `Motivo:` da seção `## Alterações`** — esse
+  campo vai direto pro editor de vídeo (leigo em tech). Se precisar usar
+  um termo técnico que não está na lista ok-usar acima, explique entre
+  parênteses na primeira ocorrência.
 - **Nada vai pra memória:** este é um repositório compartilhado. Não salve nada
   em memória da máquina nem entre sessões.
