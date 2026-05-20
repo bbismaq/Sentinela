@@ -654,6 +654,15 @@ UPSELL 1 - 8.0 (FRONT 3)
 UPSELL 1 - 8.0 (FRONT 6)
 - ...
 
+## Resumo
+<!-- DUPLICATA da tabela-resumo do topo. Cola exatamente a mesma tabela aqui, sem mudar nada. Existe pra o editor abrir o relatório direto na seção de Alterações e já ter o resumo visível ao lado, sem precisar rolar pro topo. -->
+
+| # | Status | O que mudou |
+|:-:|:-:|:--|
+| 1 | ✅ | Preço por bottle: US$ 67 → US$ 57 |
+| 2 | ❌ | Quantidade do kit: 2 → 3 bottles |
+| 3 | ⚠️ | Imagem do produto: drops → capsules |
+
 ## Pontos de Atenção
 <!-- Trechos que NÃO viram ação do editor mas merecem conferência manual do usuário. Pode ser incoerência de contexto (nome de arquivo vs front esperado pelo pitch), ambiguidade que ✅/❌ não captura, sinal de processo errado upstream (doc da copy desatualizado, nomeação fora do padrão, decisão de pricing que destoa do catálogo mas pode ser intencional), etc. Use bullets curtos com o ponto + por quê chama atenção. Se não houver nada, escreva "Nenhum ponto de atenção identificado." Não repita itens que já viraram bullet de Alterações — só o que ficou fora dela. -->
 
@@ -685,7 +694,7 @@ Quando você identifica um erro ❌ ou ⚠️, **não pare em apontar o problema
 
 ### Seção "Alterações" — obrigatória em todo relatório
 
-**Regra:** TODO relatório (tanto opção 1 - Oferta quanto opção 2 - Funil de Upsell) deve terminar com a seção `## Alterações`. Essa seção existe para o editor de vídeo conseguir **copiar e colar direto** o que precisa ser corrigido, sem ter que reler o relatório inteiro.
+**Regra:** TODO relatório (tanto opção 1 - Oferta quanto opção 2 - Funil de Upsell) deve conter a seção `## Alterações`. Ela é a primeira das três seções de fechamento do relatório (sequência final: `## Alterações` → `## Resumo` → `## Pontos de Atenção`). Existe para o editor de vídeo conseguir **copiar e colar direto** o que precisa ser corrigido, sem ter que reler o relatório inteiro.
 
 Formato rígido:
 
@@ -703,7 +712,7 @@ Formato rígido:
 
 ### Seção "Pontos de Atenção" — obrigatória em todo relatório
 
-**Regra:** TODO relatório (Oferta e Funil de Upsell) deve terminar com a seção `## Pontos de Atenção`, logo após `## Alterações`. Essa seção existe para registrar **observações que merecem conferência manual do usuário**, mas que **não viram bullet de correção pro editor**.
+**Regra:** TODO relatório (Oferta e Funil de Upsell) deve terminar com a seção `## Pontos de Atenção`, logo após a duplicata da `## Resumo` (que por sua vez vem após `## Alterações`). Sequência final fixa: `## Alterações` → `## Resumo` (duplicata) → `## Pontos de Atenção`. Essa seção existe para registrar **observações que merecem conferência manual do usuário**, mas que **não viram bullet de correção pro editor**.
 
 **O que entra aqui (e não em Alterações):**
 
