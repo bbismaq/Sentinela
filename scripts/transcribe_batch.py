@@ -16,6 +16,8 @@ import sys
 import tempfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+
 
 def cut_audio(video_path: Path, out_wav: Path) -> None:
     cmd = [
@@ -41,6 +43,7 @@ def main() -> int:
         return 2
 
     from faster_whisper import WhisperModel
+    from _gpu_setup import pick_device
 
     in_dir = Path(args.dir)
     out_dir = Path(args.output_dir)
@@ -51,8 +54,9 @@ def main() -> int:
         print(f"No .mp4 found in {in_dir}", file=sys.stderr)
         return 1
 
-    print(f"[batch] loading model '{args.model}' (CPU/int8)...", file=sys.stderr)
-    model = WhisperModel(args.model, device="cpu", compute_type="int8")
+    device, compute_type = pick_device()
+    print(f"[batch] loading model '{args.model}' ({device}/{compute_type})...", file=sys.stderr)
+    model = WhisperModel(args.model, device=device, compute_type=compute_type)
 
     for i, video in enumerate(videos, 1):
         out_path = out_dir / (video.stem + ".json")

@@ -4,9 +4,12 @@
 #   1. Verifies Python 3.10+ is available (installs via winget if missing)
 #   2. Verifies ffmpeg is available (installs via winget if missing)
 #   3. Creates an isolated venv at ~/.claude/skills/sentinela/.venv
-#   4. Installs faster-whisper into the venv
-#   5. Pre-downloads the 'medium' Whisper model so the first /sentinela run is fast
-#   6. Copies the skill (SKILL.md + scripts/) into ~/.claude/skills/sentinela/
+#   4. Installs faster-whisper + gdown into the venv
+#   5. Detects NVIDIA GPU and (optionally) installs CUDA libraries
+#      → membros sem GPU NVIDIA usam CPU automaticamente (10-20min/VSL)
+#      → membros com NVIDIA ganham aceleração 5-15x (2-3min/VSL)
+#   6. Pre-downloads the 'medium' Whisper model so the first /sentinela run is fast
+#   7. Copies the skill (SKILL.md + scripts/) into ~/.claude/skills/sentinela/
 #
 # Re-running this script is safe: it skips steps already completed.
 
@@ -20,9 +23,10 @@ $VenvPython = Join-Path $VenvPath  "Scripts\python.exe"
 function Write-Step($msg) { Write-Host "`n==> $msg" -ForegroundColor Cyan }
 function Write-OK($msg)   { Write-Host "    [OK] $msg" -ForegroundColor Green }
 function Write-Warn($msg) { Write-Host "    [!]  $msg" -ForegroundColor Yellow }
+function Write-Info($msg) { Write-Host "    $msg" -ForegroundColor Gray }
 
 # ---------------------------------------------------------------------------
-Write-Step "1/6 Checking Python 3.10+"
+Write-Step "1/7 Checking Python 3.10+"
 $pythonExe = $null
 foreach ($candidate in @("python", "py")) {
     try {
@@ -45,7 +49,7 @@ if (-not $pythonExe) {
 }
 
 # ---------------------------------------------------------------------------
-Write-Step "2/6 Checking ffmpeg"
+Write-Step "2/7 Checking ffmpeg"
 try { $null = & ffmpeg -version 2>$null } catch {}
 if ($LASTEXITCODE -ne 0) {
     Write-Warn "ffmpeg not found. Installing via winget..."
@@ -57,7 +61,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 # ---------------------------------------------------------------------------
-Write-Step "3/6 Creating isolated venv at $VenvPath"
+Write-Step "3/7 Creating isolated venv at $VenvPath"
 if (-not (Test-Path $SkillRoot)) {
     New-Item -ItemType Directory -Force -Path $SkillRoot | Out-Null
 }
@@ -69,16 +73,47 @@ if (-not (Test-Path $VenvPython)) {
 }
 
 # ---------------------------------------------------------------------------
-Write-Step "4/6 Installing faster-whisper into venv (may take a few minutes)"
+Write-Step "4/7 Installing faster-whisper + gdown into venv (may take a few minutes)"
 & $VenvPython -m pip install --upgrade pip --quiet
-& $VenvPython -m pip install --quiet "faster-whisper>=1.0.0"
-Write-OK "faster-whisper installed"
+& $VenvPython -m pip install --quiet "faster-whisper>=1.0.0" gdown
+Write-OK "faster-whisper + gdown installed"
 
 # ---------------------------------------------------------------------------
-Write-Step "5/6 Pre-downloading 'medium' Whisper model (~1.5GB, one time only)"
+Write-Step "5/7 Checking for NVIDIA GPU (optional GPU acceleration)"
+$hasNvidia = $false
+try {
+    $null = & nvidia-smi 2>$null
+    if ($LASTEXITCODE -eq 0) { $hasNvidia = $true }
+} catch {}
+
+if ($hasNvidia) {
+    Write-OK "NVIDIA GPU detected"
+
+    # Check disk space before pulling ~1.3GB of CUDA libs
+    $freeGB = [math]::Round((Get-PSDrive C).Free / 1GB, 1)
+    Write-Info "Free disk space on C:: $freeGB GB"
+
+    if ($freeGB -lt 4) {
+        Write-Warn "Less than 4GB free on C: — skipping GPU libs install (transcrição vai usar CPU)."
+        Write-Warn "Libere espaço e rode novamente pra ativar GPU."
+    } else {
+        Write-Info "Installing CUDA libraries (~1.3GB) — speeds up transcription 5-15x..."
+        & $VenvPython -m pip install --quiet nvidia-cublas-cu12 nvidia-cudnn-cu12 nvidia-cuda-nvrtc-cu12
+        if ($LASTEXITCODE -eq 0) {
+            Write-OK "CUDA libraries installed — transcription will use GPU"
+        } else {
+            Write-Warn "Falha ao instalar libs CUDA — transcrição vai usar CPU. Skill segue funcional."
+        }
+    }
+} else {
+    Write-Info "Sem GPU NVIDIA detectada — usando CPU (10-20min/VSL). Skill funciona normalmente."
+}
+
+# ---------------------------------------------------------------------------
+Write-Step "6/7 Pre-downloading 'medium' Whisper model (~1.5GB, one time only)"
 $preload = @"
 from faster_whisper import WhisperModel
-print('Downloading medium model — this may take a few minutes...')
+print('Downloading medium model - this may take a few minutes...')
 m = WhisperModel('medium', device='cpu', compute_type='int8')
 print('Model ready.')
 "@
@@ -86,7 +121,7 @@ print('Model ready.')
 Write-OK "model ready"
 
 # ---------------------------------------------------------------------------
-Write-Step "6/6 Installing skill files into $SkillRoot"
+Write-Step "7/7 Installing skill files into $SkillRoot"
 $srcSkill   = Join-Path $RepoRoot "skills\sentinela\SKILL.md"
 $srcScripts = Join-Path $RepoRoot "scripts"
 $dstSkill   = Join-Path $SkillRoot "SKILL.md"

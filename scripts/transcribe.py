@@ -29,6 +29,9 @@ import sys
 import tempfile
 from pathlib import Path
 
+# Make sibling scripts (_gpu_setup) importable regardless of cwd.
+sys.path.insert(0, str(Path(__file__).parent))
+
 
 def parse_timestamp(ts: str) -> float:
     """Convert 'MM:SS' or 'HH:MM:SS' or plain seconds to float seconds."""
@@ -83,6 +86,11 @@ def main() -> int:
         print("ERROR: faster-whisper not installed. Run install.ps1 first.", file=sys.stderr)
         return 2
 
+    # Pick GPU if available, fall back to CPU. Done here so the probe runs
+    # only once per script invocation.
+    from _gpu_setup import pick_device
+    device, compute_type = pick_device()
+
     video = Path(args.video)
     if not video.exists():
         print(f"ERROR: video not found: {video}", file=sys.stderr)
@@ -97,8 +105,8 @@ def main() -> int:
         print(f"[sentinela] cutting audio slice -> {wav}", file=sys.stderr)
         cut_audio(video, start_sec, end_sec, wav)
 
-        print(f"[sentinela] loading model '{args.model}' (CPU/int8)...", file=sys.stderr)
-        model = WhisperModel(args.model, device="cpu", compute_type="int8")
+        print(f"[sentinela] loading model '{args.model}' ({device}/{compute_type})...", file=sys.stderr)
+        model = WhisperModel(args.model, device=device, compute_type=compute_type)
 
         print("[sentinela] transcribing...", file=sys.stderr)
         segments_iter, info = model.transcribe(
