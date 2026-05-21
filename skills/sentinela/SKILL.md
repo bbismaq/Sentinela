@@ -212,6 +212,40 @@ left"**, **"on the bottles"** — todas devem virar a versão com "jar". E vice-
 após troca pra capsule/drops/gummy. Atenção especial a **badges visuais** em
 frames de packshot (ex: " PER BOTTLE" sobre jar de powder).
 
+#### (e) Não confundir nome do produto com palavra do formato
+
+Quando uma frase mistura **nome do produto** (ex: "Lipotrine") com **palavra de
+formato** (ex: "gummies", "gelatin gummy formula", "one gummy"), são duas trocas
+distintas com escopo diferente:
+
+- **Nome do produto** vai para o **nome novo do produto** (ex: "Lipotrine" →
+  "Melt Drops"). Maiúsculo, marca.
+- **Palavra do formato** vai para a **palavra do formato novo** (ex: "gummy" →
+  "drop", "gummies" → "drops", "gelatin gummy formula" → "sublingual drop
+  formula"). Minúsculo, genérico.
+
+**Erro clássico:** trocar a palavra de formato pelo nome do produto novo. Ex:
+*"the gummy formula"* virando *"the Melt Drops formula"* — quebra a estrutura
+descritiva original (o copy diz "a fórmula do tipo X", não "a fórmula da marca
+Y"). E *"one gummy"* virando *"a few Melt Drops"* — usa o nome próprio como se
+fosse a contagem da dose.
+
+**Regra:** antes de propor cada substituição, pergunte explicitamente: "Esta
+palavra é o **nome próprio** (marca/produto) ou é o **substantivo genérico** do
+formato/dose?" Substitua na mesma categoria.
+
+| Original | Categoria | Substituição correta |
+|:--|:--|:--|
+| "Lipotrine" | nome próprio | "Melt Drops" (nome novo) |
+| "gummy" / "gummies" | formato genérico | "drop" / "drops" |
+| "the gummy formula" | formato genérico | "the drop formula" / "the sublingual drop formula" |
+| "one gummy" | dose (formato) | "a few drops" (drops não conta unidade — ver check (b)) |
+| "gummy GLP-1" | formato como adjetivo | "the GLP-1 from the drops" |
+| "Dr Oz's gummies" | formato com possessivo | "Dr Oz's drops" |
+
+**Atenção:** mesma regra vale pra unidade de embalagem (check (d)) — "bottle" /
+"jar" são categorias de embalagem, não nomes próprios.
+
 ### Material de referência em depoimentos / lip-sync
 
 Quando o nome **antigo** do produto (ou formato) aparece **sozinho** (sem
@@ -797,6 +831,17 @@ Use o Python desse venv: `~/.claude/skills/sentinela/.venv/Scripts/python.exe`.
    hardcoded dentro dos clipes de depoimento. Toda revisão de troca de
    produto/formato tem que cruzar essas duas fontes explicitamente.
 
+   **Você varre — você não delega.** Quando há frames extraídos, **antes de
+   gerar o relatório** percorrer os depoimentos da janela auditada e reportar
+   no corpo do relatório (e na seção `## Alterações`) os **timestamps
+   específicos** onde o produto antigo aparece em close, em mão de avatar, em
+   B-roll, ou em legenda/post-it. Reportar "Conferir clipe a clipe" / "Editor
+   confere" / "Auditar todo clipe com produto" no Ponto de Atenção é
+   **transferir trabalho seu pro editor** — é falha de auditoria. Pontos de
+   Atenção existe pra ambiguidades que dependem de decisão humana (ver seção
+   "Pontos de Atenção"), não pra inspeção visual que você consegue fazer com
+   os frames já extraídos.
+
 ### Quando o input é SCRIPT MARCADO
 
 Use o parser:
@@ -992,6 +1037,10 @@ Quando você identifica um erro ❌ ou ⚠️, **não pare em apontar o problema
 - Na seção `## Alterações` (formato copy/paste para o editor), a sugestão genérica/específica vai exatamente no slot `<trecho novo sugerido>`.
 - Se o erro está em trecho compartilhado, **repita a mesma sugestão genérica** sob cada cabeçalho de vídeo/front afetado — não é redundância, é o que o editor precisa pra aplicar em cada arquivo.
 
+**Regra dura: nunca delegar a escrita.** O slot `<trecho novo sugerido>` é produto final entregue ao editor — tem que conter a **frase pronta em inglês** (ou idioma do vídeo), exatamente como o avatar/locutor vai falar. Frases como *"reescrever pivotando pra X"*, *"ajustar entorno se houver referência"*, *"trocar mantendo a estrutura"* são proibidas — devolvem o trabalho de copywriter pro usuário/time. Se você não consegue escrever a frase final, o bullet não está pronto e algo do briefing/contexto está faltando — peça antes de gerar o relatório.
+
+Vale também pra **trechos onde a transcrição corta no meio** (ex: *"Lipo Treen is not a..."* sem o final) — preencha a lacuna com o que faz sentido pelo contexto e ENTREGUE a frase inteira (o editor compara com o vídeo na hora de re-gravar). Mesmo princípio: nada de *"conferir contexto e completar"*.
+
 ### Seção "Alterações" — obrigatória em todo relatório
 
 **Regra:** TODO relatório (tanto opção 1 - Oferta quanto opção 2 - Funil de Upsell) deve conter a seção `## Alterações`. Ela é a penúltima seção do relatório (sequência final: `## Alterações` → `## Pontos de Atenção`). Existe para o editor de vídeo conseguir **copiar e colar direto** o que precisa ser corrigido, sem ter que reler o relatório inteiro.
@@ -1012,6 +1061,8 @@ Formato rígido:
 - **Inclua todo achado ❌ e ⚠️** que demandar ação do editor. Achados ✅ não entram.
 - **Se um vídeo/front não tem alterações,** escreva literalmente `Sem alterações.` sob o cabeçalho dele (sem numeração nem motivo).
 - **Não adicione cabeçalhos vazios** — se o relatório só tem 1 vídeo, só 1 cabeçalho aparece.
+- **Bullets visuais entregam só o delta — nada de descrever o frame atual.** O editor vê o frame. Não escreva "jar curto/arredondado com rótulo rosa", "bottle alto/estreito", "conta-gotas visível", "mostrado em caixa de 6 unidades", "três jars lado a lado" — tudo isso é ruído. O bullet visual contém só: **o que vira** (label novo, packshot do produto novo) + **valores concretos** (preço, frete, badge). Ex. bom: *"Trocar packshot do kit de 6 para rótulo Melt Drops, com badge **US$ 49/bottle + FREE SHIPPING**."* Sem adjetivos, sem descrição da forma da embalagem.
+- **Não fragmentar uma frase contínua em múltiplos bullets.** Quando dois (ou mais) ajustes caem dentro da **mesma frase falada / mesma sentença contínua** (timestamps a ~5–10s sem corte de fala entre eles), unificar em um bullet só com a frase inteira reescrita. O editor refaz a frase em um único re-render — fragmentar força ele a recompor o texto. Sinal forte: a transcrição mostra os dois trechos como continuação um do outro (último token do primeiro encosta no primeiro token do segundo). Ex.: "the gelatin gummy formula solves this entirely. The gelatin creates a protective layer..." é UMA reescrita, não duas.
 
 ### Seção "Pontos de Atenção" — obrigatória em todo relatório
 
