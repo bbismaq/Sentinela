@@ -1,6 +1,6 @@
 ---
 name: sentinela
-description: Audits VSL variations for direct-marketing operations. Verifies whether scripted/price/product/image changes were actually applied to the new video, focusing only on the offer window (typically min 40-60). Accepts three input formats — full video, marked script with [old] <new> tags, or plain transcription — and produces a per-item ✅/❌/⚠️ report.
+description: Audits VSL variations, upsell funnels, and short-form creatives (Meta/YouTube ads) for direct-marketing operations. Verifies whether scripted/price/product/image changes were applied (Oferta/Upsell) or whether the IA avatar faithfully delivered the script (Criativo). Accepts full video, marked script with [old] <new> tags, plain transcription, or Google Drive folder/file links. Produces a per-item ✅/❌/⚠️ report.
 ---
 
 # Sentinela — Auditor de Variações de VSL
@@ -395,7 +395,8 @@ A operação roda **vários funis de upsell**, cada um com uma estrutura de pre�
 
 ## Abertura da skill
 
-Ao ser invocada, o fluxo de abertura tem **dois passos fixos**, nesta ordem:
+Ao ser invocada, o fluxo de abertura tem **dois passos fixos** (três quando o
+usuário escolhe Criativo).
 
 **Passo 1 — sua primeira e única mensagem deve ser exatamente:**
 
@@ -403,15 +404,27 @@ Ao ser invocada, o fluxo de abertura tem **dois passos fixos**, nesta ordem:
 >
 > 1. Oferta
 > 2. Funil de Upsell
+> 3. Criativo
 
-**Passo 2 —** conforme a escolha do usuário, mande exatamente uma destas mensagens:
+**Passo 2 —** conforme a escolha do usuário:
 
-- Se escolheu **1. Oferta** → `Qual o briefing da oferta a ser revisada?`
-- Se escolheu **2. Funil de Upsell** → `Qual o briefing do funil de upsell a ser revisado?`
+- Se escolheu **1. Oferta** → mande `Qual o briefing da oferta a ser revisada?`
+- Se escolheu **2. Funil de Upsell** → mande `Qual o briefing do funil de upsell a ser revisado?`
+- Se escolheu **3. Criativo** → mande exatamente:
+
+  > Qual a mídia dos ads auditados?
+  >
+  > 1. Meta
+  > 2. YouTube
+
+**Passo 3 (apenas se o usuário escolheu opção 3):** depois de receber a mídia,
+mande exatamente: `Qual o briefing dos ads a serem revisados?` (independente
+da mídia escolhida — Meta ou YouTube — a mensagem é idêntica).
 
 Não faça mais nenhuma pergunta, não liste outras opções, não explique o fluxo.
 Espere o usuário descrever o briefing — ele vai contar o que mudou, qual é o
-input (vídeo, transcrição, script marcado), e quais auditorias quer.
+input (vídeo, transcrição, script marcado, link de Drive), e quais auditorias
+quer.
 
 > ⚠️ A lógica de auditoria de **Funil de Upsell** ainda será definida em uma
 > atualização futura desta skill. Por ora, ao receber o briefing de upsell,
@@ -432,6 +445,285 @@ Marcadores de input que você deve reconhecer no briefing sem perguntar:
 - **Sem timestamp e for vídeo longo** → transcreva inteiro e identifique a
   Oferta pelos gatilhos ("today only", "click the button", "limited time",
   "bonuses", "guarantee", "money back").
+- **Link de Google Drive (pasta ou arquivo individual)** → baixe com `gdown`
+  antes de transcrever (ver Criativos abaixo). Idem para link de doc da copy
+  do Google (export como `.txt`).
+
+## Criativos (Opção 3)
+
+> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 3
+> (Criativo)** na abertura da skill. Em revisões de **Oferta (opção 1)** ou
+> **Funil de Upsell (opção 2)**, ignore esta seção.
+
+### Contexto
+
+Diferente de VSL (1h) e Upsell (vídeos médios), criativo é **ad curto** (~1-3
+min) com avatar IA falando hook + body. O input geralmente vem de uma **pasta
+ou arquivo do Google Drive**, e o ad de referência tem nome no padrão da
+operação.
+
+A mídia (Meta ou YouTube) é perguntada no Passo 2 da abertura — registre no
+cabeçalho do relatório, mas a lógica de auditoria atual é a mesma para as
+duas. (Variações específicas por mídia podem ser adicionadas no futuro.)
+
+A auditoria padrão de criativo é **fidelidade da fala**: o avatar IA leu
+exatamente o que está no script (hook + body do doc da copy)?
+
+### Nomenclatura dos criativos
+
+Padrão fixo: `<COPY> <ADxHOOK> <OFERTA> <EDITOR>.mp4`
+
+Exemplo: `BB 327.1 CB2.1 SD.mp4`
+
+| Token | Significado | Exemplo |
+|:--|:--|:--|
+| `BB` | Iniciais do copywriter | Bruno Bismaq |
+| `327.1` | Número do ad . Número do hook | Ad 327, hook 1 |
+| `CB2.1` | Oferta (abreviação) | Coco Burn 2.1 |
+| `SD` | Iniciais do editor | Samuel Dias |
+
+**Notas:**
+- Um ad tem 1 body + 3 a 5 hooks (variações de abertura).
+- A tag do editor (`SD`, etc) **não aparece no doc da copy** — é distribuída
+  pelo time de edição posteriormente. Não usar essa tag pra localizar o ad
+  no doc.
+- Pra achar o ad no doc, usar o número do criativo (ex: "CREATIVE 327"). O
+  hook específico (`.1`, `.2`) aparece como linha separada dentro do bloco.
+
+### Estrutura do doc da copy
+
+- Doc abre com a versão em **PT-BR** (referência humana).
+- Depois há uma seção em **EN** (inglês) — **essa é a versão que vira o bruto
+  do avatar IA**. É a fonte de verdade pra auditoria do áudio.
+- Cada criativo tem: bloco de hooks (uma linha por hook, ex: `BB 327.1 CB2.1
+  <texto do hook>`) + um **body único compartilhado** entre os hooks `X.1` a
+  `X.N`.
+
+Marcadores comuns no doc:
+- `N - CREATIVE NNN Profile: ...` — abre o bloco do criativo.
+- `HOOK COPY` — abre a lista de hooks.
+- `BODY` — abre o body compartilhado.
+- `Here's the full translation:` — marca a transição PT→EN.
+- `________________` — separador de blocos.
+
+### Regras fixas da auditoria de criativos
+
+#### Cada vídeo é transcrito individualmente (mesmo com body compartilhado)
+
+O body é compartilhado **pelo script (texto)**, mas a IA gera **áudios
+independentes** pra cada ad. Por isso, em um criativo com 5 hooks (5 ads),
+existem **5 áudios falados do body** — um por ad. Variações entre eles são
+possíveis e relativamente comuns (ex: um ad sai com pronome trocado, outro
+sai com palavra omitida).
+
+**Conclusão prática:** transcrever os N vídeos do criativo individualmente
+e comparar cada body falado contra o script. Erro em **todos os N** = erro
+sistêmico do lote. Erro em **1 só** = erro isolado daquele ad.
+
+#### Validar pronúncia contra a legenda do vídeo (não confiar só na transcrição)
+
+A transcrição automática (Whisper) confunde palavras foneticamente próximas
+com frequência alta nesse domínio:
+
+- *"Using"* → transcrito como *"Losing"*
+- *"diet"* → transcrito como *"die"*
+- *"it back"* → transcrito como *"fat"*
+- *"trick"* → transcrito como *"trip"*
+
+A **legenda gravada no vídeo é decisão editorial deliberada** e funciona
+como ground truth do que o avatar realmente disse. Quando a transcrição
+sugerir uma palavra que muda o sentido da frase, **extrair um frame no
+timestamp suspeito e ler a legenda antes de flagar o achado**.
+
+**Regra de decisão:**
+
+1. Whisper aponta palavra divergente em ponto crítico do script.
+2. Extrair frame nesse timestamp (`extract_frames.py --start <ts> --end <ts+1s>`).
+3. Ler a legenda na tela.
+4. Se a legenda bate com o script (palavra correta) → **falso positivo**,
+   ignorar. Avatar falou certo, Whisper interpretou errado.
+5. Se a legenda bate com a transcrição (palavra errada) → **erro real**,
+   flagar como ❌ (avatar e legenda ambos errados, problema upstream).
+6. Se NÃO há legenda visível no timestamp ou ela é ambígua → manter como ⚠️
+   e pedir verificação manual de áudio.
+
+**Nunca flagar achado de pronúncia baseado só na transcrição.** O custo de
+falso positivo é alto — gera retrabalho desnecessário pro editor e mina a
+confiança no relatório.
+
+**Exceção:** divergências que NÃO são pares foneticamente próximos (ex:
+"we're"/"you're", "they"/"she") podem ser flagadas direto da transcrição,
+porque Whisper raramente confunde sons assim distintos. Nesses casos, o
+erro tende a estar no bruto upstream (tradução/preparação), não na
+transcrição.
+
+#### Pronúncia de nomes de marca/remédio
+
+**Ignorar divergências causadas por limitação fonética da transcrição
+automática** em nomes próprios. Exemplos a IGNORAR:
+
+- *"Mounjaro"* → transcrito como *"Mount Jaro"*, *"Manjaro"*, *"Monjaro"*, *"Moonjaro"*
+- *"Ozempic"* → transcrito como *"O-zempic"*, *"Oh Zempic"*
+- *"Wegovy"* → transcrito como *"We Govy"*
+
+Na prática o lead reconhece o nome do mesmo jeito. **Só flagar como ⚠️ se a
+pronúncia for gritante a ponto de mudar o nome reconhecível** (avatar IA
+realmente leu errado, não é artefato de transcrição). Ex: *"Mounjaro"* virou
+*"Monjar"* (corta sílaba), *"Ozempic"* virou *"Zepic"* (sumiu sílaba inteira).
+
+Em caso de dúvida, NÃO flagar.
+
+#### Marcadores do doc lidos em voz alta
+
+Quando o avatar IA fala em voz alta um trecho que NÃO é copy do script — e o
+trecho coincide com um **marcador estrutural do doc** (`Here's the full
+translation:`, `HOOK COPY`, `BODY`, separadores `________`) — isso é **erro
+de processo upstream**: quem preparou o bruto pra IA colou o bloco inteiro do
+doc, incluindo o marcador, sem limpar.
+
+**Classificar como ❌ crítico.** Resolução padrão: cortar o trecho do vídeo
+(não substituir). Se aparece em TODOS os ads do mesmo criativo, é erro
+sistêmico do preparador — mencionar nos Pontos de Atenção que outros ads do
+mesmo preparador podem ter o mesmo problema.
+
+#### Tradução faltando no doc da copy (EN incompleto)
+
+Padrão: o tradutor pode ter esquecido de traduzir parte do bloco do criativo
+pra EN. Sintoma típico: o bloco EN aparece truncado (ex: hook listado como só
+`BB 328.1 CB2.1 C` — uma letra solta), ou o bloco EN não existe pra aquele
+criativo.
+
+**Como proceder:**
+
+1. **Não tratar como bloqueio.** Voltar à versão **PT-BR** do mesmo criativo
+   e usar como referência.
+2. **Traduzir o trecho faltante** mentalmente — só pra ter um parâmetro.
+3. **Comparar o áudio do avatar contra a PROPOSTA**, não contra a tradução
+   literal. A tradução do bruto que gerou o avatar pode (e geralmente vai)
+   ser diferente da sua tradução mental — palavras, ordem, contrações — mas
+   o **sentido / promessa / gancho** precisa estar lá.
+4. **Classificar:**
+   - ✅ se o avatar entrega a mesma proposta da versão PT.
+   - ❌ se o avatar disse algo que **muda a promessa** (ex: PT diz "minha mãe
+     perdeu 30kg em 3 meses" e o avatar diz "minha mãe perdeu 5kg em 1 ano").
+   - ⚠️ se ficou ambíguo.
+5. **No relatório:** ser explícito que a comparação foi feita contra a
+   versão PT (pq EN faltou). Sinalizar nos Pontos de Atenção: "tradução
+   faltando no doc — avisar o tradutor pra próxima rodada".
+
+### Fluxo de execução
+
+#### 1. Identificação do ad
+
+Usuário tipicamente manda:
+- Link da pasta do Drive com vários ads (ou link de arquivo individual)
+- Nome exato do criativo a auditar (ex: `BB 327.1 CB2.1 SD`)
+- Link do doc da copy
+
+#### 2. Download
+
+- **Doc da copy:** baixar como `.txt` via endpoint de export do Google Docs:
+  ```powershell
+  $out = "$env:TEMP\sentinela-copy-<oferta>.txt"
+  Invoke-WebRequest -Uri "https://docs.google.com/document/d/<id>/export?format=txt" `
+    -OutFile $out -MaximumRedirection 10
+  ```
+  Pré-requisito: doc com permissão "qualquer pessoa com o link".
+
+- **Vídeo (link individual):**
+  ```powershell
+  & "$env:USERPROFILE\.claude\skills\sentinela\.venv\Scripts\gdown.exe" `
+    "<link-do-arquivo>" -O "$env:TEMP\sentinela-ads\<nome>.mp4"
+  ```
+
+- **Vídeo (link de pasta):**
+  ```powershell
+  & "$env:USERPROFILE\.claude\skills\sentinela\.venv\Scripts\gdown.exe" `
+    --folder "<link-da-pasta>" -O "$env:TEMP\sentinela-ads-<oferta>"
+  ```
+  ⚠️ Pasta baixa TODOS os ads. Sempre que possível, pedir link individual.
+
+#### 3. Localização do ad no doc
+
+- Buscar pelo número do criativo (ex: `CREATIVE 327` ou `BB 327.1`).
+- Capturar **hook específico** (linha do `BB 327.X`) + **body compartilhado**
+  (bloco `BODY` logo abaixo).
+- Ignorar a versão PT-BR se a EN estiver disponível e completa; usar a EN
+  como referência. Se EN faltar, voltar pra PT (ver regra acima).
+
+#### 4. Transcrição
+
+- Ad curto: transcrever inteiro (sem janela). Roda em <2min com `medium` model.
+- Múltiplos ads: usar `transcribe_batch.py` — carrega modelo uma vez e
+  itera, com skip-if-exists pra retomar interrupções:
+  ```powershell
+  & "$env:USERPROFILE\.claude\skills\sentinela\.venv\Scripts\python.exe" `
+    "$env:USERPROFILE\.claude\skills\sentinela\scripts\transcribe_batch.py" `
+    --dir "$env:TEMP\sentinela-ads-<oferta>" `
+    --output-dir "$env:TEMP\sentinela-transcripts-<oferta>"
+  ```
+
+#### 5. Comparação
+
+Linha por linha do script (hook + body) contra os segmentos da transcrição
+de **cada ad individualmente**. Aplicar as regras fixas acima antes de
+classificar como ❌/⚠️.
+
+#### 6. Relatório
+
+Mesma estrutura geral da opção 1 (Oferta), com adaptações:
+
+**Cabeçalho específico de criativo:**
+```
+**Oferta:** <nome decodificado da abreviação>
+**Mídia:** <Meta ou YouTube — conforme respondido no Passo 2>
+**Editor:** <nome decodificado da tag — ex: Samuel Dias (SD)>
+**Copywriter:** <nome decodificado das iniciais — ex: Bruno Bismaq (BB)>
+**Doc da copy:** <oferta> (Google Docs)
+**Escopo da auditoria:** fidelidade da fala (avatar IA vs script)
+**Total auditado:** N criativos × M hooks (lista) + N bodies compartilhados
+```
+
+**Estrutura por criativo:**
+- `## Criativo NNN — <descrição curta>` (uma seção por criativo)
+- `### Hooks` — uma sub-seção por hook (`#### NNN.X — ✅` ou achado detalhado)
+- `### Body (compartilhado entre NNN.1–NNN.N)` — auditoria do body **uma vez**, listando todos os ads afetados de uma vez se houver erro sistêmico, ou cada ad individualmente se houver divergência intra-família
+
+**Sem `Pitch utilizado`** (não se aplica a criativo — é teaser pra VSL, não
+mostra preço/kit). Caso o ad mencione preço explicitamente, aí sim aplicar
+catálogo de pitches da opção 1.
+
+**Estrutura de "Alterações" para criativos:**
+
+Quando o achado é no **body compartilhado** (afeta todos os ads do criativo),
+agrupar sob cabeçalho único — NÃO duplicar sob cada ad:
+
+```
+CRIATIVO NNN — BODY (TODOS OS N ADS: NNN.1, NNN.2, NNN.3, ...)
+- 1. HH:MM:SS — <ação>
+    Motivo: <causa raiz>
+```
+
+Quando o achado é em um **hook específico** ou em um **body individual**
+(divergência intra-família), usar o nome completo do ad:
+
+```
+BB NNN.X CB2.1 SD
+- 1. HH:MM:SS — <ação>
+    Motivo: <causa raiz>
+```
+
+Se os demais ads do criativo não têm alterações, listar sob cabeçalho:
+
+```
+CRIATIVO NNN — DEMAIS ADS (NNN.1, NNN.3, NNN.5)
+Sem alterações.
+```
+
+**Salvar relatório** em `C:\Users\bbism\Downloads\Transcriber\Transcriber\source\`
+com nome `RELATORIO-SENTINELA-<oferta>-lote-completo-<YYYYMMDD>.md` (lote
+inteiro) ou `RELATORIO-SENTINELA-<nome-do-criativo>-<YYYYMMDD-HHMM>.md`
+(auditoria de 1 criativo só).
 
 ## Execução da auditoria
 
