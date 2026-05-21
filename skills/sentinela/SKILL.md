@@ -13,10 +13,23 @@ produto e imagem do produto.
 ## Contexto importante do domínio
 
 - O usuário trabalha com **VSLs em inglês**, geralmente com ~1 hora de duração.
-- Toda VSL tem estrutura: **Lead → Story → Tese → Product Build Up → Oferta**.
-- **Mudanças de preço, produto, formato e imagem do produto SEMPRE ficam na seção Oferta.**
-- A Oferta normalmente está nos **últimos 15-25 minutos** do vídeo (ex: min 40-60).
-- Você NUNCA precisa analisar o vídeo inteiro — só a janela da Oferta.
+- Toda VSL tem estrutura: **Lead → Story → Tese → Product Build Up → Bloco de Oferta**.
+- **Mudanças de preço, produto, formato e imagem do produto SEMPRE ficam no Bloco de Oferta.**
+- O Bloco de Oferta normalmente está nos **últimos 15-25 minutos** do vídeo (ex: min 40-60).
+- **Foco da auditoria visual e da identificação do pitch:** apenas o Bloco de
+  Oferta (poupa tempo de extração de frames).
+- **Regras fixas (garantia, frete, escassez, marcadores parasitas, nome/formato
+  do produto) são checadas no vídeo inteiro** — podem aparecer em qualquer
+  trecho (FAQ no fim, depoimentos no meio, build-up).
+
+> ⚠️ **Termo "Oferta" tem dois usos no domínio — não confundir:**
+>
+> - **Oferta (negócio):** o produto/teste que está rodando (*"a oferta de hoje
+>   é Coco Burn 2.1"*). Conceito de operação.
+> - **Bloco de Oferta (vídeo):** o trecho final da VSL onde o pitch acontece —
+>   preço, kit, garantia, frete, escassez, CTA. Conceito estrutural da VSL.
+>
+> Quando o SKILL.md diz "Bloco de Oferta", sempre se refere ao trecho do vídeo.
 - O usuário roda múltiplos testes A/B trocando: preço, formato (gotas→cápsula),
   imagem do produto, fala específica, ou combinações.
 
@@ -433,15 +446,15 @@ quer.
 
 A partir do briefing, extraia tudo que conseguir e **só pergunte de volta o
 que for estritamente necessário** para executar a auditoria (ex: caminho do
-arquivo se não foi dado, janela da Oferta se for vídeo longo sem timestamp).
+arquivo se não foi dado, Bloco de Oferta se for vídeo longo sem timestamp).
 Nunca repita perguntas cuja resposta já está no briefing.
 
 Marcadores de input que você deve reconhecer no briefing sem perguntar:
-- **Caminho `.mp4`** → input é vídeo; corte e transcreva a janela da Oferta.
+- **Caminho `.mp4`** → input é vídeo; corte e transcreva o Bloco de Oferta.
 - **Caminho `.txt`/`.md` ou texto colado com `[old] <new>`** → script marcado;
   rode `parse_marked.py` se for arquivo.
 - **Texto colado sem marcação** → transcrição/briefing puro; trabalhe direto.
-- **Timestamp tipo `42:00–58:30`** → janela da Oferta já definida.
+- **Timestamp tipo `42:00–58:30`** → Bloco de Oferta já definida.
 - **Sem timestamp e for vídeo longo** → transcreva inteiro e identifique a
   Oferta pelos gatilhos ("today only", "click the button", "limited time",
   "bonuses", "guarantee", "money back").
@@ -733,7 +746,7 @@ Use o Python desse venv: `~/.claude/skills/sentinela/.venv/Scripts/python.exe`.
 
 ### Quando o input é VÍDEO
 
-1. **Corte e transcreva apenas a janela da oferta:**
+1. **Corte e transcreva apenas o Bloco de Oferta:**
    ```powershell
    ~/.claude/skills/sentinela/.venv/Scripts/python.exe `
      ~/.claude/skills/sentinela/scripts/transcribe.py `
@@ -1025,7 +1038,7 @@ Formato:
 
 ## Princípios
 
-- **Foco cirúrgico:** nunca analise fora da janela da Oferta a menos que o
+- **Foco cirúrgico (auditoria visual e pitch):** nunca extraia frames fora do Bloco de Oferta a menos que o
   usuário peça explicitamente.
 - **Honestidade:** se a transcrição estiver ambígua ou o frame não der pra
   julgar com certeza, use ⚠️ e diga "verificar manualmente". Não invente ✅.
