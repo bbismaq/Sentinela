@@ -50,6 +50,14 @@ money back", "30-day refund") é resíduo de template antigo. Converger para
 - Crítico: 180 dias prometido na oferta principal e 60 dias no FAQ = risco de
   promessa quebrada / chargeback. Tratar como bloqueio pra subir o criativo.
 
+**A regra é sobre QUANTIDADE, não wording.** *"60 day(s)"* e *"two month(s)"*
+são sinônimos aceitos pela operação — ambos aparecem na copy estabelecida.
+Não flagar achado quando o áudio oscila entre essas duas formas, **desde que
+a quantidade total (60 dias = 2 meses) esteja coerente** com badge visual e
+demais menções. Só vira achado se: (a) a quantidade muda (ex: "90 days" em
+algum trecho); ou (b) o badge visual contradiz a fala (ex: badge "60 DAY" +
+fala "90-day guarantee").
+
 ⚠️ **A regra dos 60 dias aplica EXCLUSIVAMENTE à janela da garantia
 (money-back / refund window).** Não confundir com:
 
@@ -79,6 +87,7 @@ carrinho. Atrito que mata margem.
 |:--|:--|:--|:--|:--|
 | 1.2 / 3.2 | 1 bottle US$ 89 | **+ US$ 19** | **FREE** | **FREE** |
 | 5.1 | 2 bottles US$ 79/each | **+ US$ 19** | **FREE** | **FREE** |
+| 5.2 | 2 bottles US$ 79/each | **+ US$ 9** | **FREE** | **FREE** |
 
 **Onde a ancoragem precisa aparecer:**
 
@@ -92,9 +101,25 @@ carrinho. Atrito que mata margem.
    - Front com frete: linha *"+ $19 SHIPPING"* abaixo do badge principal
 
 **Quando sinalizar como achado:** se o pitch fechou sem ancorar o frete em
-algum desses pontos, é bloqueio crítico 🚨 — vai pra Alterações com bullets
-específicos por kit. Aproveitar qualquer re-render obrigatório do pitch (ex:
-troca de Pitch 1.2 → 5.1) pra já fazer a ancoragem.
+algum desses pontos, sinalize. Aproveitar qualquer re-render obrigatório do
+pitch (ex: troca de Pitch 1.2 → 5.1) pra já fazer a ancoragem.
+
+**Ancoragem é all-or-nothing entre os fronts do mesmo pitch.** Ancorar o
+frete só em parte dos kits (ex: dizer "free shipping" no 6-bottle mas não
+mencionar nada nos outros dois) introduz incoerência pior do que não ancorar
+em nenhum. Por isso o achado é **único** (não um bullet por kit):
+
+- Se a VSL **não ancora frete em nenhum dos 3 fronts** → sinalizar como
+  decisão única em `## Pontos de Atenção`, deixando o usuário decidir se
+  vale o re-render dos 3 trechos de uma vez. Não fragmentar em 3 bullets de
+  Alterações, porque ele só vai aplicar TODOS ou nenhum.
+- Se a VSL **ancora em parte e falha em outras** → aí sim vai pra Alterações
+  como bloqueio crítico 🚨, com bullets cobrindo só os kits onde falta
+  ancoragem (pra fechar a coerência).
+- Se a auditoria está disparando junto com **outro re-render obrigatório no
+  mesmo trecho** (ex: precisa corrigir preço naquela frase de qualquer
+  jeito) → aproveitar pra ancorar o frete também, mesmo em Alterações; o
+  custo marginal é zero.
 
 ### Escassez (kits / unidades limitadas): **coerência primeiro**
 
@@ -296,7 +321,7 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 
 ⚠️ **Pelos preços, 1.2 e 3.2 são indistinguíveis.** A diferença está na presença/ausência do quiz na LP, que normalmente **não aparece dentro do vídeo da VSL**. Se a janela auditada só mostra a oferta (não a LP), reporte como **"Pitch 1.2 ou 3.2 (indistinguível pelos preços — depende de quiz na LP)"** no cabeçalho e siga em frente. Só afirme um dos dois se o briefing/usuário confirmar qual está rodando.
 
-### Pitch 5.1 — Afiliação BHEver e Instituto X
+### Pitch 5.1 — Afiliação BHEver
 
 | Front | Preço/bottle | Frete |
 |:--|:--:|:--|
@@ -304,7 +329,19 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 | **3 bottles** | **US$ 69** | Grátis |
 | **6 bottles** | **US$ 49** | Grátis |
 
-**Assinatura única:** front menor é **2 bottles** (não 1) com taxa de frete (~US$ 19,99). Usado em afiliações BHEver e Instituto X.
+**Assinatura única:** front menor é **2 bottles** (não 1) com taxa de frete (~US$ 19,99). Usado em afiliação BHEver.
+
+### Pitch 5.2 — Afiliação Instituto X
+
+| Front | Preço/bottle | Frete |
+|:--|:--:|:--|
+| **2 bottles** | **US$ 79** | + **US$ 9,99** de frete |
+| **3 bottles** | **US$ 69** | Grátis |
+| **6 bottles** | **US$ 49** | Grátis |
+
+**Assinatura única:** preços por bottle **idênticos ao 5.1** — a única diferença é o **frete do front de 2 bottles**, que aqui é **US$ 9,99** (em vez de US$ 19,99 do 5.1). Usado em afiliação Instituto X.
+
+⚠️ **Pelos preços por bottle, 5.1 e 5.2 são indistinguíveis.** A diferença é exclusivamente o **valor do frete do front de 2 bottles** (US$ 19,99 = 5.1; US$ 9,99 = 5.2). Se a janela auditada não mostra o frete explicitamente (áudio nem badge visual), reporte como **"Pitch 5.1 ou 5.2 (indistinguível sem ver o frete do front)"** no cabeçalho e siga em frente.
 
 ### Como identificar o pitch
 
@@ -312,11 +349,13 @@ A operação roda **vários pitches** (estruturas de oferta) testados em A/B pra
 2. Compare com o catálogo acima.
 3. O sinal mais forte é **qual é o front menor**:
    - Front 1 bottle (US$ 89) + frete → **Pitch 1.2 ou 3.2** (a diferença é quiz na LP — ver nota no Pitch 3.2)
-   - Front 2 bottles (US$ 79) + frete → **Pitch 5.1**
-4. Os preços de 3 (US$ 69) e 6 (US$ 49) são iguais em 1.2 / 3.2 / 5.1 — não diferenciam.
+   - Front 2 bottles (US$ 79) + frete **US$ 19,99** → **Pitch 5.1** (BHEver)
+   - Front 2 bottles (US$ 79) + frete **US$ 9,99** → **Pitch 5.2** (Instituto X)
+   - Front 2 bottles (US$ 79) + frete não visível na janela → **Pitch 5.1 ou 5.2** (ver nota no Pitch 5.2)
+4. Os preços de 3 (US$ 69) e 6 (US$ 49) são iguais em 1.2 / 3.2 / 5.1 / 5.2 — não diferenciam.
 5. Se os preços **não baterem com nenhum pitch do catálogo**, **não presuma nada** — não é seu trabalho decidir se foi erro de processo ou pitch novo. Sinalize como **"Pitch não catalogado"** e **abra uma red flag** pra o usuário investigar. Reporte como:
 
-   > **🚩 Pitch não catalogado — red flag aberta.** Encontrei os seguintes preços na oferta: [lista]. Não bate com Pitch 1.2 / 3.2 / 5.1 (diferença: [qual]). **Pode ser:** (a) erro que passou pelo processo (typo, troca de valor entre fronts, preço residual de versão antiga); ou (b) pitch novo a cadastrar. **Verificar com o time antes de subir o criativo.**
+   > **🚩 Pitch não catalogado — red flag aberta.** Encontrei os seguintes preços na oferta: [lista]. Não bate com Pitch 1.2 / 3.2 / 5.1 / 5.2 (diferença: [qual]). **Pode ser:** (a) erro que passou pelo processo (typo, troca de valor entre fronts, preço residual de versão antiga); ou (b) pitch novo a cadastrar. **Verificar com o time antes de subir o criativo.**
 
    Posicione essa flag como um achado próprio (`### N. 🚩 Pitch não catalogado`), não esconda no cabeçalho. No campo "Pitch utilizado" do cabeçalho, escreva: *"Pitch não catalogado — ver achado #N"*.
 
@@ -531,6 +570,24 @@ Marcadores de input que você deve reconhecer no briefing sem perguntar:
 - **Link de Google Drive (pasta ou arquivo individual)** → baixe com `gdown`
   antes de transcrever (ver Criativos abaixo). Idem para link de doc da copy
   do Google (export como `.txt`).
+  - **Fallback se `gdown` falhar por permissão** ("Cannot retrieve the public
+    link of the file. You may need to change the permission to 'Anyone with
+    the link'"): use o MCP `google-docs` autenticado na conta do usuário —
+    a tool `mcp__google-docs__downloadFile` aceita o `fileId` do link e
+    baixa direto pelo Drive, mesmo quando o arquivo não está público (desde
+    que a conta autenticada tenha acesso). Útil quando o vídeo foi subido
+    por outra pessoa (ex: editor) e o usuário não pode mudar a permissão.
+    Chamada típica:
+    ```
+    mcp__google-docs__downloadFile(
+      fileId="<id-do-link>",
+      savePath="C:\\Users\\bbism\\AppData\\Local\\Temp\\sentinela-<oferta>\\<nome>.mp4",
+      extractText=false
+    )
+    ```
+    Para extrair o `fileId` do link `https://drive.google.com/file/d/<ID>/view`,
+    use o trecho `<ID>` entre `/d/` e `/view`. Não tente "abrir o link" — o
+    MCP precisa do ID puro.
 
 ## Criativos (Opção 3)
 
@@ -725,6 +782,20 @@ Usuário tipicamente manda:
     --folder "<link-da-pasta>" -O "$env:TEMP\sentinela-ads-<oferta>"
   ```
   ⚠️ Pasta baixa TODOS os ads. Sempre que possível, pedir link individual.
+
+- **Fallback quando `gdown` falha por permissão restrita do Drive:** o
+  MCP `google-docs` está autenticado na conta do usuário e consegue baixar
+  qualquer arquivo que a conta tenha acesso, mesmo sem o link estar
+  público. Útil quando o vídeo foi subido por outra pessoa (ex: editor) e
+  o usuário não consegue alterar a permissão. Chamada:
+  ```
+  mcp__google-docs__downloadFile(
+    fileId="<id-do-link>",
+    savePath="C:\\Users\\bbism\\AppData\\Local\\Temp\\sentinela-<oferta>\\<nome>.mp4",
+    extractText=false
+  )
+  ```
+  Extrair o `fileId` do trecho entre `/d/` e `/view` no URL do Drive.
 
 #### 3. Localização do ad no doc
 
@@ -1094,11 +1165,53 @@ Formato rígido:
 - **Linha em branco obrigatória entre bullets** (não entre o bullet e seu Motivo). O par bullet+Motivo é uma unidade visual; a separação por linha vazia entre unidades evita que o bloco vire um paredão de texto quando o editor cola no WhatsApp/Slack/ticket.
 - **Use o timestamp em `HH:MM:SS` com zero-padding** (mesma regra do resto do relatório).
 - **Não use markdown de tabela aqui** — bullets simples para facilitar o copy/paste.
-- **Inclua todo achado ❌ e ⚠️** que demandar ação do editor. Achados ✅ não entram.
+- **Inclua todo achado ❌ e ⚠️** que demandar ação do editor — mas passe primeiro pelo **filtro de alavancagem** descrito abaixo. Achados ✅ não entram.
 - **Se um vídeo/front não tem alterações,** escreva literalmente `Sem alterações.` sob o cabeçalho dele (sem numeração nem motivo).
 - **Não adicione cabeçalhos vazios** — se o relatório só tem 1 vídeo, só 1 cabeçalho aparece.
 - **Bullets visuais entregam só o delta — nada de descrever o frame atual.** O editor vê o frame. Não escreva "jar curto/arredondado com rótulo rosa", "bottle alto/estreito", "conta-gotas visível", "mostrado em caixa de 6 unidades", "três jars lado a lado" — tudo isso é ruído. O bullet visual contém só: **o que vira** (label novo, packshot do produto novo) + **valores concretos** (preço, frete, badge). Ex. bom: *"Trocar packshot do kit de 6 para rótulo Melt Drops, com badge **US$ 49/bottle + FREE SHIPPING**."* Sem adjetivos, sem descrição da forma da embalagem.
 - **Não fragmentar uma frase contínua em múltiplos bullets.** Quando dois (ou mais) ajustes caem dentro da **mesma frase falada / mesma sentença contínua** (timestamps a ~5–10s sem corte de fala entre eles), unificar em um bullet só com a frase inteira reescrita. O editor refaz a frase em um único re-render — fragmentar força ele a recompor o texto. Sinal forte: a transcrição mostra os dois trechos como continuação um do outro (último token do primeiro encosta no primeiro token do segundo). Ex.: "the gelatin gummy formula solves this entirely. The gelatin creates a protective layer..." é UMA reescrita, não duas.
+
+#### Filtro de alavancagem — passar antes de mandar achado pra Alterações
+
+Cada achado ❌/⚠️ tem **custo de edição** (re-render do trecho, sync de
+legenda, conferência) e **retorno de conversão** (quantos leads o achado
+ainda alcança no funil). Manter em `## Alterações` polui a fila do editor
+com trabalho de baixo payoff e dilui os achados que realmente movem agulha.
+Antes de cada bullet, aplicar:
+
+1. **Onde está o timestamp no funil?**
+   - Em VSL de ~1h, o **delay do botão de checkout** geralmente está em
+     torno de **00:50:00**. Depois disso, a retenção despenca — a maioria
+     dos leads já clicou em uma das opções de front e foi pro checkout.
+     Achados após o delay alcançam fração pequena da audiência.
+   - Em vídeos mais curtos (upsell, criativo), o "delay" equivalente é o
+     momento em que o CTA principal já foi apresentado.
+2. **O achado é cosmético ou crítico?**
+   - **Cosmético:** typo de legenda, sinônimo aceito pela operação, redundância de
+     wording que não muda promessa, oscilação entre formas equivalentes
+     ("two month" / "60 day"), polimento estético.
+   - **Crítico:** nome antigo do produto vazando (áudio ou legenda gravada),
+     preço errado, formato/produto errado, garantia inexistente ou diferente
+     em quantidade, ancoragem de frete faltando em pitch que exige.
+
+**Decisão:**
+
+| Timestamp | Tipo | Destino |
+|:--|:--|:--|
+| Antes do delay | qualquer | `## Alterações` |
+| Após o delay | crítico | `## Alterações` (mantém, mesmo tardio) |
+| Após o delay | cosmético | `## Pontos de Atenção` (usuário decide) |
+
+**Como apresentar quando manda pra Pontos de Atenção:** deixe explícito
+que é decisão de payoff, não que o achado é falso. Ex: *"Garantia oscila
+entre 'two month' e '60 day' no áudio (00:50:40) — coerente em quantidade
+e badge visual confirma '60 DAY GUARANTEE'. Timestamp após delay do
+checkout = baixa alavancagem. Deixo aqui caso queira padronizar em alguma
+rodada futura."*
+
+**Não use o filtro de alavancagem para esconder achados.** Se o usuário
+discordar de um caso borderline, ele move pra Alterações — mas tem que ver
+o achado em algum lugar do relatório.
 
 ### Seção "Pontos de Atenção" — obrigatória em todo relatório
 
