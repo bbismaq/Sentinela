@@ -385,7 +385,7 @@ A operação roda **vários funis de upsell**, cada um com uma estrutura de pre�
 | 9 bottles | **37** | **333** |
 | 6 bottles | **49** | **294** |
 
-#### Downsell 1 (em vídeo)
+#### Downsell 1 do Upsell 1 (em vídeo)
 
 > ⚠️ **Estrutura diferente do Upsell 1.** O Downsell 1-A serve dois fronts (1 e 3) — não há variante separada por front pra esses dois casos. O Front 06 tem variante própria (B).
 
@@ -405,11 +405,11 @@ A operação roda **vários funis de upsell**, cada um com uma estrutura de pre�
 
 **Notas:**
 - "Valor por frasco" é calculado sobre o **total de bottles incluindo os FREE** (US$ 87 ÷ 3 = US$ 29; US$ 261 ÷ 9 = US$ 29).
-- Downsell 1 do Funil 8.0 é em **vídeo** (não copy estática).
+- Downsell 1 do Upsell 1 do Funil 8.0 é em **vídeo** (não copy estática).
 
-#### Downsell 2
+#### Downsell 2 do Upsell 1
 
-> ⚠️ **Mesma estrutura do Downsell 1.** Variante A serve dois fronts (1 e 3); variante B serve o Front 6.
+> ⚠️ **Mesma estrutura do Downsell 1 do Upsell 1.** Variante A serve dois fronts (1 e 3); variante B serve o Front 6.
 
 **Downsell 2-A** (cliente veio do FRONT 01 ou FRONT 03)
 
@@ -424,8 +424,44 @@ A operação roda **vários funis de upsell**, cada um com uma estrutura de pre�
 | 3 bottles | **39** | **117** |
 
 **Notas:**
-- Downsell 2 não tem opção "X+Y FREE" — é oferta única por variante.
+- Downsell 2 do Upsell 1 não tem opção "X+Y FREE" — é oferta única por variante.
 - A variante A oferece o menor pacote possível (1 unidade a US$ 49); B oferece 3 unidades a US$ 39/und.
+
+#### Upsell 2
+
+> ⚠️ **Estrutura por front.** Variante A serve o Front 1; variante B serve Fronts 3 e 6 com os mesmos preços.
+
+**Upsell 2-A** (cliente veio do FRONT 01)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 9 bottles | **16** | **144** |
+| 6 bottles | **17** | **99** |
+| 2 bottles | **24** | **48** |
+
+**Upsell 2-B** (cliente veio do FRONT 03 ou FRONT 06)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 12 bottles | **19** | **228** |
+| 6 bottles | **29** | **174** |
+| 3 bottles | **33** | **99** |
+
+**Notas:**
+- Mesmo padrão de arredondamento do Upsell 1: o `$/frasco` cadastrado é arredondado pra cima; o `total` é o valor real que o cliente paga. Ex.: Upsell 2-A 6 bottles cadastrado como US$ 17/und × 6 = US$ 102 nominal, mas total real é US$ 99 (= US$ 16,50/und efetivo). Fonte de verdade nas revisões = valor cadastrado, não a multiplicação.
+- Upsell 2-B atende dois fronts (3 e 6) com os **mesmos preços**. Não há variante separada por front pra esses dois casos.
+
+#### Downsell 1 do Upsell 2
+
+> ⚠️ **Universal — uma única variante atende todos os fronts (1, 3 e 6).**
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 3 bottles | **39** | **117** |
+
+**Notas:**
+- Não há variante por front — é a mesma oferta para Front 01, FRONT 03 e FRONT 06.
+- Preço/und idêntico ao Downsell 2-B do Upsell 1 (3 bottles @ US$ 39), mas o contexto é diferente: este é último degrau após Upsell 2 ser recusado.
 
 ### Como identificar o funil de upsell
 
