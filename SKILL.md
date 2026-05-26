@@ -1209,6 +1209,17 @@ Formato rígido:
 - **Linha "Motivo:" obrigatória logo abaixo de cada bullet**, indentada 4 espaços. Essa linha explica em uma frase curta POR QUÊ a alteração precisa acontecer — qual erro do briefing/catálogo essa edição conserta. **Foque na causa raiz**, não na ação. Exemplos bons: *"nome antigo do produto residual no áudio"*, *"preço divergente do catálogo Pitch 5.1 (US$ 59 vs US$ 69)"*, *"packshot do produto anterior hardcoded num B-roll da FAQ"*. Exemplos ruins (apenas reformulam a ação): *"trocar a fala"*, *"corrigir a legenda"*. O motivo existe para o editor entender o contexto sem precisar voltar pra seção de Achados.
 - **Linha em branco obrigatória entre bullets** (não entre o bullet e seu Motivo). O par bullet+Motivo é uma unidade visual; a separação por linha vazia entre unidades evita que o bloco vire um paredão de texto quando o editor cola no WhatsApp/Slack/ticket.
 - **Use o timestamp em `HH:MM:SS` com zero-padding** (mesma regra do resto do relatório).
+- **🚨 Timestamp é PROIBIDO aproximar. Tem que vir do `start` real do segmento da transcrição.** Nunca estime a partir de número de linha do JSON, posição no arquivo, ou intuição de "deve ser por volta de X". Antes de redigir os bullets de Alterações, **rode `pull_timestamps.py` passando cada frase a substituir** — o script devolve o `start` exato do segmento que casa com a frase, em HH:MM:SS. Use esse valor literal no bullet. Se o script não casar uma frase (caiu em "misses"), isso é sinal de que a frase não existe na transcrição daquele jeito; revise antes de inventar timestamp.
+
+  ```powershell
+  ~/.claude/skills/sentinela/.venv/Scripts/python.exe `
+    ~/.claude/skills/sentinela/scripts/pull_timestamps.py `
+    --transcript "$env:TEMP\sentinela-transcript.json" `
+    --snippet "Its name is Memopezil" `
+    --snippet "address printed on Memopezil"
+  ```
+
+  Aprovação só com timestamps do script — nunca da memória.
 - **Não use markdown de tabela aqui** — bullets simples para facilitar o copy/paste.
 - **Inclua todo achado ❌ e ⚠️** que demandar ação do editor — mas passe primeiro pelo **filtro de alavancagem** descrito abaixo. Achados ✅ não entram.
 - **Se um vídeo/front não tem alterações,** escreva literalmente `Sem alterações.` sob o cabeçalho dele (sem numeração nem motivo).
