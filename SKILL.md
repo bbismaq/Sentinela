@@ -905,13 +905,21 @@ Use o Python desse venv: `~/.claude/skills/sentinela/.venv/Scripts/python.exe`.
    pote/frasco, badges de preço, formato), a auditoria visual é parte
    inseparável da revisão. Pular essa etapa = relatório incompleto.
 
-   **Onde extrair frames (mínimo obrigatório quando há troca de produto/formato):**
+   **Escopo da extração — RESTRITO, não o vídeo inteiro.** Extrair frames de
+   53min × 1fps = 3171 frames, e ler 3171 imagens consome tempo e tokens sem
+   ganho. Packshot do produto concentra em janelas previsíveis. Extrair só:
    - **Bloco de oferta** (packshot principal, kits de 3/6 unidades, badges de preço)
    - **Todos os depoimentos** dentro da janela auditada (avatares costumam segurar
      o produto físico — clipes velhos importados frequentemente trazem packshot
-     hardcoded do produto antigo)
+     do produto antigo gravado dentro)
    - **Qualquer trecho onde o áudio menciona o produto pelo nome** (provável
      packshot de apoio na arte)
+
+   O resto do vídeo (build-up, lead, story) raramente tem packshot — se
+   houver, é exceção que vale tratar manualmente caso o usuário sinalize.
+   Identifique as janelas pelos timestamps da transcrição e rode `extract_frames.py`
+   uma vez por janela (ou faça múltiplas chamadas se forem janelas
+   descontínuas).
 
    ```powershell
    ~/.claude/skills/sentinela/.venv/Scripts/python.exe `
@@ -927,12 +935,13 @@ Use o Python desse venv: `~/.claude/skills/sentinela/.venv/Scripts/python.exe`.
    packshot antigo passam batidos. `--fps 1` garante pelo menos 3-4 frames
    por B-roll de 3s+. Em ofertas com corte rápido (<3s), suba pra `--fps 2`.
 
-3. **OCR de varredura — OBRIGATÓRIO em troca de produto.** Antes de ler os
-   frames com sua capacidade multimodal, rode `scan_old_label.py` pra varrer
-   TODOS os frames extraídos atrás do **nome antigo do produto**. Isso elimina
-   a dependência de amostragem visual minha — o computador varre centenas de
-   frames em segundos e devolve uma lista exata de timestamps onde o rótulo
-   antigo aparece em label, packshot, badge ou legenda gravada.
+3. **OCR de varredura — OBRIGATÓRIO em troca de produto.** Rode `scan_old_label.py`
+   sobre os frames extraídos. O script escolhe automaticamente o motor de OCR:
+   - **Com GPU CUDA disponível** (ex: máquina com NVIDIA + torch CUDA instalado):
+     usa EasyOCR + GPU — ~1-2min em 1500 frames.
+   - **Sem GPU** (máquinas mais simples do time): cai pra RapidOCR + CPU
+     (ONNX runtime) — ~5-8min em 1500 frames. ~5-10x mais rápido que EasyOCR
+     em CPU, sem precisar de GPU.
 
    ```powershell
    ~/.claude/skills/sentinela/.venv/Scripts/python.exe `
@@ -942,27 +951,27 @@ Use o Python desse venv: `~/.claude/skills/sentinela/.venv/Scripts/python.exe`.
      --output "$env:TEMP\sentinela-ocr.json"
    ```
 
-   Passe **uma `--term` por variante grafia/case** do nome antigo. O script
-   já normaliza pra case-insensitive e ignora pontuação/espaço entre letras
-   (pega "LIPO TRINE", "LIPO-TRINE", etc.). Confiança mínima default = 0.30
-   (mude com `--threshold` se precisar).
+   Passe **uma `--term` por variante grafia/case** do nome antigo + qualquer
+   palavra que assinale o formato antigo na label (ex: `POWDER`, `JAR`,
+   `SERVINGS`, gramatura `3.17 OZ`). O script normaliza pra case-insensitive
+   e ignora pontuação/espaço entre letras (pega "LIPO TRINE", "LIPO-TRINE").
+   Confiança mínima default = 0.30.
 
    **Como ler o resultado:**
-   - `hits: []` → nenhum frame com nome antigo detectado. Siga pra etapa 4
-     (leitura multimodal estratégica).
+   - `hits: []` → nenhum frame com label antiga detectada. Cobertura ok.
    - `hits: [...]` → o script entrega `{timestamp, frame, matches}` por hit.
-     **Toda hit vira candidato a achado ❌ crítico** — leia o frame pra
-     confirmar (descartar falsos positivos do OCR, anotar a janela de tempo
-     em que aparece) e levante na seção `## Alterações`.
+     **Toda hit vira candidato a achado ❌ crítico** — leia o frame com a
+     tool Read pra confirmar (descartar falsos positivos do OCR, anotar
+     a janela de tempo em que aparece) e levante na seção `## Alterações`.
 
    **Nunca pule essa etapa em troca de produto.** O OCR é o que garante
    cobertura completa de label do produto antigo. Sem ele, voltamos ao
-   método de amostragem visual que falha em pegar B-rolls curtos entre
-   beats de áudio.
+   método de amostragem visual que falha em pegar clipes curtos de apoio
+   entre beats de áudio.
 
-4. **Leia os frames com sua capacidade multimodal** (use a tool Read em cada
-   PNG). Para cada frame onde o produto físico aparece (frasco, pote, caixa,
-   blister, badge), confirme explicitamente:
+4. **Leia os frames retornados pelo OCR com sua capacidade multimodal**
+   (use a tool Read em cada PNG da lista de hits). Pra cada frame, confirme
+   explicitamente:
    - O **nome impresso no rótulo** é o produto NOVO?
    - A **cor/forma da embalagem** bate com o produto novo? (ex: powder = jar
      largo; capsule/drops = bottle alto e estreito)
@@ -1094,24 +1103,6 @@ Modelo:
 **Idioma:** EN
 **Pitch utilizado:** Pitch 5.1 — Afiliação BHEver e Instituto X (front 2 bottles US$ 79 + frete US$ 19,99 · 3 bottles US$ 69 · 6 bottles US$ 49)
 
-## Verificação de protocolo
-
-<!-- OBRIGATÓRIO em TODO relatório. Vai logo após o cabeçalho. Cada linha tem
-status (✅/❌/N/A) + evidência verificável (caminho de arquivo, contagem,
-timestamp range, valor concreto). Marcar ✅ sem evidência = falha grave de
-auditoria. Se o passo não se aplica ao briefing, marcar N/A com justificativa
-curta. Se o passo era obrigatório e não foi feito, marcar ❌ — não esconder. -->
-
-- [✅/❌/N/A] **Transcrição:** `<caminho do JSON>` — N segmentos, janela MM:SS-MM:SS
-- [✅/❌/N/A] **Frames:** `<diretório>` — N PNGs, fps utilizado (piso 1 quando há troca visual). Em troca de produto, incluir OCR: `<caminho ocr.json>` — termo(s) buscado(s), N hits + onde investigados
-- [✅/❌/N/A] **Formato do produto identificado:** qual formato (capsule / drops / gummy / powder) + onde no áudio/visual
-- [✅/❌/N/A] **Depoimentos:** timestamps inspecionados na janela auditada
-- [✅/❌/N/A] **Pitch identificado:** qual + base (preços/frete que confirmam)
-- [✅/❌/N/A] **Ancoragem do frete:** ancorado em fala + badge nos fronts exigidos pelo pitch? citações + timestamps
-- [✅/❌/N/A] **Garantia 60 dias:** menções coerentes (60 dias = "two month")? citações + timestamps
-- [✅/❌/N/A] **Coerência da escassez:** número usado é o mesmo em todas as menções? citações + timestamps
-- [✅/❌/N/A] **Auto-ataque do formato:** formato novo está / não está na lista negra do build-up? citação + timestamp
-
 ## Mudanças solicitadas vs aplicadas
 
 ## Resumo
@@ -1201,94 +1192,6 @@ Quando você identifica um erro ❌ ou ⚠️, **não pare em apontar o problema
 **Regra dura: nunca delegar a escrita.** O slot `<trecho novo sugerido>` é produto final entregue ao editor — tem que conter a **frase pronta em inglês** (ou idioma do vídeo), exatamente como o avatar/locutor vai falar. Frases como *"reescrever pivotando pra X"*, *"ajustar entorno se houver referência"*, *"trocar mantendo a estrutura"* são proibidas — devolvem o trabalho de copywriter pro usuário/time. Se você não consegue escrever a frase final, o bullet não está pronto e algo do briefing/contexto está faltando — peça antes de gerar o relatório.
 
 Vale também pra **trechos onde a transcrição corta no meio** (ex: *"Lipo Treen is not a..."* sem o final) — preencha a lacuna com o que faz sentido pelo contexto e ENTREGUE a frase inteira (o editor compara com o vídeo na hora de re-gravar). Mesmo princípio: nada de *"conferir contexto e completar"*.
-
-### Seção "Verificação de protocolo" — obrigatória em todo relatório
-
-**Regra:** TODO relatório (tanto opção 1 - Oferta quanto opção 2 - Funil de
-Upsell quanto opção 3 - Criativo) deve conter a seção `## Verificação de
-protocolo` **logo após o cabeçalho**, antes de `## Resumo`. Existe pra
-documentar de forma verificável que cada passo obrigatório do protocolo foi
-cumprido — é prova de auditoria, não confiança em palavra.
-
-**Formato rígido:**
-
-Cada item é uma linha no formato:
-
-```
-- [✅/❌/N/A] **Nome do passo:** evidência verificável concreta
-```
-
-- **O checklist registra O QUE FOI REVISADO, não o resultado da revisão.**
-  Diagnóstico (ancoragem parcial, garantia divergente, etc.) vai pra
-  `## Achados` e `## Resumo` — não duplicar aqui.
-
-- **Status válidos:**
-  - **✅** — eu revisei esse item. Aponto onde olhei (timestamps,
-    arquivos). Se encontrei problema, ele vira achado lá em baixo; aqui
-    só sinaliza que o passo foi cumprido.
-  - **❌** — eu NÃO revisei esse item, ou revisei de forma incompleta
-    (ex: fps abaixo do piso, OCR pulado em troca de produto). Vira aviso
-    automático de que a auditoria está furada — não tem nada a ver com
-    o resultado em si.
-  - **N/A** — passo não se aplica a esse briefing (ex: ancoragem de
-    frete em revisão só de fala sem componente comercial). Justificar
-    curto entre parênteses.
-
-- **Evidência verificável obrigatória.** Cada ✅ carrega prova de ONDE eu
-  olhei (não do que encontrei):
-  - Caminhos de arquivo (transcript JSON, diretório de frames, OCR JSON)
-  - Contagens (N segmentos, N frames, N hits)
-  - Lista de timestamps inspecionados (`00:46:00`, `00:54:39`, etc.)
-  - "Resultado no achado #N" pra apontar onde o diagnóstico aparece, sem
-    repetir o conteúdo
-
-  **Marcar ✅ sem evidência = falha grave de auditoria.** Equivale a
-  inventar que cumpri o passo. Sempre prefira ❌ honesto a ✅ vazio.
-
-  **Não repita conteúdo do Resumo/Achados.** Se a linha do checklist
-  estiver explicando *por que* algo deu errado, ela virou um segundo
-  resumo — está fora do escopo.
-
-**Itens fixos pra revisão de Oferta e Funil de Upsell (9 linhas):**
-
-1. **Transcrição** — caminho do JSON + nº de segmentos + janela `MM:SS-MM:SS`
-2. **Frames** — diretório + N PNGs + fps utilizado (piso `--fps 1` quando há
-   troca visual; abaixo disso é ❌ automaticamente). **Em troca de produto,
-   incluir nesta mesma linha o OCR**: caminho do `scan_old_label.py` JSON +
-   termo(s) buscado(s) + N hits + lista de timestamps investigados. Se o OCR
-   não foi rodado em troca de produto, é ❌ definitivo.
-3. **Formato do produto identificado** — qual formato (capsule / drops /
-   gummy / powder) + citação curta do áudio ou frame onde aparece. Pra
-   troca de formato, declarar formato NOVO + formato ANTIGO esperado no
-   briefing.
-4. **Depoimentos** — timestamps inspecionados nos depoimentos da janela
-   auditada (clipes herdados frequentemente trazem produto antigo gravado
-   dentro)
-5. **Pitch identificado** — qual pitch + base (preços/frete que confirmam) ou
-   "Pitch não catalogado — red flag aberta" com referência ao achado
-6. **Ancoragem do frete** — ancorado em fala E badge nos fronts exigidos pelo
-   pitch? citações curtas + timestamps. Lembrete: ancoragem é all-or-nothing
-   entre os fronts do mesmo pitch.
-7. **Garantia 60 dias** — menções coerentes em quantidade ("60 day" e "two
-   month" são sinônimos aceitos)? citações + timestamps
-8. **Coerência da escassez** — número usado (kits / unidades) é o mesmo em
-   todas as menções? citações + timestamps
-9. **Auto-ataque do formato (check (a))** — formato novo está / não está na
-   lista negra do build-up? citação + timestamp
-
-**Itens fixos pra revisão de Criativo:**
-
-1. **Doc da copy baixado** — caminho do `.txt` + tabs/seções localizadas
-2. **Vídeos baixados** — diretório + N arquivos
-3. **Transcrições** — diretório + N JSONs
-4. **Pronúncia validada contra legenda** — quais timestamps suspeitos foram
-   conferidos via frame
-5. **Marcadores do doc lidos em voz alta** — varredura por `Here's the full
-   translation`, `HOOK COPY`, `BODY`, separadores
-
-**Sobre ordem:** essa seção é **a primeira após o cabeçalho** (antes do
-`## Resumo`). Posição proposital — se algum passo foi pulado, o usuário vê
-imediatamente, sem ter que rolar até o fim do relatório.
 
 ### Seção "Alterações" — obrigatória em todo relatório
 
