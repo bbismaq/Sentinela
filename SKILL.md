@@ -1,6 +1,6 @@
 ---
 name: sentinela
-description: Audits VSL variations, upsell funnels, and short-form creatives (Meta/YouTube ads) for direct-marketing operations. Verifies whether scripted/price/product/image changes were applied (Oferta/Upsell) or whether the IA avatar faithfully delivered the script (Criativo). Accepts full video, marked script with [old] <new> tags, plain transcription, or Google Drive folder/file links. Produces a per-item ✅/❌/⚠️ report.
+description: Audits VSL variations, upsell funnels, and short-form creatives (Meta/YouTube ads) for direct-marketing operations. Verifies whether scripted/price/product/image changes were applied (Oferta/Upsell) or whether the IA avatar faithfully delivered the script (Criativo). Accepts full video, marked script with [old] <new> tags, plain transcription, or Google Drive folder/file links. Produces a per-item ✅/❌/⚠️ report. Also includes a Transcritor mode (option 4) whose sole purpose is transcribing videos, delivering the transcription in the original language plus a PT-BR translation.
 ---
 
 # Sentinela — Auditor de Variações de VSL
@@ -527,6 +527,7 @@ usuário escolhe Criativo).
 > 1. Oferta
 > 2. Funil de Upsell
 > 3. Criativo
+> 4. Transcritor
 
 **Passo 2 —** conforme a escolha do usuário:
 
@@ -538,6 +539,8 @@ usuário escolhe Criativo).
   >
   > 1. Meta
   > 2. YouTube
+
+- Se escolheu **4. Transcritor** → mande `Qual o briefing do material a ser transcrito?`
 
 **Passo 3 (apenas se o usuário escolheu opção 3):** depois de receber a mídia,
 mande exatamente: `Qual o briefing dos ads a serem revisados?` (independente
@@ -878,6 +881,99 @@ Sem alterações.
 com nome `RELATORIO-SENTINELA-<oferta>-lote-completo-<YYYYMMDD>.md` (lote
 inteiro) ou `RELATORIO-SENTINELA-<nome-do-criativo>-<YYYYMMDD-HHMM>.md`
 (auditoria de 1 criativo só).
+
+## Transcritor (Opção 4)
+
+> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 4
+> (Transcritor)** na abertura da skill. Nas opções 1/2/3, ignore esta seção.
+
+### Função
+
+O Transcritor tem **função única e exclusiva: transcrever vídeos.** Não é
+auditoria. Aqui você **não** identifica pitch, **não** compara com catálogo,
+**não** classifica achados em ✅/❌/⚠️ e **não** gera as seções `## Alterações`
+nem `## Pontos de Atenção`. A entrega é só a transcrição — no idioma original
+**e** em PT-BR.
+
+### O que transcrever (o escopo vem do briefing)
+
+Leia o briefing e siga o que ele pedir:
+- **Briefing pede um trecho / timestamp** (ex: "de 28:00 ao fim", "só o bloco
+  de oferta", "os 5 primeiros minutos") → transcreva só essa janela.
+- **Briefing pede o vídeo inteiro** → transcreva do início ao fim.
+- **Briefing não especifica** → o default é **vídeo inteiro**.
+
+⚠️ Isto **sobrepõe** o default "corte e transcreva o Bloco de Oferta" dos
+marcadores de input da Abertura — aquele default é de auditoria (opções
+1/2/3), não vale no Transcritor.
+
+### Download do vídeo
+
+Mesmo procedimento das outras opções:
+- Caminho local `.mp4` / `.mov` → use direto.
+- Link de arquivo ou pasta do Google Drive → `gdown`; se falhar por permissão,
+  use `mcp__google-docs__downloadFile` passando o `fileId` do link (ver
+  Abertura). Meça a duração com `ffprobe` antes de definir a janela.
+
+### Transcrição
+
+Use `transcribe.py` (faster-whisper, modelo `medium`) com `--start`/`--end`
+para a janela pedida (ou a janela inteira do vídeo). Para vídeo longo, pode
+transcrever em janelas e juntar — os timestamps saem ajustados ao tempo real
+do vídeo, não ao corte.
+
+**Trechos difíceis (áudio abafado, sobre música, dramatização de ligação):**
+quando o `medium` só devolver fragmentos, **tente o `large-v3`** no recorte
+antes de desistir:
+
+```powershell
+~/.claude/skills/sentinela/.venv/Scripts/python.exe - <<'PY'
+from faster_whisper import WhisperModel
+m = WhisperModel("large-v3", device="cuda", compute_type="float16")
+segs,_ = m.transcribe("recorte.wav", language="en", beam_size=5, vad_filter=True)
+for s in segs: print(f"{s.start:7.1f}  {s.text.strip()}")
+PY
+```
+
+Se **nem o large-v3** recuperar, **marque a lacuna** com `[...]` e um aviso do
+intervalo (ex: *"⚠️ ~00:25:10 – 00:25:55 — áudio não recuperável (dramatização
+de ligação sob música)"*). **Nunca invente** a fala que faltou — sinalize que
+precisa do doc da copy ou de escuta manual.
+
+### Limpeza fiel
+
+Pode corrigir artefatos óbvios da transcrição automática (nome do produto
+duplicado, troca fonética tipo "cocoa"/"coco", "H. pylori" escrito errado),
+mas **sem reescrever a copy** — mantenha fiel ao que foi falado. Organize em
+parágrafos legíveis pelos cortes naturais da fala, com timestamps `HH:MM:SS`
+no início de cada bloco. Onde o **áudio do próprio vídeo** corta a frase no
+meio, marque `[...]` (não é falha da transcrição — é corte da edição).
+
+### Idioma
+
+Entregue **as duas versões**: a transcrição no **idioma original** do vídeo
+**e** a **tradução PT-BR**. Em ambas, mantenha nomes próprios e termos de
+marca como falados.
+
+### Entrega (mostrar + salvar)
+
+1. Mostre a transcrição completa na conversa.
+2. Salve um `.md` em `C:\Users\bbism\Downloads\Transcriber\Transcriber\source\`
+   com nome `RELATORIO-SENTINELA-<descrição-curta>-transcricao-<YYYYMMDD>.md`.
+
+Cabeçalho do arquivo (**sem** campo de pitch — não se aplica):
+
+```
+**Vídeo:** <nome do arquivo>
+**Janela transcrita:** <HH:MM:SS – HH:MM:SS ou "vídeo inteiro">
+**Idioma original:** <EN / …>
+**Função:** Transcritor (transcrição apenas — original + PT-BR)
+**Observação:** `[...]` = trecho cortado no próprio áudio do vídeo ou não recuperável.
+```
+
+Depois do cabeçalho, duas seções: `## 🇺🇸 Transcrição (<idioma>)` e
+`## 🇧🇷 Tradução (PT-BR)`. **Não** inclua `## Alterações` nem
+`## Pontos de Atenção` — elas não se aplicam ao Transcritor.
 
 ## Execução da auditoria
 
