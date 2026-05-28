@@ -1,6 +1,6 @@
 ---
 name: sentinela
-description: Audits VSL variations, upsell funnels, and short-form creatives (Meta/YouTube ads) for direct-marketing operations. Verifies whether scripted/price/product/image changes were applied (Oferta/Upsell) or whether the IA avatar faithfully delivered the script (Criativo). Accepts full video, marked script with [old] <new> tags, plain transcription, or Google Drive folder/file links. Produces a per-item ✅/❌/⚠️ report.
+description: Audits VSL variations, upsell funnels, and short-form creatives (Meta/YouTube ads) for direct-marketing operations. Verifies whether scripted/price/product/image changes were applied (Oferta/Upsell) or whether the IA avatar faithfully delivered the script (Criativo). Accepts full video, marked script with [old] <new> tags, plain transcription, or Google Drive folder/file links. Produces a per-item ✅/❌/⚠️ report. Also includes a Transcritor mode (option 4) whose sole purpose is transcribing videos, delivering the transcription in the original language plus a PT-BR translation.
 ---
 
 # Sentinela — Auditor de Variações de VSL
@@ -390,6 +390,30 @@ Todas chegam ao mesmo carrinho (US$ 207). Como auditar:
 Esse tipo de achado polui o relatório com ruído e força o time de copy a
 justificar uma escolha estética que já estava correta.
 
+### Auditoria de preço — checar o papel de cada valor antes de mexer
+
+Antes de flagar OU alterar qualquer preço, **mapeie cada valor ao papel que
+ele cumpre no catálogo do pitch**: front, kit de 3, kit de 6, ou âncora
+(preço cheio / de tabela). Só toque num valor depois de confirmar qual papel
+ele ocupa — e qual papel ele *deveria* ocupar no pitch alvo.
+
+**Nunca "unifique" dois preços diferentes só porque divergem.** Preço
+promocional do front e preço de tabela (âncora) são **legitimamente
+diferentes** e convivem na mesma copy — um não é erro do outro. Deduplicar
+preço sem checar papel é como o erro nasce: você apaga o número certo e
+mantém o errado.
+
+- **Exemplo (Pitch 5.2):** *"$79 per jar"* é o preço do **front** (promocional)
+  e *"a single jar costs $89"* é a **âncora** de preço cheio. Os dois estão
+  certos. Trocar o $79 por $89 "pra ficar consistente" empurra o vídeo pro
+  **1.2** (front de 1 jar a $89) — exatamente o oposto do alvo.
+- **Direção da correção segue o pitch alvo**, não a "consistência" entre dois
+  números soltos. Pergunte: "no pitch alvo, qual valor cada papel tem?" e
+  alinhe a esse, não ao outro número que apareceu no vídeo.
+- **Antes de fechar o relatório, cruze os bullets de preço entre si.** Se um
+  bullet introduz o front a $79 e outro "conserta" um $79 pra $89, há
+  contradição — revise antes de entregar.
+
 ## Funis de Upsell (catálogo)
 
 > ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 2 (Funil de Upsell)** na abertura da skill. Em revisões de **Oferta (opção 1)**, ignore este catálogo — use apenas o catálogo de **Pitches** acima.
@@ -502,6 +526,58 @@ A operação roda **vários funis de upsell**, cada um com uma estrutura de pre�
 - Não há variante por front — é a mesma oferta para Front 01, FRONT 03 e FRONT 06.
 - Preço/und idêntico ao Downsell 2-B do Upsell 1 (3 bottles @ US$ 39), mas o contexto é diferente: este é último degrau após Upsell 2 ser recusado.
 
+### Funil de Upsell 8.1 (memory loss)
+
+> ⚠️ **Variação memory loss do 8.0.** O Upsell 1 e o Upsell 2 têm **preços de front idênticos ao Funil 8.0** (tabelas abaixo, reproduzidas pra consulta self-contained). A diferença do 8.1 está nos **downsells**, que são específicos pra memory loss e **ainda NÃO estão catalogados** — cadastrar quando forem definidos. Por ora, só Upsell 1 e Upsell 2.
+
+#### Upsell 1 (8.1) — idêntico ao 8.0
+
+**FRONT 01 — Upsell 1-A** (cliente comprou 1 bottle na oferta)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 6 bottles | **19** | **114** |
+| 4 bottles | **25** | **98** |
+| 2 bottles | **29** | **58** |
+
+**FRONT 03 — Upsell 1-B** (cliente comprou 3 bottles na oferta)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 12 bottles | **17** | **198** |
+| 9 bottles | **19** | **171** |
+| 6 bottles | **25** | **147** |
+
+**FRONT 06 — Upsell 1-C** (cliente comprou 6 bottles na oferta)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 12 bottles | **29** | **348** |
+| 9 bottles | **37** | **333** |
+| 6 bottles | **49** | **294** |
+
+#### Upsell 2 (8.1) — idêntico ao 8.0
+
+**Upsell 2-A** (cliente veio do FRONT 01)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 9 bottles | **16** | **144** |
+| 6 bottles | **17** | **99** |
+| 2 bottles | **24** | **48** |
+
+**Upsell 2-B** (cliente veio do FRONT 03 ou FRONT 06)
+
+| Qtd | Valor por frasco (USD) | Valor total (USD) |
+|:--|:--:|:--:|
+| 12 bottles | **19** | **228** |
+| 6 bottles | **29** | **174** |
+| 3 bottles | **33** | **99** |
+
+**Notas:**
+- Mesmo padrão de arredondamento do 8.0: `$/frasco` cadastrado é arredondado pra cima; o `total` é o valor real pago. Fonte de verdade = valor cadastrado.
+- **Downsells do 8.1 ainda não catalogados** (memory loss-specific). Não auditar downsell contra este catálogo até serem cadastrados.
+
 ### Como identificar o funil de upsell
 
 1. Identifique qual **FRONT** o vídeo está endereçando (nome do arquivo costuma trazer `FRONT 01/03/06`, e o áudio reforça "since you bought 1/3/6 bottles…").
@@ -527,6 +603,7 @@ usuário escolhe Criativo).
 > 1. Oferta
 > 2. Funil de Upsell
 > 3. Criativo
+> 4. Transcritor
 
 **Passo 2 —** conforme a escolha do usuário:
 
@@ -538,6 +615,8 @@ usuário escolhe Criativo).
   >
   > 1. Meta
   > 2. YouTube
+
+- Se escolheu **4. Transcritor** → mande `Qual o briefing do material a ser transcrito?`
 
 **Passo 3 (apenas se o usuário escolheu opção 3):** depois de receber a mídia,
 mande exatamente: `Qual o briefing dos ads a serem revisados?` (independente
@@ -879,6 +958,99 @@ com nome `RELATORIO-SENTINELA-<oferta>-lote-completo-<YYYYMMDD>.md` (lote
 inteiro) ou `RELATORIO-SENTINELA-<nome-do-criativo>-<YYYYMMDD-HHMM>.md`
 (auditoria de 1 criativo só).
 
+## Transcritor (Opção 4)
+
+> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 4
+> (Transcritor)** na abertura da skill. Nas opções 1/2/3, ignore esta seção.
+
+### Função
+
+O Transcritor tem **função única e exclusiva: transcrever vídeos.** Não é
+auditoria. Aqui você **não** identifica pitch, **não** compara com catálogo,
+**não** classifica achados em ✅/❌/⚠️ e **não** gera as seções `## Alterações`
+nem `## Pontos de Atenção`. A entrega é só a transcrição — no idioma original
+**e** em PT-BR.
+
+### O que transcrever (o escopo vem do briefing)
+
+Leia o briefing e siga o que ele pedir:
+- **Briefing pede um trecho / timestamp** (ex: "de 28:00 ao fim", "só o bloco
+  de oferta", "os 5 primeiros minutos") → transcreva só essa janela.
+- **Briefing pede o vídeo inteiro** → transcreva do início ao fim.
+- **Briefing não especifica** → o default é **vídeo inteiro**.
+
+⚠️ Isto **sobrepõe** o default "corte e transcreva o Bloco de Oferta" dos
+marcadores de input da Abertura — aquele default é de auditoria (opções
+1/2/3), não vale no Transcritor.
+
+### Download do vídeo
+
+Mesmo procedimento das outras opções:
+- Caminho local `.mp4` / `.mov` → use direto.
+- Link de arquivo ou pasta do Google Drive → `gdown`; se falhar por permissão,
+  use `mcp__google-docs__downloadFile` passando o `fileId` do link (ver
+  Abertura). Meça a duração com `ffprobe` antes de definir a janela.
+
+### Transcrição
+
+Use `transcribe.py` (faster-whisper, modelo `medium`) com `--start`/`--end`
+para a janela pedida (ou a janela inteira do vídeo). Para vídeo longo, pode
+transcrever em janelas e juntar — os timestamps saem ajustados ao tempo real
+do vídeo, não ao corte.
+
+**Trechos difíceis (áudio abafado, sobre música, dramatização de ligação):**
+quando o `medium` só devolver fragmentos, **tente o `large-v3`** no recorte
+antes de desistir:
+
+```powershell
+~/.claude/skills/sentinela/.venv/Scripts/python.exe - <<'PY'
+from faster_whisper import WhisperModel
+m = WhisperModel("large-v3", device="cuda", compute_type="float16")
+segs,_ = m.transcribe("recorte.wav", language="en", beam_size=5, vad_filter=True)
+for s in segs: print(f"{s.start:7.1f}  {s.text.strip()}")
+PY
+```
+
+Se **nem o large-v3** recuperar, **marque a lacuna** com `[...]` e um aviso do
+intervalo (ex: *"⚠️ ~00:25:10 – 00:25:55 — áudio não recuperável (dramatização
+de ligação sob música)"*). **Nunca invente** a fala que faltou — sinalize que
+precisa do doc da copy ou de escuta manual.
+
+### Limpeza fiel
+
+Pode corrigir artefatos óbvios da transcrição automática (nome do produto
+duplicado, troca fonética tipo "cocoa"/"coco", "H. pylori" escrito errado),
+mas **sem reescrever a copy** — mantenha fiel ao que foi falado. Organize em
+parágrafos legíveis pelos cortes naturais da fala, com timestamps `HH:MM:SS`
+no início de cada bloco. Onde o **áudio do próprio vídeo** corta a frase no
+meio, marque `[...]` (não é falha da transcrição — é corte da edição).
+
+### Idioma
+
+Entregue **as duas versões**: a transcrição no **idioma original** do vídeo
+**e** a **tradução PT-BR**. Em ambas, mantenha nomes próprios e termos de
+marca como falados.
+
+### Entrega (mostrar + salvar)
+
+1. Mostre a transcrição completa na conversa.
+2. Salve um `.md` em `C:\Users\bbism\Downloads\Transcriber\Transcriber\source\`
+   com nome `RELATORIO-SENTINELA-<descrição-curta>-transcricao-<YYYYMMDD>.md`.
+
+Cabeçalho do arquivo (**sem** campo de pitch — não se aplica):
+
+```
+**Vídeo:** <nome do arquivo>
+**Janela transcrita:** <HH:MM:SS – HH:MM:SS ou "vídeo inteiro">
+**Idioma original:** <EN / …>
+**Função:** Transcritor (transcrição apenas — original + PT-BR)
+**Observação:** `[...]` = trecho cortado no próprio áudio do vídeo ou não recuperável.
+```
+
+Depois do cabeçalho, duas seções: `## 🇺🇸 Transcrição (<idioma>)` e
+`## 🇧🇷 Tradução (PT-BR)`. **Não** inclua `## Alterações` nem
+`## Pontos de Atenção` — elas não se aplicam ao Transcritor.
+
 ## Execução da auditoria
 
 Os scripts de apoio ficam em `~/.claude/skills/sentinela/scripts/`.
@@ -905,28 +1077,73 @@ Use o Python desse venv: `~/.claude/skills/sentinela/.venv/Scripts/python.exe`.
    pote/frasco, badges de preço, formato), a auditoria visual é parte
    inseparável da revisão. Pular essa etapa = relatório incompleto.
 
-   **Onde extrair frames (mínimo obrigatório quando há troca de produto/formato):**
+   **Escopo da extração — RESTRITO, não o vídeo inteiro.** Extrair frames de
+   53min × 1fps = 3171 frames, e ler 3171 imagens consome tempo e tokens sem
+   ganho. Packshot do produto concentra em janelas previsíveis. Extrair só:
    - **Bloco de oferta** (packshot principal, kits de 3/6 unidades, badges de preço)
    - **Todos os depoimentos** dentro da janela auditada (avatares costumam segurar
      o produto físico — clipes velhos importados frequentemente trazem packshot
-     hardcoded do produto antigo)
+     do produto antigo gravado dentro)
    - **Qualquer trecho onde o áudio menciona o produto pelo nome** (provável
      packshot de apoio na arte)
+
+   O resto do vídeo (build-up, lead, story) raramente tem packshot — se
+   houver, é exceção que vale tratar manualmente caso o usuário sinalize.
+   Identifique as janelas pelos timestamps da transcrição e rode `extract_frames.py`
+   uma vez por janela (ou faça múltiplas chamadas se forem janelas
+   descontínuas).
 
    ```powershell
    ~/.claude/skills/sentinela/.venv/Scripts/python.exe `
      ~/.claude/skills/sentinela/scripts/extract_frames.py `
      --video "C:\caminho\video.mp4" `
      --start "42:00" --end "58:30" `
-     --fps 0.5 `
+     --fps 1 `
      --output-dir "$env:TEMP\sentinela-frames"
    ```
-   `--fps 0.5` = 1 frame a cada 2 segundos. Geralmente suficiente para pegar a
-   imagem do produto na tela. Aumente se a oferta tiver muito corte rápido.
+   **`--fps 1` é o piso obrigatório em troca de produto/formato/imagem.**
+   B-rolls típicos do bloco de oferta duram entre 3 e 8 segundos — `--fps 0.33`
+   (1 frame a cada 3s) deixa buraco de amostragem onde clipes curtos com
+   packshot antigo passam batidos. `--fps 1` garante pelo menos 3-4 frames
+   por B-roll de 3s+. Em ofertas com corte rápido (<3s), suba pra `--fps 2`.
 
-3. **Leia os frames com sua capacidade multimodal** (use a tool Read em cada
-   PNG). Para cada frame onde o produto físico aparece (frasco, pote, caixa,
-   blister, badge), confirme explicitamente:
+3. **OCR de varredura — OBRIGATÓRIO em troca de produto.** Rode `scan_old_label.py`
+   sobre os frames extraídos. O script escolhe automaticamente o motor de OCR:
+   - **Com GPU CUDA disponível** (ex: máquina com NVIDIA + torch CUDA instalado):
+     usa EasyOCR + GPU — ~1-2min em 1500 frames.
+   - **Sem GPU** (máquinas mais simples do time): cai pra RapidOCR + CPU
+     (ONNX runtime) — ~5-8min em 1500 frames. ~5-10x mais rápido que EasyOCR
+     em CPU, sem precisar de GPU.
+
+   ```powershell
+   ~/.claude/skills/sentinela/.venv/Scripts/python.exe `
+     ~/.claude/skills/sentinela/scripts/scan_old_label.py `
+     --frames-dir "$env:TEMP\sentinela-frames" `
+     --term LIPOTRINE --term Lipotrine `
+     --output "$env:TEMP\sentinela-ocr.json"
+   ```
+
+   Passe **uma `--term` por variante grafia/case** do nome antigo + qualquer
+   palavra que assinale o formato antigo na label (ex: `POWDER`, `JAR`,
+   `SERVINGS`, gramatura `3.17 OZ`). O script normaliza pra case-insensitive
+   e ignora pontuação/espaço entre letras (pega "LIPO TRINE", "LIPO-TRINE").
+   Confiança mínima default = 0.30.
+
+   **Como ler o resultado:**
+   - `hits: []` → nenhum frame com label antiga detectada. Cobertura ok.
+   - `hits: [...]` → o script entrega `{timestamp, frame, matches}` por hit.
+     **Toda hit vira candidato a achado ❌ crítico** — leia o frame com a
+     tool Read pra confirmar (descartar falsos positivos do OCR, anotar
+     a janela de tempo em que aparece) e levante na seção `## Alterações`.
+
+   **Nunca pule essa etapa em troca de produto.** O OCR é o que garante
+   cobertura completa de label do produto antigo. Sem ele, voltamos ao
+   método de amostragem visual que falha em pegar clipes curtos de apoio
+   entre beats de áudio.
+
+4. **Leia os frames retornados pelo OCR com sua capacidade multimodal**
+   (use a tool Read em cada PNG da lista de hits). Pra cada frame, confirme
+   explicitamente:
    - O **nome impresso no rótulo** é o produto NOVO?
    - A **cor/forma da embalagem** bate com o produto novo? (ex: powder = jar
      largo; capsule/drops = bottle alto e estreito)
@@ -1164,6 +1381,17 @@ Formato rígido:
 - **Linha "Motivo:" obrigatória logo abaixo de cada bullet**, indentada 4 espaços. Essa linha explica em uma frase curta POR QUÊ a alteração precisa acontecer — qual erro do briefing/catálogo essa edição conserta. **Foque na causa raiz**, não na ação. Exemplos bons: *"nome antigo do produto residual no áudio"*, *"preço divergente do catálogo Pitch 5.1 (US$ 59 vs US$ 69)"*, *"packshot do produto anterior hardcoded num B-roll da FAQ"*. Exemplos ruins (apenas reformulam a ação): *"trocar a fala"*, *"corrigir a legenda"*. O motivo existe para o editor entender o contexto sem precisar voltar pra seção de Achados.
 - **Linha em branco obrigatória entre bullets** (não entre o bullet e seu Motivo). O par bullet+Motivo é uma unidade visual; a separação por linha vazia entre unidades evita que o bloco vire um paredão de texto quando o editor cola no WhatsApp/Slack/ticket.
 - **Use o timestamp em `HH:MM:SS` com zero-padding** (mesma regra do resto do relatório).
+- **🚨 Timestamp é PROIBIDO aproximar. Tem que vir do `start` real do segmento da transcrição.** Nunca estime a partir de número de linha do JSON, posição no arquivo, ou intuição de "deve ser por volta de X". Antes de redigir os bullets de Alterações, **rode `pull_timestamps.py` passando cada frase a substituir** — o script devolve o `start` exato do segmento que casa com a frase, em HH:MM:SS. Use esse valor literal no bullet. Se o script não casar uma frase (caiu em "misses"), isso é sinal de que a frase não existe na transcrição daquele jeito; revise antes de inventar timestamp.
+
+  ```powershell
+  ~/.claude/skills/sentinela/.venv/Scripts/python.exe `
+    ~/.claude/skills/sentinela/scripts/pull_timestamps.py `
+    --transcript "$env:TEMP\sentinela-transcript.json" `
+    --snippet "Its name is Memopezil" `
+    --snippet "address printed on Memopezil"
+  ```
+
+  Aprovação só com timestamps do script — nunca da memória.
 - **Não use markdown de tabela aqui** — bullets simples para facilitar o copy/paste.
 - **Inclua todo achado ❌ e ⚠️** que demandar ação do editor — mas passe primeiro pelo **filtro de alavancagem** descrito abaixo. Achados ✅ não entram.
 - **Se um vídeo/front não tem alterações,** escreva literalmente `Sem alterações.` sob o cabeçalho dele (sem numeração nem motivo).
