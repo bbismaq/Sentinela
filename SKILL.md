@@ -416,7 +416,7 @@ mantém o errado.
 
 ## Funis de Upsell (catálogo)
 
-> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 2 (Funil de Upsell)** na abertura da skill. Em revisões de **Oferta (opção 1)**, ignore este catálogo — use apenas o catálogo de **Pitches** acima.
+> ⚠️ **Escopo:** esta seção se aplica quando o briefing da opção 1 (VSL) descreve um **Funil de Upsell** (upsells/downsells pós-checkout). Em revisões de **Oferta** (VSL principal/front), ignore este catálogo — use apenas o catálogo de **Pitches** acima.
 
 A operação roda **vários funis de upsell**, cada um com uma estrutura de preços própria. Cada funil tem **3 versões (A / B / C)**, servidas conforme o **front que o cliente comprou na oferta principal** (1 / 3 / 6 bottles). Dentro de cada versão há 3 opções de quantidade (downsell em cascata).
 
@@ -598,27 +598,25 @@ usuário escolhe Criativo).
 
 **Passo 1 — sua primeira e única mensagem deve ser exatamente:**
 
-> Qual material iremos revisar hoje?
+> Qual material iremos revisar?
 >
-> 1. Oferta
-> 2. Funil de Upsell
-> 3. Criativo
-> 4. Transcritor
+> 1. VSL (Oferta, Funil de Upsell e etc)
+> 2. Criativo
+> 3. Transcritor
 
 **Passo 2 —** conforme a escolha do usuário:
 
-- Se escolheu **1. Oferta** → mande `Qual o briefing da oferta a ser revisada?`
-- Se escolheu **2. Funil de Upsell** → mande `Qual o briefing do funil de upsell a ser revisado?`
-- Se escolheu **3. Criativo** → mande exatamente:
+- Se escolheu **1. VSL (Oferta, Funil de Upsell e etc)** → mande `Qual o briefing do material a ser revisado?`
+- Se escolheu **2. Criativo** → mande exatamente:
 
   > Qual a mídia dos ads auditados?
   >
   > 1. Meta
   > 2. YouTube
 
-- Se escolheu **4. Transcritor** → mande `Qual o briefing do material a ser transcrito?`
+- Se escolheu **3. Transcritor** → mande `Qual o briefing do material a ser transcrito?`
 
-**Passo 3 (apenas se o usuário escolheu opção 3):** depois de receber a mídia,
+**Passo 3 (apenas se o usuário escolheu opção 2):** depois de receber a mídia,
 mande exatamente: `Qual o briefing dos ads a serem revisados?` (independente
 da mídia escolhida — Meta ou YouTube — a mensagem é idêntica).
 
@@ -627,10 +625,12 @@ Espere o usuário descrever o briefing — ele vai contar o que mudou, qual é o
 input (vídeo, transcrição, script marcado, link de Drive), e quais auditorias
 quer.
 
-> ⚠️ A lógica de auditoria de **Funil de Upsell** ainda será definida em uma
-> atualização futura desta skill. Por ora, ao receber o briefing de upsell,
-> trabalhe com o que o usuário descrever no momento — toda a lógica de auditoria
-> de **Oferta** abaixo se aplica apenas à opção 1.
+> ⚠️ A opção 1 (**VSL**) cobre **Oferta** (VSL principal) e **Funil de Upsell**
+> (upsells/downsells). A diferença é o briefing: se o usuário falar de pitch
+> (1.2/3.2/5.1/5.2), use o catálogo de Pitches; se falar de upsell/funil
+> (8.0/8.1), use o catálogo de Funis de Upsell. Toda a lógica de auditoria
+> abaixo (regras fixas, checks por tipo de troca, catálogos, formato de
+> relatório) se aplica à opção 1 — independente de ser Oferta ou Upsell.
 
 A partir do briefing, extraia tudo que conseguir e **só pergunte de volta o
 que for estritamente necessário** para executar a auditoria (ex: caminho do
@@ -668,11 +668,11 @@ Marcadores de input que você deve reconhecer no briefing sem perguntar:
     use o trecho `<ID>` entre `/d/` e `/view`. Não tente "abrir o link" — o
     MCP precisa do ID puro.
 
-## Criativos (Opção 3)
+## Criativos (Opção 2)
 
-> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 3
-> (Criativo)** na abertura da skill. Em revisões de **Oferta (opção 1)** ou
-> **Funil de Upsell (opção 2)**, ignore esta seção.
+> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 2
+> (Criativo)** na abertura da skill. Em revisões de **VSL** (opção 1 — Oferta
+> ou Funil de Upsell), ignore esta seção.
 
 ### Contexto
 
@@ -904,7 +904,7 @@ classificar como ❌/⚠️.
 
 #### 6. Relatório
 
-Mesma estrutura geral da opção 1 (Oferta), com adaptações:
+Mesma estrutura geral da opção 1 (VSL), com adaptações:
 
 **Cabeçalho específico de criativo:**
 ```
@@ -958,10 +958,10 @@ com nome `RELATORIO-SENTINELA-<oferta>-lote-completo-<YYYYMMDD>.md` (lote
 inteiro) ou `RELATORIO-SENTINELA-<nome-do-criativo>-<YYYYMMDD-HHMM>.md`
 (auditoria de 1 criativo só).
 
-## Transcritor (Opção 4)
+## Transcritor (Opção 3)
 
-> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 4
-> (Transcritor)** na abertura da skill. Nas opções 1/2/3, ignore esta seção.
+> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 3
+> (Transcritor)** na abertura da skill. Nas opções 1 (VSL) e 2 (Criativo), ignore esta seção.
 
 ### Função
 
@@ -1367,7 +1367,7 @@ Vale também pra **trechos onde a transcrição corta no meio** (ex: *"Lipo Tree
 
 ### Seção "Alterações" — obrigatória em todo relatório
 
-**Regra:** TODO relatório (tanto opção 1 - Oferta quanto opção 2 - Funil de Upsell) deve conter a seção `## Alterações`. Ela é a penúltima seção do relatório (sequência final: `## Alterações` → `## Pontos de Atenção`). Existe para o editor de vídeo conseguir **copiar e colar direto** o que precisa ser corrigido, sem ter que reler o relatório inteiro.
+**Regra:** TODO relatório da opção 1 (VSL — Oferta ou Funil de Upsell) deve conter a seção `## Alterações`. Ela é a penúltima seção do relatório (sequência final: `## Alterações` → `## Pontos de Atenção`). Existe para o editor de vídeo conseguir **copiar e colar direto** o que precisa ser corrigido, sem ter que reler o relatório inteiro.
 
 Formato rígido:
 
@@ -1443,7 +1443,7 @@ o achado em algum lugar do relatório.
 
 ### Seção "Pontos de Atenção" — obrigatória em todo relatório
 
-**Regra:** TODO relatório (Oferta e Funil de Upsell) deve terminar com a seção `## Pontos de Atenção`, logo após `## Alterações`. Sequência final fixa: `## Alterações` → `## Pontos de Atenção`. Essa seção existe para registrar **observações que merecem conferência manual do usuário**, mas que **não viram bullet de correção pro editor**.
+**Regra:** TODO relatório da opção 1 (VSL — Oferta ou Funil de Upsell) deve terminar com a seção `## Pontos de Atenção`, logo após `## Alterações`. Sequência final fixa: `## Alterações` → `## Pontos de Atenção`. Essa seção existe para registrar **observações que merecem conferência manual do usuário**, mas que **não viram bullet de correção pro editor**.
 
 **O que entra aqui (e não em Alterações):**
 
