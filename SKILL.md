@@ -101,25 +101,34 @@ carrinho. Atrito que mata margem.
    - Front com frete: linha *"+ $19 SHIPPING"* abaixo do badge principal
 
 **Quando sinalizar como achado:** se o pitch fechou sem ancorar o frete em
-algum desses pontos, sinalize. Aproveitar qualquer re-render obrigatório do
-pitch (ex: troca de Pitch 1.2 → 5.1) pra já fazer a ancoragem.
+algum desses pontos, sinalize.
+
+**Ancoragem de frete vai SEMPRE para `## Pontos de Atenção`, nunca para
+`## Alterações`.** É decisão de payoff do usuário (vale ou não o re-render só
+pra ancorar frete?), não item automático pra fila do editor. Isso vale mesmo
+quando a VSL ancora em parte e falha em outras: o achado fica em Pontos de
+Atenção e o usuário decide se promove pra Alterações.
+
+**Escreva no formato completo de Alterações** (não o bullet curto padrão da
+seção Pontos de Atenção): timestamp real + a substituição pronta
+`[erro] <correção>` + a linha `Motivo:`, pra o usuário copiar direto pro
+editor se decidir aplicar:
+
+- HH:MM:SS - Substituir frase [trecho exato como está hoje] por <trecho novo com a ancoragem de frete>
+    Motivo: <causa raiz — qual kit do pitch tem frete grátis/taxa que não foi ancorado>
 
 **Ancoragem é all-or-nothing entre os fronts do mesmo pitch.** Ancorar o
 frete só em parte dos kits (ex: dizer "free shipping" no 6-bottle mas não
-mencionar nada nos outros dois) introduz incoerência pior do que não ancorar
-em nenhum. Por isso o achado é **único** (não um bullet por kit):
+mencionar nada nos outros dois) é pior do que não ancorar em nenhum. Por isso,
+liste em Pontos de Atenção um par bullet+Motivo para CADA kit onde falta
+ancoragem e deixe explícito que é all-or-nothing — o usuário aplica todos ou
+nenhum.
 
-- Se a VSL **não ancora frete em nenhum dos 3 fronts** → sinalizar como
-  decisão única em `## Pontos de Atenção`, deixando o usuário decidir se
-  vale o re-render dos 3 trechos de uma vez. Não fragmentar em 3 bullets de
-  Alterações, porque ele só vai aplicar TODOS ou nenhum.
-- Se a VSL **ancora em parte e falha em outras** → aí sim vai pra Alterações
-  como bloqueio crítico 🚨, com bullets cobrindo só os kits onde falta
-  ancoragem (pra fechar a coerência).
-- Se a auditoria está disparando junto com **outro re-render obrigatório no
-  mesmo trecho** (ex: precisa corrigir preço naquela frase de qualquer
-  jeito) → aproveitar pra ancorar o frete também, mesmo em Alterações; o
-  custo marginal é zero.
+**Exceção única — embutir em Alterações:** se a ancoragem está disparando
+junto com **outro re-render obrigatório na MESMA frase** (ex: já vai corrigir
+preço/produto naquele trecho de qualquer jeito), aí dá pra embutir o frete
+naquele bullet de Alterações — custo marginal zero. Fora desse caso, é sempre
+Pontos de Atenção.
 
 ### Escassez (kits / unidades limitadas): **coerência primeiro**
 
@@ -1451,6 +1460,7 @@ o achado em algum lugar do relatório.
 - **Decisões de pricing/copy que destoam do catálogo mas podem ser intencionais.** Ex: copy fala "almost 50% off" mas o desconto real é 57% — pode estar arredondando pra baixo de propósito.
 - **Sinais de processo errado upstream.** Ex: doc da copy mantendo "bottle" depois de troca pra powder (doc desatualizado), nomenclatura de arquivos fora do padrão da operação, presença de dois pitches diferentes em variantes do mesmo teste A/B.
 - **Ambiguidades que ✅/❌ não captura.** Ex: trecho em depoimento/lip-sync que pode ou não ser redublado, dependendo da decisão do time de edição.
+- **Ancoragem de frete faltando ou incompleta.** SEMPRE entra aqui, nunca em Alterações (ver regra "Ancoragem de frete: regra por pitch"). É decisão de payoff do usuário. **Exceção de formato:** este achado é escrito no formato completo de Alterações (timestamp real + `Substituir frase [erro] por <correção>` + linha `Motivo:`), não no bullet curto padrão da seção — pra o usuário copiar direto pro editor se decidir aplicar. A única vez que ancoragem vai pra Alterações é quando pega carona em outro re-render obrigatório da MESMA frase.
 
 **O que NÃO entra aqui:**
 
@@ -1463,6 +1473,7 @@ Formato:
 - Bullets curtos, no formato: `- [<vídeo ou contexto>] — <o que chamou atenção> + <por quê vale conferir manualmente>`.
 - Se não houver nada digno, escreva literalmente: `Nenhum ponto de atenção identificado.`
 - **Não use timestamps obrigatoriamente** — se for ponto sobre nomeação de arquivo, estrutura de pasta, ou decisão geral, não tem timestamp. Use timestamp só se for sobre um trecho específico.
+- **Exceção: ancoragem de frete usa o formato completo de Alterações** (timestamp + `Substituir frase [erro] por <correção>` + linha `Motivo:` indentada), não o bullet curto acima. É o único achado de Pontos de Atenção que vem pronto pra copiar pro editor.
 
 ## Princípios
 
