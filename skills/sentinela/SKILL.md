@@ -101,25 +101,34 @@ carrinho. Atrito que mata margem.
    - Front com frete: linha *"+ $19 SHIPPING"* abaixo do badge principal
 
 **Quando sinalizar como achado:** se o pitch fechou sem ancorar o frete em
-algum desses pontos, sinalize. Aproveitar qualquer re-render obrigatório do
-pitch (ex: troca de Pitch 1.2 → 5.1) pra já fazer a ancoragem.
+algum desses pontos, sinalize.
+
+**Ancoragem de frete vai SEMPRE para `## Pontos de Atenção`, nunca para
+`## Alterações`.** É decisão de payoff do usuário (vale ou não o re-render só
+pra ancorar frete?), não item automático pra fila do editor. Isso vale mesmo
+quando a VSL ancora em parte e falha em outras: o achado fica em Pontos de
+Atenção e o usuário decide se promove pra Alterações.
+
+**Escreva no formato completo de Alterações** (não o bullet curto padrão da
+seção Pontos de Atenção): timestamp real + a substituição pronta
+`[erro] <correção>` + a linha `Motivo:`, pra o usuário copiar direto pro
+editor se decidir aplicar:
+
+- HH:MM:SS - Substituir frase [trecho exato como está hoje] por <trecho novo com a ancoragem de frete>
+    Motivo: <causa raiz — qual kit do pitch tem frete grátis/taxa que não foi ancorado>
 
 **Ancoragem é all-or-nothing entre os fronts do mesmo pitch.** Ancorar o
 frete só em parte dos kits (ex: dizer "free shipping" no 6-bottle mas não
-mencionar nada nos outros dois) introduz incoerência pior do que não ancorar
-em nenhum. Por isso o achado é **único** (não um bullet por kit):
+mencionar nada nos outros dois) é pior do que não ancorar em nenhum. Por isso,
+liste em Pontos de Atenção um par bullet+Motivo para CADA kit onde falta
+ancoragem e deixe explícito que é all-or-nothing — o usuário aplica todos ou
+nenhum.
 
-- Se a VSL **não ancora frete em nenhum dos 3 fronts** → sinalizar como
-  decisão única em `## Pontos de Atenção`, deixando o usuário decidir se
-  vale o re-render dos 3 trechos de uma vez. Não fragmentar em 3 bullets de
-  Alterações, porque ele só vai aplicar TODOS ou nenhum.
-- Se a VSL **ancora em parte e falha em outras** → aí sim vai pra Alterações
-  como bloqueio crítico 🚨, com bullets cobrindo só os kits onde falta
-  ancoragem (pra fechar a coerência).
-- Se a auditoria está disparando junto com **outro re-render obrigatório no
-  mesmo trecho** (ex: precisa corrigir preço naquela frase de qualquer
-  jeito) → aproveitar pra ancorar o frete também, mesmo em Alterações; o
-  custo marginal é zero.
+**Exceção única — embutir em Alterações:** se a ancoragem está disparando
+junto com **outro re-render obrigatório na MESMA frase** (ex: já vai corrigir
+preço/produto naquele trecho de qualquer jeito), aí dá pra embutir o frete
+naquele bullet de Alterações — custo marginal zero. Fora desse caso, é sempre
+Pontos de Atenção.
 
 ### Escassez (kits / unidades limitadas): **coerência primeiro**
 
@@ -416,7 +425,7 @@ mantém o errado.
 
 ## Funis de Upsell (catálogo)
 
-> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 2 (Funil de Upsell)** na abertura da skill. Em revisões de **Oferta (opção 1)**, ignore este catálogo — use apenas o catálogo de **Pitches** acima.
+> ⚠️ **Escopo:** esta seção se aplica quando o briefing da opção 1 (VSL) descreve um **Funil de Upsell** (upsells/downsells pós-checkout). Em revisões de **Oferta** (VSL principal/front), ignore este catálogo — use apenas o catálogo de **Pitches** acima.
 
 A operação roda **vários funis de upsell**, cada um com uma estrutura de preços própria. Cada funil tem **3 versões (A / B / C)**, servidas conforme o **front que o cliente comprou na oferta principal** (1 / 3 / 6 bottles). Dentro de cada versão há 3 opções de quantidade (downsell em cascata).
 
@@ -598,27 +607,25 @@ usuário escolhe Criativo).
 
 **Passo 1 — sua primeira e única mensagem deve ser exatamente:**
 
-> Qual material iremos revisar hoje?
+> Qual material iremos revisar?
 >
-> 1. Oferta
-> 2. Funil de Upsell
-> 3. Criativo
-> 4. Transcritor
+> 1. VSL (Oferta, Funil de Upsell e etc)
+> 2. Criativo
+> 3. Transcritor
 
 **Passo 2 —** conforme a escolha do usuário:
 
-- Se escolheu **1. Oferta** → mande `Qual o briefing da oferta a ser revisada?`
-- Se escolheu **2. Funil de Upsell** → mande `Qual o briefing do funil de upsell a ser revisado?`
-- Se escolheu **3. Criativo** → mande exatamente:
+- Se escolheu **1. VSL (Oferta, Funil de Upsell e etc)** → mande `Qual o briefing do material a ser revisado?`
+- Se escolheu **2. Criativo** → mande exatamente:
 
   > Qual a mídia dos ads auditados?
   >
   > 1. Meta
   > 2. YouTube
 
-- Se escolheu **4. Transcritor** → mande `Qual o briefing do material a ser transcrito?`
+- Se escolheu **3. Transcritor** → mande `Qual o briefing do material a ser transcrito?`
 
-**Passo 3 (apenas se o usuário escolheu opção 3):** depois de receber a mídia,
+**Passo 3 (apenas se o usuário escolheu opção 2):** depois de receber a mídia,
 mande exatamente: `Qual o briefing dos ads a serem revisados?` (independente
 da mídia escolhida — Meta ou YouTube — a mensagem é idêntica).
 
@@ -627,10 +634,12 @@ Espere o usuário descrever o briefing — ele vai contar o que mudou, qual é o
 input (vídeo, transcrição, script marcado, link de Drive), e quais auditorias
 quer.
 
-> ⚠️ A lógica de auditoria de **Funil de Upsell** ainda será definida em uma
-> atualização futura desta skill. Por ora, ao receber o briefing de upsell,
-> trabalhe com o que o usuário descrever no momento — toda a lógica de auditoria
-> de **Oferta** abaixo se aplica apenas à opção 1.
+> ⚠️ A opção 1 (**VSL**) cobre **Oferta** (VSL principal) e **Funil de Upsell**
+> (upsells/downsells). A diferença é o briefing: se o usuário falar de pitch
+> (1.2/3.2/5.1/5.2), use o catálogo de Pitches; se falar de upsell/funil
+> (8.0/8.1), use o catálogo de Funis de Upsell. Toda a lógica de auditoria
+> abaixo (regras fixas, checks por tipo de troca, catálogos, formato de
+> relatório) se aplica à opção 1 — independente de ser Oferta ou Upsell.
 
 A partir do briefing, extraia tudo que conseguir e **só pergunte de volta o
 que for estritamente necessário** para executar a auditoria (ex: caminho do
@@ -668,11 +677,11 @@ Marcadores de input que você deve reconhecer no briefing sem perguntar:
     use o trecho `<ID>` entre `/d/` e `/view`. Não tente "abrir o link" — o
     MCP precisa do ID puro.
 
-## Criativos (Opção 3)
+## Criativos (Opção 2)
 
-> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 3
-> (Criativo)** na abertura da skill. Em revisões de **Oferta (opção 1)** ou
-> **Funil de Upsell (opção 2)**, ignore esta seção.
+> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 2
+> (Criativo)** na abertura da skill. Em revisões de **VSL** (opção 1 — Oferta
+> ou Funil de Upsell), ignore esta seção.
 
 ### Contexto
 
@@ -904,7 +913,7 @@ classificar como ❌/⚠️.
 
 #### 6. Relatório
 
-Mesma estrutura geral da opção 1 (Oferta), com adaptações:
+Mesma estrutura geral da opção 1 (VSL), com adaptações:
 
 **Cabeçalho específico de criativo:**
 ```
@@ -958,10 +967,10 @@ com nome `RELATORIO-SENTINELA-<oferta>-lote-completo-<YYYYMMDD>.md` (lote
 inteiro) ou `RELATORIO-SENTINELA-<nome-do-criativo>-<YYYYMMDD-HHMM>.md`
 (auditoria de 1 criativo só).
 
-## Transcritor (Opção 4)
+## Transcritor (Opção 3)
 
-> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 4
-> (Transcritor)** na abertura da skill. Nas opções 1/2/3, ignore esta seção.
+> ⚠️ **Escopo:** esta seção só se aplica quando o usuário escolhe a **opção 3
+> (Transcritor)** na abertura da skill. Nas opções 1 (VSL) e 2 (Criativo), ignore esta seção.
 
 ### Função
 
@@ -1367,7 +1376,7 @@ Vale também pra **trechos onde a transcrição corta no meio** (ex: *"Lipo Tree
 
 ### Seção "Alterações" — obrigatória em todo relatório
 
-**Regra:** TODO relatório (tanto opção 1 - Oferta quanto opção 2 - Funil de Upsell) deve conter a seção `## Alterações`. Ela é a penúltima seção do relatório (sequência final: `## Alterações` → `## Pontos de Atenção`). Existe para o editor de vídeo conseguir **copiar e colar direto** o que precisa ser corrigido, sem ter que reler o relatório inteiro.
+**Regra:** TODO relatório da opção 1 (VSL — Oferta ou Funil de Upsell) deve conter a seção `## Alterações`. Ela é a penúltima seção do relatório (sequência final: `## Alterações` → `## Pontos de Atenção`). Existe para o editor de vídeo conseguir **copiar e colar direto** o que precisa ser corrigido, sem ter que reler o relatório inteiro.
 
 Formato rígido:
 
@@ -1398,6 +1407,10 @@ Formato rígido:
 - **Não adicione cabeçalhos vazios** — se o relatório só tem 1 vídeo, só 1 cabeçalho aparece.
 - **Bullets visuais entregam só o delta — nada de descrever o frame atual.** O editor vê o frame. Não escreva "jar curto/arredondado com rótulo rosa", "bottle alto/estreito", "conta-gotas visível", "mostrado em caixa de 6 unidades", "três jars lado a lado" — tudo isso é ruído. O bullet visual contém só: **o que vira** (label novo, packshot do produto novo) + **valores concretos** (preço, frete, badge). Ex. bom: *"Trocar packshot do kit de 6 para rótulo Melt Drops, com badge **US$ 49/bottle + FREE SHIPPING**."* Sem adjetivos, sem descrição da forma da embalagem.
 - **Não fragmentar uma frase contínua em múltiplos bullets.** Quando dois (ou mais) ajustes caem dentro da **mesma frase falada / mesma sentença contínua** (timestamps a ~5–10s sem corte de fala entre eles), unificar em um bullet só com a frase inteira reescrita. O editor refaz a frase em um único re-render — fragmentar força ele a recompor o texto. Sinal forte: a transcrição mostra os dois trechos como continuação um do outro (último token do primeiro encosta no primeiro token do segundo). Ex.: "the gelatin gummy formula solves this entirely. The gelatin creates a protective layer..." é UMA reescrita, não duas.
+- **Cada timestamp/ocorrência é UM bullet — proibido "amostrar".** Nunca liste "alguns exemplos" de onde um erro aparece (`ex. 00:37:43, 00:38:26…`) deixando o resto subentendido. Toda ocorrência que o editor precisa tocar vira seu próprio bullet, com seu próprio timestamp. Amostra obriga o editor a caçar o resto — e o que não foi listado passa batido (foi exatamente assim que uma troca global de nome/packshot saiu incompleta numa revisão real).
+  - **Troca global de nome de produto** (vaza no áudio E na legenda gravada): rode uma varredura na transcrição inteira pelo nome antigo (regex no JSON dos segmentos) pra extrair TODOS os timestamps falados; cada um vira um bullet. A legenda acompanha a fala no mesmo timestamp, então o mesmo bullet cobre fala + legenda — diga isso no bullet, não abra lista separada de "exemplos de legenda".
+  - **Packshot / arte recorrente** (frasco, mockup de app, gráfico hardcoded): rode o OCR de varredura (`scan_old_label.py`) em frames de TODO o intervalo onde o produto aparece — **não só o bloco de oferta. Inclua todo trecho onde o áudio cita o produto pelo nome** (é lá que costuma ter packshot de apoio na arte). Cada janela contínua confirmada vira um bullet com seu range `HH:MM:SS-HH:MM:SS`. Não colapse pra "aparece o vídeo todo" — liste as janelas confirmadas pelo OCR.
+  - **Motivo único no topo do bloco quando a causa raiz é idêntica.** Quando dezenas de bullets compartilham exatamente o mesmo Motivo (todas as menções do nome; todas as janelas do packshot), agrupe-os sob um sub-cabeçalho temático (ex.: `### BLOCO 1 — NOME: fala + legenda`, `### BLOCO 2 — PACKSHOT`) e escreva a linha `Motivo:` UMA vez no topo do bloco, em vez de repetir a mesma frase em 80 linhas (vira paredão ilegível). Bullets com Motivos distintos — cada reescrita de formato/copy — mantêm o `Motivo:` individual logo abaixo de cada um.
 
 #### Filtro de alavancagem — passar antes de mandar achado pra Alterações
 
@@ -1443,7 +1456,7 @@ o achado em algum lugar do relatório.
 
 ### Seção "Pontos de Atenção" — obrigatória em todo relatório
 
-**Regra:** TODO relatório (Oferta e Funil de Upsell) deve terminar com a seção `## Pontos de Atenção`, logo após `## Alterações`. Sequência final fixa: `## Alterações` → `## Pontos de Atenção`. Essa seção existe para registrar **observações que merecem conferência manual do usuário**, mas que **não viram bullet de correção pro editor**.
+**Regra:** TODO relatório da opção 1 (VSL — Oferta ou Funil de Upsell) deve terminar com a seção `## Pontos de Atenção`, logo após `## Alterações`. Sequência final fixa: `## Alterações` → `## Pontos de Atenção`. Essa seção existe para registrar **observações que merecem conferência manual do usuário**, mas que **não viram bullet de correção pro editor**.
 
 **O que entra aqui (e não em Alterações):**
 
@@ -1451,6 +1464,7 @@ o achado em algum lugar do relatório.
 - **Decisões de pricing/copy que destoam do catálogo mas podem ser intencionais.** Ex: copy fala "almost 50% off" mas o desconto real é 57% — pode estar arredondando pra baixo de propósito.
 - **Sinais de processo errado upstream.** Ex: doc da copy mantendo "bottle" depois de troca pra powder (doc desatualizado), nomenclatura de arquivos fora do padrão da operação, presença de dois pitches diferentes em variantes do mesmo teste A/B.
 - **Ambiguidades que ✅/❌ não captura.** Ex: trecho em depoimento/lip-sync que pode ou não ser redublado, dependendo da decisão do time de edição.
+- **Ancoragem de frete faltando ou incompleta.** SEMPRE entra aqui, nunca em Alterações (ver regra "Ancoragem de frete: regra por pitch"). É decisão de payoff do usuário. **Exceção de formato:** este achado é escrito no formato completo de Alterações (timestamp real + `Substituir frase [erro] por <correção>` + linha `Motivo:`), não no bullet curto padrão da seção — pra o usuário copiar direto pro editor se decidir aplicar. A única vez que ancoragem vai pra Alterações é quando pega carona em outro re-render obrigatório da MESMA frase.
 
 **O que NÃO entra aqui:**
 
@@ -1463,6 +1477,7 @@ Formato:
 - Bullets curtos, no formato: `- [<vídeo ou contexto>] — <o que chamou atenção> + <por quê vale conferir manualmente>`.
 - Se não houver nada digno, escreva literalmente: `Nenhum ponto de atenção identificado.`
 - **Não use timestamps obrigatoriamente** — se for ponto sobre nomeação de arquivo, estrutura de pasta, ou decisão geral, não tem timestamp. Use timestamp só se for sobre um trecho específico.
+- **Exceção: ancoragem de frete usa o formato completo de Alterações** (timestamp + `Substituir frase [erro] por <correção>` + linha `Motivo:` indentada), não o bullet curto acima. É o único achado de Pontos de Atenção que vem pronto pra copiar pro editor.
 
 ## Princípios
 
