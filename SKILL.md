@@ -1241,7 +1241,7 @@ conta autenticada na máquina.
 
 ## Formato do relatório final
 
-**Sempre** que terminar a auditoria, faça duas coisas:
+**Sempre** que terminar a auditoria, faça três coisas:
 
 1. Mostre o relatório completo na conversa (markdown renderizado pelo CLI).
 2. **Salve o mesmo relatório em arquivo `.md`** no mesmo diretório do vídeo
@@ -1249,6 +1249,13 @@ conta autenticada na máquina.
    `C:\Users\bbism\Downloads\Transcriber\Transcriber\source\`). Nome do
    arquivo: `RELATORIO-SENTINELA-<nome-do-video-sem-extensao>-<YYYYMMDD-HHMM>.md`.
    Use a tool Write para criar o arquivo. Não pergunte antes — gere sempre.
+3. **Entregue o link do arquivo no formato `file:///…` pra copiar e colar no
+   Chrome.** Logo depois de salvar, mande o caminho completo como URL `file:///`
+   com **barras normais** (`/`, não `\`), num bloco de código pra facilitar o
+   copy/paste. Ex.:
+   `file:///C:/Users/bbism/Downloads/Transcriber/Transcriber/source/RELATORIO-SENTINELA-<nome>-<YYYYMMDD-HHMM>.md`.
+   **É a forma que o usuário quer receber TODO relatório — não espere ele pedir,
+   já manda junto sempre.**
 
 ### Diretrizes de formatação (legibilidade)
 
