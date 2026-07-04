@@ -1086,21 +1086,20 @@ Use o Python desse venv: `~/.claude/skills/sentinela/.venv/Scripts/python.exe`.
    pote/frasco, badges de preço, formato), a auditoria visual é parte
    inseparável da revisão. Pular essa etapa = relatório incompleto.
 
-   **Escopo da extração — RESTRITO, não o vídeo inteiro.** Extrair frames de
-   53min × 1fps = 3171 frames, e ler 3171 imagens consome tempo e tokens sem
-   ganho. Packshot do produto concentra em janelas previsíveis. Extrair só:
-   - **Bloco de oferta** (packshot principal, kits de 3/6 unidades, badges de preço)
-   - **Todos os depoimentos** dentro da janela auditada (avatares costumam segurar
-     o produto físico — clipes velhos importados frequentemente trazem packshot
-     do produto antigo gravado dentro)
-   - **Qualquer trecho onde o áudio menciona o produto pelo nome** (provável
-     packshot de apoio na arte)
+   **Escopo da extração — METADE FINAL do vídeo (últimos 50%).** A varredura
+   de frames cobre **da metade do vídeo (duração ÷ 2) até o fim**. Ex.: VSL de
+   1h → **00:30:00–01:00:00**; VSL de 54min → **00:27:00–00:54:00**. Essa
+   janela contém, com folga, o Bloco de Oferta (packshot, kits de 3/6, badges
+   de preço/frete), os depoimentos da segunda metade e qualquer recap onde o
+   produto reaparece — sem estourar em varrer o vídeo inteiro (a metade inicial
+   é lead/story, que raramente tem packshot).
 
-   O resto do vídeo (build-up, lead, story) raramente tem packshot — se
-   houver, é exceção que vale tratar manualmente caso o usuário sinalize.
-   Identifique as janelas pelos timestamps da transcrição e rode `extract_frames.py`
-   uma vez por janela (ou faça múltiplas chamadas se forem janelas
-   descontínuas).
+   **Como definir a janela:** meça a duração com `ffprobe`, divida por 2, e
+   rode `extract_frames.py` de `duração/2` até o fim (uma chamada só). Dentro
+   dessa metade, use os timestamps da transcrição pra saber onde estão o bloco
+   de oferta e os depoimentos e priorizar a leitura desses frames. Exceção: se
+   houver packshot relevante na metade INICIAL (raro), o usuário sinaliza e
+   você trata aquele trecho à mão.
 
    ```powershell
    ~/.claude/skills/sentinela/.venv/Scripts/python.exe `
@@ -1488,7 +1487,9 @@ Formato:
 
 ## Princípios
 
-- **Foco cirúrgico (auditoria visual e pitch):** nunca extraia frames fora do Bloco de Oferta a menos que o
+- **Foco cirúrgico (auditoria visual e pitch):** a varredura de frames cobre os
+  **últimos 50% do vídeo** (da metade até o fim — ex.: VSL de 1h →
+  00:30:00–01:00:00). Não varra a metade inicial (lead/story) a menos que o
   usuário peça explicitamente.
 - **Honestidade:** se a transcrição estiver ambígua ou o frame não der pra
   julgar com certeza, use ⚠️ e diga "verificar manualmente". Não invente ✅.
