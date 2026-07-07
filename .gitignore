@@ -25,3 +25,8 @@ sentinela-frames/
 *.mp4
 *.mp3
 *.wav
+
+# Relatórios gerados pela skill — a pasta é versionada via .gitkeep,
+# só o conteúdo (dados de cliente) é ignorado
+reports_sentinela/*
+!reports_sentinela/.gitkeep
